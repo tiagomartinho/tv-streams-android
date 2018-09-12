@@ -48,6 +48,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import com.tm.core.PlayerActivity
 
 /**
  * Loads a grid of cards with movies to browse.
@@ -150,13 +151,13 @@ class MainFragment : BrowseFragment() {
 
             if (item is Movie) {
                 Log.d(TAG, "Item: " + item.toString())
-                val intent = Intent(activity, DetailsActivity::class.java)
-                intent.putExtra(DetailsActivity.MOVIE, item)
+                val intent = Intent(activity, PlayerActivity::class.java)
+                intent.putExtra(PlayerActivity.MOVIE, item)
 
                 val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         activity,
                         (itemViewHolder.view as ImageCardView).mainImageView,
-                        DetailsActivity.SHARED_ELEMENT_NAME)
+                        PlayerActivity.SHARED_ELEMENT_NAME)
                         .toBundle()
                 activity.startActivity(intent, bundle)
             } else if (item is String) {
