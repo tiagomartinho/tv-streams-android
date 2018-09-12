@@ -153,7 +153,8 @@ class MainFragment : BrowseFragment() {
             if (item is Movie) {
                 val intent = Intent(activity, PlayerActivity::class.java)
                 val channels = ArrayList<Channel>()
-                channels.add(Channel("Big Buck Bunny", "http://tvpremiumhd.club/lista-gratuita/043012/tv/v/1809.ts"))
+                channels.add(Channel("TS", "http://tvpremiumhd.club/lista-gratuita/043012/tv/v/1809.ts"))
+                channels.add(Channel("Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8"))
                 intent.putExtra(PlayerActivity.CHANNELS, channels)
                 activity.startActivity(intent, null)
             } else if (item is String) {
