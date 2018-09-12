@@ -3,7 +3,14 @@
     package="com.tm.core">
 
     <application>
-        <activity android:name=".PlayerActivity"></activity>
+        <activity
+            android:name=".PlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+        </activity>
+        <activity
+            android:name=".FullScreenPlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+        </activity>
     </application>
 
 </manifest>

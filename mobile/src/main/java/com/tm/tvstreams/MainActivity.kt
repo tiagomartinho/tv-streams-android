@@ -3,6 +3,7 @@ package com.tm.tvstreams
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.tm.core.FullScreenPlayerActivity
 import com.tm.core.PlayerActivity
 
 class MainActivity : AppCompatActivity() {
@@ -14,8 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val intent = Intent(this, PlayerActivity::class.java)
-        intent.putExtra(PlayerActivity.URL, "http://tvpremiumhd.club/lista-gratuita/043012/tv/v/1809.ts")
+        val intent = Intent(this, FullScreenPlayerActivity::class.java)
+        intent.putExtra(PlayerActivity.URL, "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
         intent.putExtra(PlayerActivity.NAME, "Big buck bunny")
         startActivity(intent, null)
     }

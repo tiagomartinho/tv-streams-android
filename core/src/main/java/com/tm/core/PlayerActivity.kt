@@ -8,9 +8,14 @@ import android.view.View
 import com.devbrackets.android.exomedia.listener.OnPreparedListener
 import com.devbrackets.android.exomedia.ui.widget.VideoView
 
-class PlayerActivity : Activity(), OnPreparedListener {
+open class PlayerActivity : Activity(), OnPreparedListener {
 
-    private var videoView: VideoView? = null
+    internal var videoView: VideoView? = null
+
+    companion object {
+        const val URL = "URL"
+        const val NAME = "NAME"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +34,5 @@ class PlayerActivity : Activity(), OnPreparedListener {
 
     override fun onPrepared() {
         videoView!!.start()
-    }
-
-    companion object {
-        const val URL = "URL"
-        const val NAME = "NAME"
     }
 }
