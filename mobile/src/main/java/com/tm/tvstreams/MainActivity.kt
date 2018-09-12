@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val intent = Intent(this, PlayerActivity::class.java)
+        intent.putExtra(PlayerActivity.URL, "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
+        intent.putExtra(PlayerActivity.NAME, "Big buck bunny")
         startActivity(intent, null)
     }
 }

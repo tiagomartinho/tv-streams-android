@@ -150,16 +150,10 @@ class MainFragment : BrowseFragment() {
                 row: Row) {
 
             if (item is Movie) {
-                Log.d(TAG, "Item: " + item.toString())
                 val intent = Intent(activity, PlayerActivity::class.java)
-                intent.putExtra(PlayerActivity.MOVIE, item)
-
-                val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        activity,
-                        (itemViewHolder.view as ImageCardView).mainImageView,
-                        PlayerActivity.SHARED_ELEMENT_NAME)
-                        .toBundle()
-                activity.startActivity(intent, bundle)
+                intent.putExtra(PlayerActivity.URL, "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
+                intent.putExtra(PlayerActivity.NAME, "Big buck bunny")
+                activity.startActivity(intent, null)
             } else if (item is String) {
                 if (item.contains(getString(R.string.error_fragment))) {
                     val intent = Intent(activity, BrowseErrorActivity::class.java)
