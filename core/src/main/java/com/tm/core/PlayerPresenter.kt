@@ -16,7 +16,7 @@ class PlayerPresenter(
     fun next() {
         if (channels.isEmpty()) { return }
         currentChannelIndex += 1
-        currentChannelIndex /= channels.count()
+        currentChannelIndex %= channels.count()
         play()
     }
 

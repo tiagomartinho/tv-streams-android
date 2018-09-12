@@ -8,10 +8,10 @@ import com.devbrackets.android.exomedia.listener.OnPreparedListener
 import com.devbrackets.android.exomedia.listener.VideoControlsButtonListener
 import com.devbrackets.android.exomedia.ui.widget.VideoView
 
-open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonListener {
+open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonListener, PlayerView {
 
     internal var videoView: VideoView? = null
-    private var channels: List<Channel>? = null
+    private var presenter: PlayerPresenter? = null
 
     companion object {
         const val CHANNELS = "CHANNELS"
@@ -20,10 +20,10 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        val channels = intent.getParcelableArrayListExtra<Channel>(CHANNELS)
         setupVideoView()
-        play(channels.firstOrNull()!!)
-        this.channels = channels
+        val channels = intent.getParcelableArrayListExtra<Channel>(CHANNELS)
+        presenter = PlayerPresenter(channels, this)
+        presenter?.play()
     }
 
     private fun setupVideoView() {
@@ -41,20 +41,18 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
         videoView!!.start()
     }
 
-    fun play(channel: Channel) {
+    override fun play(channel: Channel) {
         videoView?.setVideoURI(Uri.parse(channel.url))
         videoView?.videoControls?.setTitle(channel.name)
     }
 
     override fun onNextClicked(): Boolean {
-        val channel = channels?.lastOrNull()
-        play(channel!!)
+        presenter?.next()
         return true
     }
 
     override fun onPreviousClicked(): Boolean {
-        val channel = channels?.firstOrNull()
-        play(channel!!)
+        presenter?.previous()
         return true
     }
 
