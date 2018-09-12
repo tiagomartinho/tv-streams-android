@@ -3,7 +3,6 @@ package com.tm.core
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.devbrackets.android.exomedia.listener.OnPreparedListener
 import com.devbrackets.android.exomedia.ui.widget.VideoView
@@ -21,15 +20,20 @@ open class PlayerActivity : Activity(), OnPreparedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
         val url = intent.getStringExtra(URL)
-        setupVideoView(url)
         val name = intent.getStringExtra(NAME)
-        Log.d("PlayerActivity", name)
+        setupVideoView(url, name)
     }
 
-    private fun setupVideoView(url: String) {
+    private fun setupVideoView(url: String, title: String) {
         videoView = findViewById<View>(R.id.video_view) as VideoView
         videoView!!.setOnPreparedListener(this)
         videoView!!.setVideoURI(Uri.parse(url))
+        val videoControls = videoView!!.videoControls
+        videoControls?.setTitle(title)
+        videoControls?.setPreviousButtonRemoved(false)
+        videoControls?.setNextButtonRemoved(false)
+        videoControls?.setPreviousButtonEnabled(true)
+        videoControls?.setNextButtonEnabled(true)
     }
 
     override fun onPrepared() {
