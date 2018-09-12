@@ -12,24 +12,23 @@ open class PlayerActivity : Activity(), OnPreparedListener {
     internal var videoView: VideoView? = null
 
     companion object {
-        const val URL = "URL"
-        const val NAME = "NAME"
+        const val CHANNELS = "CHANNELS"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        val url = intent.getStringExtra(URL)
-        val name = intent.getStringExtra(NAME)
-        setupVideoView(url, name)
+        val channels = intent.getParcelableArrayListExtra<Channel>(CHANNELS)
+        setupVideoView(channels)
     }
 
-    private fun setupVideoView(url: String, title: String) {
+    private fun setupVideoView(channels: List<Channel>) {
+        val channel = channels.firstOrNull()
         videoView = findViewById<View>(R.id.video_view) as VideoView
         videoView!!.setOnPreparedListener(this)
-        videoView!!.setVideoURI(Uri.parse(url))
+        videoView!!.setVideoURI(Uri.parse(channel?.url))
         val videoControls = videoView!!.videoControls
-        videoControls?.setTitle(title)
+        videoControls?.setTitle(channel?.name)
         videoControls?.setPreviousButtonRemoved(false)
         videoControls?.setNextButtonRemoved(false)
         videoControls?.setPreviousButtonEnabled(true)

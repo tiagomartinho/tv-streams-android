@@ -48,6 +48,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import com.tm.core.Channel
 import com.tm.core.PlayerActivity
 
 /**
@@ -151,8 +152,9 @@ class MainFragment : BrowseFragment() {
 
             if (item is Movie) {
                 val intent = Intent(activity, PlayerActivity::class.java)
-                intent.putExtra(PlayerActivity.URL, "http://tvpremiumhd.club/lista-gratuita/043012/tv/v/1809.ts")
-                intent.putExtra(PlayerActivity.NAME, "Big buck bunny")
+                val channels = ArrayList<Channel>()
+                channels.add(Channel("Big Buck Bunny", "http://tvpremiumhd.club/lista-gratuita/043012/tv/v/1809.ts"))
+                intent.putExtra(PlayerActivity.CHANNELS, channels)
                 activity.startActivity(intent, null)
             } else if (item is String) {
                 if (item.contains(getString(R.string.error_fragment))) {
