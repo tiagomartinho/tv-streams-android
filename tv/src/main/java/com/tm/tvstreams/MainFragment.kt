@@ -151,7 +151,7 @@ class MainFragment : BrowseFragment() {
 
             if (item is Movie) {
                 val intent = Intent(activity, PlayerActivity::class.java)
-                intent.putExtra(PlayerActivity.URL, "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
+                intent.putExtra(PlayerActivity.URL, "http://tvpremiumhd.club/lista-gratuita/043012/tv/v/1809.ts")
                 intent.putExtra(PlayerActivity.NAME, "Big buck bunny")
                 activity.startActivity(intent, null)
             } else if (item is String) {
