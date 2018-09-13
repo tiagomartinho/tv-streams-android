@@ -3,7 +3,6 @@ package com.tm.core
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.View.*
 import com.devbrackets.android.exomedia.listener.OnErrorListener
@@ -15,7 +14,7 @@ import java.lang.Exception
 open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonListener, PlayerView, OnErrorListener {
 
     internal var videoView: VideoView? = null
-    private var presenter: PlayerPresenter? = null
+    internal var presenter: PlayerPresenter? = null
 
     companion object {
         const val CHANNELS = "CHANNELS"
