@@ -6,10 +6,15 @@ class PlayerPresenter(
 ) {
 
     private var currentChannelIndex = 0
+    private var videoViewShown = false
 
     fun play() {
         if (channels.isEmpty()) { return }
         if (currentChannelIndex >= channels.count()) { return }
+        if(!videoViewShown) {
+            view.showVideoView()
+            videoViewShown = true
+        }
         view.play(channels[currentChannelIndex])
     }
 

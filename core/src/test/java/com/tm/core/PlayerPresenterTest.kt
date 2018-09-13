@@ -12,6 +12,20 @@ class PlayerPresenterTest {
     private val view: PlayerView = mock(PlayerView::class.java)
 
     @Test
+    fun `show video view once`() {
+        val first = Channel("firstName", "firstURL")
+        val channels = arrayListOf(first)
+        val presenter = PlayerPresenter(channels, view)
+
+        presenter.play()
+        presenter.play()
+        presenter.next()
+        presenter.previous()
+
+        verify(view, times(1)).showVideoView()
+    }
+
+    @Test
     fun `empty channel list`() {
         val channels = ArrayList<Channel>()
         val presenter = PlayerPresenter(channels, view)

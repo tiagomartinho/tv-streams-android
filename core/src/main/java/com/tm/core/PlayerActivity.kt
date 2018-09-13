@@ -23,13 +23,12 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        setupVideoView()
         val channels = intent.getParcelableArrayListExtra<Channel>(CHANNELS)
         presenter = PlayerPresenter(channels, this)
         presenter?.play()
     }
 
-    private fun setupVideoView() {
+    override fun showVideoView() {
         videoView = findViewById<View>(R.id.video_view) as VideoView
         videoView?.setOnPreparedListener(this)
         videoView?.setOnErrorListener(this)
