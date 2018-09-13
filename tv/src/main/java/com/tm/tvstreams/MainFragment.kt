@@ -49,6 +49,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
 import com.tm.core.Channel
+import com.tm.core.FullScreenPlayerActivity
 import com.tm.core.PlayerActivity
 
 /**
@@ -151,7 +152,7 @@ class MainFragment : BrowseFragment() {
                 row: Row) {
 
             if (item is Movie) {
-                val intent = Intent(activity, PlayerActivity::class.java)
+                val intent = Intent(activity, FullScreenPlayerActivity::class.java)
                 val channels = ArrayList<Channel>()
                 channels.add(Channel("TS", "http://tvpremiumhd.club/lista-gratuita/043012/tv/v/1809.ts"))
                 channels.add(Channel("Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8"))
