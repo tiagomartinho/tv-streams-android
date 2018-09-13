@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#2d3436"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,6 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#dfe6e9"
         android:text="@string/channel_playback_error_title"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:textColor="#dfe6e9"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,16 +44,20 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <Button
+            android:layout_margin="20dp"
             android:id="@+id/retry_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/retry" />
+            android:text="@string/retry"
+            android:textColor="#dfe6e9"/>
 
         <Button
+            android:layout_margin="20dp"
             android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/delete" />
+            android:text="@string/delete"
+            android:textColor="#d63031"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
