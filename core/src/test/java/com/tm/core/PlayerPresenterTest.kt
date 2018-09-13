@@ -114,4 +114,18 @@ class PlayerPresenterTest {
 
         verify(view).showPlaybackError()
     }
+
+    @Test
+    fun `retry shows video view`() {
+        val first = Channel("firstName", "firstURL")
+        val channels = arrayListOf(first)
+        val presenter = PlayerPresenter(channels, view)
+        presenter.play()
+        presenter.playbackFailed()
+
+        presenter.retry()
+
+        verify(view, times(2)).showVideoView()
+        verify(view, times(2)).play(argThat { name == first.name })
+    }
 }
