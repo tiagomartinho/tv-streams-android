@@ -156,6 +156,7 @@ class MainFragment : BrowseFragment() {
                 channels.add(Channel("TS", "http://tvpremiumhd.club/lista-gratuita/043012/tv/v/1809.ts"))
                 channels.add(Channel("Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8"))
                 channels.add(Channel("Fail", "https://something.com"))
+                channels.add(Channel("Fail2", "aaaa"))
                 intent.putExtra(PlayerActivity.CHANNELS, channels)
                 activity.startActivity(intent, null)
             } else if (item is String) {

@@ -1,5 +1,7 @@
 package com.tm.core
 
+import com.nhaarman.mockitokotlin2.argThat
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
@@ -15,6 +17,8 @@ class PlayerPresenterTest {
         val presenter = PlayerPresenter(channels, view)
 
         presenter.play()
+
+        verifyNoMoreInteractions(view)
     }
 
     @Test
@@ -26,7 +30,7 @@ class PlayerPresenterTest {
 
         presenter.play()
 
-        verify(view, times(1)).play(channel = first)
+        verify(view, times(1)).play(argThat { name == first.name })
     }
 
     @Test
@@ -39,7 +43,8 @@ class PlayerPresenterTest {
 
         presenter.next()
 
-        verify(view, times(2)).play(channel = first)
+        verify(view, times(1)).play(argThat { name == first.name })
+        verify(view, times(1)).play(argThat { name == second.name })
     }
 
     @Test
@@ -53,7 +58,8 @@ class PlayerPresenterTest {
 
         presenter.next()
 
-        verify(view, times(3)).play(channel = first)
+        verify(view, times(2)).play(argThat { name == first.name })
+        verify(view, times(1)).play(argThat { name == second.name })
     }
 
     @Test
@@ -66,7 +72,8 @@ class PlayerPresenterTest {
 
         presenter.previous()
 
-        verify(view, times(2)).play(channel = first)
+        verify(view, times(1)).play(argThat { name == first.name })
+        verify(view, times(1)).play(argThat { name == second.name })
     }
 
     @Test
@@ -80,6 +87,17 @@ class PlayerPresenterTest {
 
         presenter.previous()
 
-        verify(view, times(3)).play(channel = first)
+        verify(view, times(2)).play(argThat { name == first.name })
+        verify(view, times(1)).play(argThat { name == second.name })
+    }
+
+    @Test
+    fun `show error view if playback fails`() {
+        val channels = ArrayList<Channel>()
+        val presenter = PlayerPresenter(channels, view)
+
+        presenter.playbackFailed()
+
+        verify(view).showPlaybackError()
     }
 }

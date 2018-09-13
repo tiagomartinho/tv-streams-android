@@ -56,6 +56,9 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
         videoView?.videoControls?.setTitle(channel.name)
     }
 
+    override fun showPlaybackError() {
+    }
+
     override fun onNextClicked(): Boolean {
         presenter?.next()
         return true

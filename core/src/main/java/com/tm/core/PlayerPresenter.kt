@@ -28,4 +28,8 @@ class PlayerPresenter(
         }
         play()
     }
+
+    fun playbackFailed() {
+        view.showPlaybackError()
+    }
 }
