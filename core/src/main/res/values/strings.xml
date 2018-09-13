@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">core</string>
+    <string name="channel_playback_error_title">This link is not valid</string>
+    <string name="channel_playback_error_subtitle">Please verify that the playlist did not expired</string>
+    <string name="retry">Retry</string>
+    <string name="delete">Delete</string>
 </resources>
