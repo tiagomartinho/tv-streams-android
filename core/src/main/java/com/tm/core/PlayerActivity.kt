@@ -3,12 +3,15 @@ package com.tm.core
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import com.devbrackets.android.exomedia.listener.OnErrorListener
 import com.devbrackets.android.exomedia.listener.OnPreparedListener
 import com.devbrackets.android.exomedia.listener.VideoControlsButtonListener
 import com.devbrackets.android.exomedia.ui.widget.VideoView
+import java.lang.Exception
 
-open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonListener, PlayerView {
+open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonListener, PlayerView, OnErrorListener {
 
     internal var videoView: VideoView? = null
     private var presenter: PlayerPresenter? = null
@@ -28,7 +31,8 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
 
     private fun setupVideoView() {
         videoView = findViewById<View>(R.id.video_view) as VideoView
-        videoView!!.setOnPreparedListener(this)
+        videoView?.setOnPreparedListener(this)
+        videoView?.setOnErrorListener(this)
         val videoControls = videoView!!.videoControls
         videoControls?.setPreviousButtonRemoved(false)
         videoControls?.setNextButtonRemoved(false)
@@ -38,11 +42,17 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
     }
 
     override fun onPrepared() {
-        videoView!!.start()
+        videoView?.start()
+    }
+
+    override fun onError(e: Exception?): Boolean {
+        Log.d("PlayerActivity", "onError")
+        return false
     }
 
     override fun play(channel: Channel) {
-        videoView?.setVideoURI(Uri.parse(channel.url))
+        val uri = Uri.parse(channel.url)
+        videoView?.setVideoURI(uri)
         videoView?.videoControls?.setTitle(channel.name)
     }
 
