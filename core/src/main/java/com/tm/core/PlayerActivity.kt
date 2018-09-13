@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.*
 import com.devbrackets.android.exomedia.listener.OnErrorListener
 import com.devbrackets.android.exomedia.listener.OnPreparedListener
 import com.devbrackets.android.exomedia.listener.VideoControlsButtonListener
@@ -46,8 +47,8 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
     }
 
     override fun onError(e: Exception?): Boolean {
-        Log.d("PlayerActivity", "onError")
-        return false
+        presenter?.playbackFailed()
+        return true
     }
 
     override fun play(channel: Channel) {
@@ -57,6 +58,9 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
     }
 
     override fun showPlaybackError() {
+        val errorView = findViewById<View>(R.id.error_view)
+        errorView.visibility = VISIBLE
+        videoView?.visibility = GONE
     }
 
     override fun onNextClicked(): Boolean {
