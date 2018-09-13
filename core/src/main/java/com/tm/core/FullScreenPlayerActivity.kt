@@ -11,7 +11,7 @@ class FullScreenPlayerActivity : PlayerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initUiFlags()
-        videoView!!.videoControls!!.setVisibilityListener(ControlsVisibilityListener())
+        videoView?.videoControls?.setVisibilityListener(ControlsVisibilityListener())
     }
 
     override fun onDestroy() {
