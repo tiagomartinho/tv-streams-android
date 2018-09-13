@@ -28,7 +28,13 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
         presenter = PlayerPresenter(channels, this)
         presenter?.play()
         findViewById<Button>(R.id.retry_button).setOnClickListener {
-            presenter?.retry()
+            presenter?.play()
+        }
+        findViewById<Button>(R.id.next_button).setOnClickListener {
+            presenter?.next()
+        }
+        findViewById<Button>(R.id.previous_button).setOnClickListener {
+            presenter?.previous()
         }
     }
 

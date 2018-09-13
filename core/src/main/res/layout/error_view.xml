@@ -45,10 +45,26 @@
 
         <Button
             android:layout_margin="20dp"
+            android:id="@+id/previous_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous"
+            android:textColor="#dfe6e9"/>
+
+        <Button
+            android:layout_margin="20dp"
             android:id="@+id/retry_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/retry"
+            android:textColor="#dfe6e9"/>
+
+        <Button
+            android:layout_margin="20dp"
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
             android:textColor="#dfe6e9"/>
 
         <Button

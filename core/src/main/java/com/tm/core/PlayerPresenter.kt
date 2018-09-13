@@ -35,11 +35,7 @@ class PlayerPresenter(
     }
 
     fun playbackFailed() {
-        view.showPlaybackError()
-    }
-
-    fun retry() {
         videoViewShown = false
-        play()
+        view.showPlaybackError()
     }
 }
