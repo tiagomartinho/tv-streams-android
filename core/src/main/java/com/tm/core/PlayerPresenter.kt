@@ -24,7 +24,7 @@ class PlayerPresenter(
         if (channels.isEmpty()) { return }
         currentChannelIndex -= 1
         if (currentChannelIndex < 0) {
-            currentChannelIndex = 0
+            currentChannelIndex = channels.count() - 1
         }
         play()
     }
