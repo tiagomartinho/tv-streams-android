@@ -18,7 +18,9 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         val intent = Intent(this, FullScreenPlayerActivity::class.java)
         val channels = ArrayList<Channel>()
-        channels.add(Channel("Big Buck Bunny", "http://tvpremiumhd.club/lista-gratuita/043012/tv/v/1809.ts"))
+        channels.add(Channel("ts", "http://tvpremiumhd.club/lista-gratuita/043012/tv/v/1809.ts"))
+        channels.add(Channel("Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8"))
+        channels.add(Channel("Fail", "https://something.com"))
         intent.putExtra(PlayerActivity.CHANNELS, channels)
         startActivity(intent, null)
     }
