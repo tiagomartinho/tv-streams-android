@@ -62,11 +62,6 @@ class CardPresenter : Presenter() {
             cardView.titleText = movie.title
             cardView.contentText = movie.studio
             cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT)
-            Glide.with(viewHolder.view.context)
-                    .load(movie.cardImageUrl)
-                    .centerCrop()
-                    .error(mDefaultCardImage)
-                    .into(cardView.mainImageView)
         }
     }
 
