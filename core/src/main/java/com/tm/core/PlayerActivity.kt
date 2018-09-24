@@ -30,12 +30,6 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
         findViewById<Button>(R.id.retry_button).setOnClickListener {
             presenter?.play()
         }
-        findViewById<Button>(R.id.next_button).setOnClickListener {
-            presenter?.next()
-        }
-        findViewById<Button>(R.id.previous_button).setOnClickListener {
-            presenter?.previous()
-        }
     }
 
     override fun showVideoView() {
