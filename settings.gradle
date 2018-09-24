@@ -1,1 +1,1 @@
-include ':mobile', ':tv', ':core', ':tvstreams'
+include ':core', ':tvstreams'
