@@ -1,0 +1,40 @@
+The easiest way to watch television on your Android devices.
+
+Imagine a television in which you can see every channel in the world...
+
+How it works?
+
+1. DOWNLOAD
+Install TV Streams on your Android TV from the Play Store.
+
+2. ADD
+Import the channels you want using an M3U playlist. You can use the mail app or directly import from a Pastebin link.
+
+3. SYNC
+All the imported channels automatically synchronize and are available on all your devices.
+
+4. RELAX
+Relax and watch your favourite shows.
+
+
+Great features you'll love
+
+- EASE OF IMPORT
+It's easy to import a list of channels with the smartphone app. It supports import from different apps like the Mail or Dropbox and it also supports direct import from a Pastebin link.
+
+- SYNC
+The sync mechanism stores all your channels privately and securely, and keeps them updated in your devices.
+
+- INTUITIVE UI
+A UI that uses the native elements of Android OS enhances the usability of the app with elements that you are familiar with.
+
+- PLAYS THE MOST COMMON FORMATS
+We support the formats m3u8, mp4, mkv, mpv, 3gp and much more.
+
+- SMARTPHONE APP
+Our application allows to easily import list of channels easily using apps like the mail or dropbox and direct import from a pastebin link.
+
+- CONTINUOUS UPDATES
+We are continuously working to improve the app, if you have some idea or feedback send us an email and we will get back to you.
+
+This application allows the streaming of the most common formats, such as .m3u8, .mov, .mp4, .mpv, .3gp, .mkv., .ts
