@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.tm.myapplication"
+        applicationId "com.tm.tv.streams"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
