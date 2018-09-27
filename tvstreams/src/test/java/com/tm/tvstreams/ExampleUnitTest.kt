@@ -1,4 +1,4 @@
-package com.tm.myapplication
+package com.tm.tvstreams
 
 import org.junit.Test
 

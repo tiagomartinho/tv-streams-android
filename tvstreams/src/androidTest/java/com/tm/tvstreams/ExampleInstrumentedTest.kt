@@ -1,4 +1,4 @@
-package com.tm.myapplication
+package com.tm.tvstreams
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

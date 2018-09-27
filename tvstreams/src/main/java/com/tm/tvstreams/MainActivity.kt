@@ -1,4 +1,4 @@
-package com.tm.myapplication
+package com.tm.tvstreams
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
