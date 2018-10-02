@@ -3,7 +3,7 @@ package com.tm.core
 import android.os.Parcel
 import android.os.Parcelable
 
-class Channel(val name: String, val url: String) : Parcelable {
+class ChannelPlayer(val name: String, val url: String) : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -18,12 +18,12 @@ class Channel(val name: String, val url: String) : Parcelable {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Channel> {
-        override fun createFromParcel(parcel: Parcel): Channel {
-            return Channel(parcel)
+    companion object CREATOR : Parcelable.Creator<ChannelPlayer> {
+        override fun createFromParcel(parcel: Parcel): ChannelPlayer {
+            return ChannelPlayer(parcel)
         }
 
-        override fun newArray(size: Int): Array<Channel?> {
+        override fun newArray(size: Int): Array<ChannelPlayer?> {
             return arrayOfNulls(size)
         }
     }

@@ -24,7 +24,7 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        val channels = intent.getParcelableArrayListExtra<Channel>(CHANNELS)
+        val channels = intent.getParcelableArrayListExtra<ChannelPlayer>(CHANNELS)
         presenter = PlayerPresenter(channels, this)
         presenter?.play()
         findViewById<Button>(R.id.retry_button).setOnClickListener {
@@ -62,7 +62,7 @@ open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonL
         return true
     }
 
-    override fun play(channel: Channel) {
+    override fun play(channel: ChannelPlayer) {
         val uri = Uri.parse(channel.url)
         videoView?.setVideoURI(uri)
         videoView?.videoControls?.setTitle(channel.name)

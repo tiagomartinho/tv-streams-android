@@ -1,7 +1,7 @@
 package com.tm.core
 
 class PlayerPresenter(
-        private val channels: ArrayList<Channel>,
+        private val channels: ArrayList<ChannelPlayer>,
         val view: PlayerView
 ) {
 

@@ -13,7 +13,7 @@ class PlayerPresenterTest {
 
     @Test
     fun `show video view once`() {
-        val first = Channel("firstName", "firstURL")
+        val first = ChannelPlayer("firstName", "firstURL")
         val channels = arrayListOf(first)
         val presenter = PlayerPresenter(channels, view)
 
@@ -27,7 +27,7 @@ class PlayerPresenterTest {
 
     @Test
     fun `empty channel list`() {
-        val channels = ArrayList<Channel>()
+        val channels = ArrayList<ChannelPlayer>()
         val presenter = PlayerPresenter(channels, view)
 
         presenter.play()
@@ -37,8 +37,8 @@ class PlayerPresenterTest {
 
     @Test
     fun `plays first channel in the list`() {
-        val first = Channel("firstName", "firstURL")
-        val second = Channel("secondName", "secondURL")
+        val first = ChannelPlayer("firstName", "firstURL")
+        val second = ChannelPlayer("secondName", "secondURL")
         val channels = arrayListOf(first, second)
         val presenter = PlayerPresenter(channels, view)
 
@@ -49,8 +49,8 @@ class PlayerPresenterTest {
 
     @Test
     fun `play next channel in list`() {
-        val first = Channel("firstName", "firstURL")
-        val second = Channel("secondName", "secondURL")
+        val first = ChannelPlayer("firstName", "firstURL")
+        val second = ChannelPlayer("secondName", "secondURL")
         val channels = arrayListOf(first, second)
         val presenter = PlayerPresenter(channels, view)
         presenter.play()
@@ -63,8 +63,8 @@ class PlayerPresenterTest {
 
     @Test
     fun `play next channel loops list`() {
-        val first = Channel("firstName", "firstURL")
-        val second = Channel("secondName", "secondURL")
+        val first = ChannelPlayer("firstName", "firstURL")
+        val second = ChannelPlayer("secondName", "secondURL")
         val channels = arrayListOf(first, second)
         val presenter = PlayerPresenter(channels, view)
         presenter.play()
@@ -78,8 +78,8 @@ class PlayerPresenterTest {
 
     @Test
     fun `play previous channel in list`() {
-        val first = Channel("firstName", "firstURL")
-        val second = Channel("secondName", "secondURL")
+        val first = ChannelPlayer("firstName", "firstURL")
+        val second = ChannelPlayer("secondName", "secondURL")
         val channels = arrayListOf(first, second)
         val presenter = PlayerPresenter(channels, view)
         presenter.play()
@@ -92,8 +92,8 @@ class PlayerPresenterTest {
 
     @Test
     fun `play previous channel loops list`() {
-        val first = Channel("firstName", "firstURL")
-        val second = Channel("secondName", "secondURL")
+        val first = ChannelPlayer("firstName", "firstURL")
+        val second = ChannelPlayer("secondName", "secondURL")
         val channels = arrayListOf(first, second)
         val presenter = PlayerPresenter(channels, view)
         presenter.play()
@@ -107,7 +107,7 @@ class PlayerPresenterTest {
 
     @Test
     fun `show error view if playback fails`() {
-        val channels = ArrayList<Channel>()
+        val channels = ArrayList<ChannelPlayer>()
         val presenter = PlayerPresenter(channels, view)
 
         presenter.playbackFailed()
@@ -117,7 +117,7 @@ class PlayerPresenterTest {
 
     @Test
     fun `retry shows video view`() {
-        val first = Channel("firstName", "firstURL")
+        val first = ChannelPlayer("firstName", "firstURL")
         val channels = arrayListOf(first)
         val presenter = PlayerPresenter(channels, view)
         presenter.play()
@@ -131,7 +131,7 @@ class PlayerPresenterTest {
 
     @Test
     fun `next shows video view if playback failed`() {
-        val first = Channel("firstName", "firstURL")
+        val first = ChannelPlayer("firstName", "firstURL")
         val channels = arrayListOf(first)
         val presenter = PlayerPresenter(channels, view)
         presenter.play()
