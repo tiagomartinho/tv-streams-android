@@ -1,4 +1,4 @@
-package com.tm.core
+package com.tm.core.player
 
 import android.app.Activity
 import android.net.Uri
@@ -10,6 +10,7 @@ import com.devbrackets.android.exomedia.listener.OnErrorListener
 import com.devbrackets.android.exomedia.listener.OnPreparedListener
 import com.devbrackets.android.exomedia.listener.VideoControlsButtonListener
 import com.devbrackets.android.exomedia.ui.widget.VideoView
+import com.tm.core.R
 import java.lang.Exception
 
 open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonListener, PlayerView, OnErrorListener {

@@ -1,4 +1,4 @@
-package com.tm.core
+package com.tm.core.player
 
 import com.nhaarman.mockitokotlin2.argThat
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions

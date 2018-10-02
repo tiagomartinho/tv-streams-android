@@ -1,4 +1,4 @@
-package com.tm.core
+package com.tm.core.player
 
 interface PlayerView {
     fun play(channel: ChannelPlayer)

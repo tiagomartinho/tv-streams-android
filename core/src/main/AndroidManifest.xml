@@ -4,11 +4,11 @@
 
     <application>
         <activity
-            android:name=".PlayerActivity"
+            android:name=".player.PlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
         <activity
-            android:name=".FullScreenPlayerActivity"
+            android:name=".player.FullScreenPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
     </application>

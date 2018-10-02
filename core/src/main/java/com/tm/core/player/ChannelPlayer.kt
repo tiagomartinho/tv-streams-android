@@ -1,4 +1,4 @@
-package com.tm.core
+package com.tm.core.player
 
 import android.os.Parcel
 import android.os.Parcelable

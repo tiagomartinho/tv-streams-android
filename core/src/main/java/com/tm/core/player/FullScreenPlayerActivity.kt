@@ -1,4 +1,4 @@
-package com.tm.core
+package com.tm.core.player
 
 import android.os.Bundle
 import android.util.Log

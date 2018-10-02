@@ -1,4 +1,4 @@
-package com.tm.core
+package com.tm.core.player
 
 class PlayerPresenter(
         private val channels: ArrayList<ChannelPlayer>,
