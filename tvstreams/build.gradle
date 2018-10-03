@@ -18,9 +18,9 @@ android {
     signingConfigs {
         release {
             storeFile file('/Users/tiagomartinho/Development/tvStreamsAndroid/TVStreams/keystore')
-            storePassword "123tiago"
-            keyAlias "key0"
-            keyPassword "123tiago"
+            storePassword '123tiago'
+            keyAlias 'key0'
+            keyPassword '123tiago'
         }
     }
     buildTypes {
