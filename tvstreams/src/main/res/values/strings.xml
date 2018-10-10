@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TV Streams</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="app_subtitle">The easiest way to watch television on your Android devices</string>
 </resources>
