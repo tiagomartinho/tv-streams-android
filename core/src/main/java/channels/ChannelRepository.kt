@@ -1,10 +1,6 @@
 package channels
 
-class ChannelRepository {
-    fun channels(): List<Channel> {
-        return ArrayList()
-    }
-
-    fun add(channel: Channel) {
-    }
+interface ChannelRepository {
+    fun channels(callback: (List<Channel>) -> Unit)
+    fun add(channel: Channel)
 }

@@ -1,5 +1,3 @@
 package channels
 
-class Channel {
-
-}
+class Channel(val name: String)

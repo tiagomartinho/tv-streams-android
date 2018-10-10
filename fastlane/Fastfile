@@ -7,16 +7,16 @@ platform :android do
   lane :deploy do
     # increment_version_code
     gradle(task: "clean test assembleRelease")
-    sign_apk(
-      keystore_path: "./keystore",
-      alias: "key0",
-      storepass: "123tiago",
-      tsa: "http://timestamp.comodoca.com/rfc316",
-    )
-    zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
+    # sign_apk(
+    #   keystore_path: "./keystore",
+    #   alias: "key0",
+    #   storepass: "123tiago",
+    #   tsa: "http://timestamp.comodoca.com/rfc316",
+    # )
+    # zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
     supply(
      track: 'alpha',
-     apk: "#{lane_context[SharedValues::SIGNED_APK_PATH]}"
+     apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
     )
   end
 end
