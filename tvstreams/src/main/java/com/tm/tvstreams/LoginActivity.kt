@@ -29,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
     private fun signIn() {
         options = Builder(DEFAULT_SIGN_IN)
                 .requestId()
+                .requestEmail()
                 .build()
         client = GoogleSignIn.getClient(this, options)
         client.signOut()
