@@ -7,10 +7,13 @@ import channels.ChannelRepository
 
 class FBChannelRepository: ChannelRepository {
 
-    var db = FirebaseFirestore.getInstance()
+    private var db = FirebaseFirestore.getInstance()
+    private val userID = "1234"
 
     override fun channels(callback: (List<Channel>) -> Unit) {
-        db.collection("users")
+        db.collection("Users")
+                .document(userID)
+                .collection("Channels")
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -26,6 +29,12 @@ class FBChannelRepository: ChannelRepository {
     override fun add(channel: Channel) {
         val channelMap = HashMap<String, Any>()
         channelMap["Name"] = channel.name
-        db.collection("channels").add(channelMap)
+        db.collection("Users")
+                .document(userID)
+                .collection("Channels").add(channelMap).addOnSuccessListener {
+                    print("addOnSuccessListener")
+                }.addOnFailureListener {
+                    print("addOnFailureListener")
+                }
     }
 }
