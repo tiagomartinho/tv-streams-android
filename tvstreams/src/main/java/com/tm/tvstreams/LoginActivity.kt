@@ -13,6 +13,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.tm.core.player.ChannelPlayer
+import com.tm.core.player.FullScreenPlayerActivity
+import com.tm.core.player.PlayerActivity
 import user.SharedPreferencesUserRepository
 import user.User
 
@@ -54,6 +57,8 @@ class LoginActivity : AppCompatActivity() {
                 val repository = SharedPreferencesUserRepository(this)
                 val user = User.buildWith(it)
                 repository.save(user)
+                val intent = Intent(this, InitialActivity::class.java)
+                startActivity(intent, null)
             }
         } catch (e: ApiException) {
             Log.d("LoginActivity", e.toString())
