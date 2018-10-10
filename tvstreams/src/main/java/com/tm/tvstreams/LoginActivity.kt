@@ -11,9 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 class LoginActivity : AppCompatActivity() {
@@ -30,24 +28,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun signIn() {
         options = Builder(DEFAULT_SIGN_IN)
-//                .requestEmail()
                 .requestId()
                 .build()
         client = GoogleSignIn.getClient(this, options)
-//        options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                    .requestEmail()
-//                    .requestId()
-//                    .requestIdToken(resources.getString(R.string.server_client_id))
-//                    .build()
-//        client = GoogleApiClient.Builder(this)
-//                    .enableAutoManage(this, this)
-//                    .addConnectionCallbacks(this)
-//                    .addOnConnectionFailedListener(this)
-//                    .enableAutoManage(this, this)/* FragmentActivity *//* OnConnectionFailedListener */
-//                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-//                    .build()
-//        client.connect()
-//        val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+        client.signOut()
+        client.revokeAccess()
         startActivityForResult(client.signInIntent, RC_SIGN_IN)
     }
 
