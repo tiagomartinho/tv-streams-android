@@ -1,12 +1,80 @@
 package com.tm.tvstreams
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
+import android.widget.Toast
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions.*
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var options: GoogleSignInOptions
+    private lateinit var client: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        val signInButton: Button? = this.findViewById(R.id.sign_in_button)
+        signInButton?.setOnClickListener { signIn() }
+    }
+
+    private fun signIn() {
+        options = Builder(DEFAULT_SIGN_IN)
+//                .requestEmail()
+                .requestId()
+                .build()
+        client = GoogleSignIn.getClient(this, options)
+//        options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                    .requestEmail()
+//                    .requestId()
+//                    .requestIdToken(resources.getString(R.string.server_client_id))
+//                    .build()
+//        client = GoogleApiClient.Builder(this)
+//                    .enableAutoManage(this, this)
+//                    .addConnectionCallbacks(this)
+//                    .addOnConnectionFailedListener(this)
+//                    .enableAutoManage(this, this)/* FragmentActivity *//* OnConnectionFailedListener */
+//                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//                    .build()
+//        client.connect()
+//        val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+        startActivityForResult(client.signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        }
+    }
+
+    private fun handleSignInResult(task: Task<GoogleSignInAccount>?) {
+        try {
+            val account = task?.getResult(ApiException::class.java)
+            account?.let {
+//                onboardingActivity?.presenter?.storeUserInfo(User(it.email
+//                        ?: "", it.displayName, it.photoUrl?.toString()))
+                Log.d("LoginActivity", it.toString())
+            }
+        } catch (e: ApiException) {
+            Log.d("LoginActivity", e.toString())
+            Log.d("LoginActivity", e.localizedMessage)
+            Toast.makeText(this,R.string.unexpected_error, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    companion object {
+        const val RC_SIGN_IN = 101
     }
 }
