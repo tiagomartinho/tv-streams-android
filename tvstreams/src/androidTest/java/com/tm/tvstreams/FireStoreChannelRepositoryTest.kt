@@ -6,13 +6,13 @@ import org.junit.Test
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
-class FBChannelRepositoryTest {
+class FireStoreChannelRepositoryTest {
 
     private val lock = CountDownLatch(1)
 
     @Test
     fun addChannel() {
-        val repository = FBChannelRepository()
+        val repository = FireStoreChannelRepository()
         val channel = Channel(name = "Channel Name")
         var channels = ArrayList<Channel>()
 

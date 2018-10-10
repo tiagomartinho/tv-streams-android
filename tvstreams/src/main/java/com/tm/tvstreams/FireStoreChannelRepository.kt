@@ -5,7 +5,7 @@ import android.util.Log
 import channels.Channel
 import channels.ChannelRepository
 
-class FBChannelRepository: ChannelRepository {
+class FireStoreChannelRepository: ChannelRepository {
 
     private var db = FirebaseFirestore.getInstance()
     private val userID = "1234"
@@ -24,7 +24,7 @@ class FBChannelRepository: ChannelRepository {
                             callback(channels)
                         }
                     } else {
-                        Log.w("FBChannelRepository", "Error getting documents.", task.exception)
+                        Log.w("FireStoreChannelRepository", "Error getting documents.", task.exception)
                     }
                 }
     }
