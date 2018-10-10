@@ -13,6 +13,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import user.SharedPreferencesUserRepository
+import user.User
 
 class LoginActivity : AppCompatActivity() {
 
@@ -49,9 +51,9 @@ class LoginActivity : AppCompatActivity() {
         try {
             val account = task?.getResult(ApiException::class.java)
             account?.let {
-//                onboardingActivity?.presenter?.storeUserInfo(User(it.email
-//                        ?: "", it.displayName, it.photoUrl?.toString()))
-                Log.d("LoginActivity", it.toString())
+                val repository = SharedPreferencesUserRepository(this)
+                val user = User.buildWith(it)
+                repository.save(user)
             }
         } catch (e: ApiException) {
             Log.d("LoginActivity", e.toString())
@@ -62,5 +64,9 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         const val RC_SIGN_IN = 101
+    }
+
+    private fun User.Companion.buildWith(account: GoogleSignInAccount): User {
+        return User(account.id, account.email, account.displayName, account.photoUrl?.toString())
     }
 }
