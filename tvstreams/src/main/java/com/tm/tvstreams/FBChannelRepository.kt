@@ -18,7 +18,10 @@ class FBChannelRepository: ChannelRepository {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         for (document in task.result) {
-                            callback(ArrayList())
+                            val channel = Channel(name = document.data["Name"] as String)
+                            val channels = ArrayList<Channel>()
+                            channels.add(channel)
+                            callback(channels)
                         }
                     } else {
                         Log.w("FBChannelRepository", "Error getting documents.", task.exception)

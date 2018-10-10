@@ -26,6 +26,6 @@ class FBChannelRepositoryTest {
         lock.await(2000, TimeUnit.MILLISECONDS)
 
         assertEquals(1, channels.count())
-        assertEquals(channel, channels.first())
+        assertEquals(channel.name, channels.first().name)
     }
 }
