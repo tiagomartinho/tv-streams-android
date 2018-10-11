@@ -13,17 +13,16 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
     override fun channels(callback: (List<Channel>) -> Unit) {
         channelsCollection()
                 .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val channels = ArrayList<Channel>()
-                        for (document in task.result) {
-                            val channel = Channel(name = document.data["Name"] as String)
-                            channels.add(channel)
-                        }
-                        callback(channels)
-                    } else {
-                        Log.w("FSChannelRepository", "Error getting documents.", task.exception)
+                .addOnSuccessListener {
+                    val channels = ArrayList<Channel>()
+                    for (document in it.documents) {
+                        val channel = Channel(name = document.data?.get("Name") as String)
+                        channels.add(channel)
                     }
+                    callback(channels)
+                }
+                .addOnFailureListener {
+                    callback(ArrayList())
                 }
     }
 
@@ -46,5 +45,18 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
     }
 
     override fun delete(channel: Channel) {
+    }
+
+    override fun deleteAll(callback: (Boolean) -> Unit) {
+        channelsCollection()
+                .get()
+                .addOnSuccessListener {
+                    it.documents.forEach {
+                        it.reference.delete()
+                    }
+                    callback(true)
+                }.addOnFailureListener {
+                    callback(false)
+                }
     }
 }
