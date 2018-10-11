@@ -1,15 +1,16 @@
 package com.tm.tvstreams
 
-import com.google.firebase.firestore.FirebaseFirestore
 import channels.Channel
 import channels.ChannelRepository
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentSnapshot
-
+import com.google.firebase.firestore.*
 
 class FireStoreChannelRepository(private val userID: String) : ChannelRepository {
 
     private var db = FirebaseFirestore.getInstance()
+
+    override fun addListener(callback: (Unit) -> Unit) {
+        channelsCollection().addSnapshotListener { _, _ -> callback(Unit) }
+    }
 
     override fun channels(callback: (List<Channel>) -> Unit) {
         channelsDocuments {

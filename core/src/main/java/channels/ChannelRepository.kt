@@ -7,4 +7,5 @@ interface ChannelRepository {
     fun delete(channel: Channel, callback: (Boolean) -> Unit)
     fun deleteAll(callback: (Boolean) -> Unit)
     fun update(channel: Channel, updatedChannel: Channel, callback: (Boolean) -> Unit)
+    fun addListener(callback: (Unit) -> Unit)
 }

@@ -2,8 +2,7 @@ package com.tm.tvstreams
 
 import channels.Channel
 import channels.ChannelRepository
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertFalse
+import junit.framework.Assert.*
 import org.junit.Before
 import org.junit.Test
 import java.util.concurrent.CountDownLatch
@@ -13,14 +12,29 @@ class FireStoreChannelRepositoryTest {
 
     private val userID = "1234"
     private val lock = CountDownLatch(1)
-    private val channel = Channel("source","meta","name","link")
-    private val newChannel = Channel("nsource","nmeta","nname","nlink")
+    private val channel = Channel("source", "meta", "name", "link")
+    private val newChannel = Channel("nsource", "nmeta", "nname", "nlink")
     private lateinit var repository: ChannelRepository
 
     @Before
     fun setUp() {
         repository = FireStoreChannelRepository(userID)
         deleteAll()
+    }
+
+    @Test
+    fun notifyChanges() {
+        val listenerLock = CountDownLatch(1)
+        var notified = false
+
+        repository.addListener {
+            notified = true
+            listenerLock.countDown()
+        }
+
+        addOneChannel()
+        listenerLock.await(2000, TimeUnit.MILLISECONDS)
+        assertTrue(notified)
     }
 
     @Test
