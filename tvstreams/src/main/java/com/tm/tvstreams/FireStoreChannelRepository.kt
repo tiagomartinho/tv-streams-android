@@ -1,11 +1,11 @@
 package com.tm.tvstreams
 
 import com.google.firebase.firestore.FirebaseFirestore
-import android.util.Log
 import channels.Channel
 import channels.ChannelRepository
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
+
 
 class FireStoreChannelRepository(private val userID: String) : ChannelRepository {
 
@@ -17,6 +17,17 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
         }
     }
 
+    override fun add(channels: List<Channel>) {
+        val batch = db.batch()
+        channels.forEach {
+            val channelMap = HashMap<String, Any>()
+            channelMap["Name"] = it.name
+            val document = channelsCollection().document()
+            batch.set(document, channelMap)
+        }
+        batch.commit()
+    }
+
     override fun add(channel: Channel) {
         val channelMap = HashMap<String, Any>()
         channelMap["Name"] = channel.name
@@ -25,21 +36,25 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
 
     override fun delete(channel: Channel, callback: (Boolean) -> Unit) {
         channelsDocuments {
+            val batch = db.batch()
             it.forEach {
                 val name = it.data?.get("Name") as String
                 if (name == channel.name) {
-                    it.reference.delete()
+                    batch.delete(it.reference)
                 }
             }
+            batch.commit()
             callback(true)
         }
     }
 
     override fun deleteAll(callback: (Boolean) -> Unit) {
         channelsDocuments {
+            val batch = db.batch()
             it.forEach {
-                it.reference.delete()
+                batch.delete(it.reference)
             }
+            batch.commit()
             callback(true)
         }
     }

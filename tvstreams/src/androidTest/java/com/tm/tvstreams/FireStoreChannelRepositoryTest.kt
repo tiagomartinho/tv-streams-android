@@ -23,6 +23,18 @@ class FireStoreChannelRepositoryTest {
     }
 
     @Test
+    fun addChannels() {
+        val channels = ArrayList<Channel>()
+        channels.add(channel)
+        channels.add(newChannel)
+
+        repository.add(channels)
+
+        assert(channels().contains(channel))
+        assert(channels().contains(newChannel))
+    }
+
+    @Test
     fun addChannel() {
         repository.add(channel)
 
