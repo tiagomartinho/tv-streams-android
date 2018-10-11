@@ -12,7 +12,7 @@ class FireStoreChannelRepositoryTest {
 
     @Test
     fun addChannel() {
-        val repository = FireStoreChannelRepository()
+        val repository = FireStoreChannelRepository("tiago")
         val channel = Channel(name = "Channel Name")
         var channels = ArrayList<Channel>()
 
