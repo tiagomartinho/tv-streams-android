@@ -15,12 +15,12 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        val channels = ArrayList<Channel>()
                         for (document in task.result) {
                             val channel = Channel(name = document.data["Name"] as String)
-                            val channels = ArrayList<Channel>()
                             channels.add(channel)
-                            callback(channels)
                         }
+                        callback(channels)
                     } else {
                         Log.w("FSChannelRepository", "Error getting documents.", task.exception)
                     }

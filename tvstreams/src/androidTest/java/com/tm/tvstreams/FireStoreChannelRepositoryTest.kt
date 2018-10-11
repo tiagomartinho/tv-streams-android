@@ -26,9 +26,7 @@ class FireStoreChannelRepositoryTest {
     fun addChannel() {
         repository.add(channel)
 
-        val channels = channels()
-        assertEquals(1, channels.count())
-        assertEquals(channel.name, channels.first().name)
+        assertEquals(channel.name, channels().first().name)
     }
 
     @Ignore
