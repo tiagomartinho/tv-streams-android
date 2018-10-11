@@ -4,15 +4,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import android.util.Log
 import channels.Channel
 import channels.ChannelRepository
+import com.google.firebase.firestore.CollectionReference
 
 class FireStoreChannelRepository(private val userID: String) : ChannelRepository {
 
     private var db = FirebaseFirestore.getInstance()
 
     override fun channels(callback: (List<Channel>) -> Unit) {
-        db.collection("Users")
-                .document(userID)
-                .collection("Channels")
+        channelsCollection()
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -31,12 +30,21 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
     override fun add(channel: Channel) {
         val channelMap = HashMap<String, Any>()
         channelMap["Name"] = channel.name
-        db.collection("Users")
-                .document(userID)
-                .collection("Channels").add(channelMap).addOnSuccessListener {
+        channelsCollection()
+                .add(channelMap)
+                .addOnSuccessListener {
                     print("addOnSuccessListener")
                 }.addOnFailureListener {
                     print("addOnFailureListener")
                 }
+    }
+
+    private fun channelsCollection(): CollectionReference {
+        return db.collection("Users")
+                .document(userID)
+                .collection("Channels")
+    }
+
+    override fun delete(channel: Channel) {
     }
 }
