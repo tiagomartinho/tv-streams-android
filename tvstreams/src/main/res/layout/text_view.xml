@@ -6,4 +6,5 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="Big Buck Bunny"
-          android:textSize="25sp"/>
+          android:textSize="25sp"
+          android:background="?android:attr/selectableItemBackground"/>
