@@ -12,6 +12,8 @@ import channels.Channel
 import user.SharedPreferencesUserRepository
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.DividerItemDecoration.*
+import android.view.View
+import android.widget.Toast
 
 class ChannelsActivity : AppCompatActivity() {
 
@@ -31,7 +33,10 @@ class ChannelsActivity : AppCompatActivity() {
             viewChannelsAdapter.set(data)
             viewChannelsAdapter.notifyDataSetChanged()
         }
-        viewChannelsAdapter = ChannelsAdapter(arrayOf())
+        val listener = View.OnClickListener {
+            Toast.makeText(applicationContext,"name", Toast.LENGTH_SHORT).show()
+        }
+        viewChannelsAdapter = ChannelsAdapter(arrayOf(), listener = listener)
 
         recyclerView = findViewById<RecyclerView>(R.id.my_recycler_view).apply {
             setHasFixedSize(true)
@@ -56,7 +61,7 @@ class ChannelsActivity : AppCompatActivity() {
     }
 }
 
-class ChannelsAdapter(private var data: Array<String>) :
+class ChannelsAdapter(private var data: Array<String>, private val listener: View.OnClickListener) :
         RecyclerView.Adapter<ChannelsAdapter.ViewHolder>() {
 
     class ViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
@@ -70,6 +75,7 @@ class ChannelsAdapter(private var data: Array<String>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textView.text = data[position]
+        holder.textView.setOnClickListener(listener)
     }
 
     override fun getItemCount() = data.size
