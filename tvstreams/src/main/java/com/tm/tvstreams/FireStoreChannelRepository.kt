@@ -13,25 +13,14 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
 
     override fun channels(callback: (List<Channel>) -> Unit) {
         channelsDocuments {
-            val channels = ArrayList<Channel>()
-            for (document in it) {
-                val channel = Channel(name = document.data?.get("Name") as String)
-                channels.add(channel)
-            }
-            callback(channels)
+            callback(it.map { Channel(name = it.data?.get("Name") as String) })
         }
     }
 
     override fun add(channel: Channel) {
         val channelMap = HashMap<String, Any>()
         channelMap["Name"] = channel.name
-        channelsCollection()
-                .add(channelMap)
-                .addOnSuccessListener {
-                    print("addOnSuccessListener")
-                }.addOnFailureListener {
-                    print("addOnFailureListener")
-                }
+        channelsCollection().add(channelMap)
     }
 
     override fun delete(channel: Channel, callback: (Boolean) -> Unit) {

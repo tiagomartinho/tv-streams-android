@@ -4,9 +4,7 @@ import channels.Channel
 import channels.ChannelRepository
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertFalse
-import org.junit.After
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
