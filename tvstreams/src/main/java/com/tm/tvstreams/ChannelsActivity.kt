@@ -10,11 +10,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import channels.Channel
 import user.SharedPreferencesUserRepository
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.DividerItemDecoration.*
 
 class ChannelsActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: Adapter
+    private lateinit var viewChannelsAdapter: ChannelsAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,22 +28,25 @@ class ChannelsActivity : AppCompatActivity() {
         val channelRepository = userID?.let { FireStoreChannelRepository(it) }
         channelRepository?.channels {
             val data = it.map { it.name }
-            viewAdapter.set(data)
-            viewAdapter.notifyDataSetChanged()
+            viewChannelsAdapter.set(data)
+            viewChannelsAdapter.notifyDataSetChanged()
         }
-        viewAdapter = Adapter(arrayOf())
+        viewChannelsAdapter = ChannelsAdapter(arrayOf())
 
         recyclerView = findViewById<RecyclerView>(R.id.my_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
-            adapter = viewAdapter
+            adapter = viewChannelsAdapter
         }
+
+        val decoration = DividerItemDecoration(this, VERTICAL)
+        recyclerView.addItemDecoration(decoration)
 
         channelRepository?.addListener {
             channelRepository?.channels {
                 val data = it.map { it.name }
-                viewAdapter.set(data)
-                viewAdapter.notifyDataSetChanged()
+                viewChannelsAdapter.set(data)
+                viewChannelsAdapter.notifyDataSetChanged()
             }
         }
 
@@ -51,13 +56,13 @@ class ChannelsActivity : AppCompatActivity() {
     }
 }
 
-class Adapter(private var data: Array<String>) :
-        RecyclerView.Adapter<Adapter.ViewHolder>() {
+class ChannelsAdapter(private var data: Array<String>) :
+        RecyclerView.Adapter<ChannelsAdapter.ViewHolder>() {
 
     class ViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): Adapter.ViewHolder {
+                                    viewType: Int): ChannelsAdapter.ViewHolder {
         val textView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.text_view, parent, false) as TextView
         return ViewHolder(textView)
