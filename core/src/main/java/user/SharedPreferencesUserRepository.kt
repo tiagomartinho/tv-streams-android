@@ -3,7 +3,7 @@ package user
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 
-class SharedPreferencesUserRepository(private val context: Context) : UserRepository {
+class SharedPreferencesUserRepository(context: Context) : UserRepository {
 
     private val preferences = context.getSharedPreferences("User", MODE_PRIVATE)
     private val id = "user_id_key"
@@ -11,13 +11,12 @@ class SharedPreferencesUserRepository(private val context: Context) : UserReposi
     private val name = "user_name_key"
     private val photo = "user_photoURL_key"
 
-    override fun load(callback: (User?) -> Unit) {
+    override fun load(): User {
         val id = preferences.getString(id, "")
         val email = preferences.getString(email, "")
         val name = preferences.getString(name, "")
         val photo = preferences.getString(photo, "")
-        val user = User(id, email, name, photo)
-        callback(user)
+        return User(id, email, name, photo)
     }
 
     override fun save(user: User) {

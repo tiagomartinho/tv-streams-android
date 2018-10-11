@@ -48,18 +48,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
-        </activity>
+            android:label="@string/title_activity_login"></activity>
         <activity android:name=".InitialActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ChannelsActivity"></activity>
     </application>
 
 </manifest>

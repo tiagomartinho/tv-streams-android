@@ -1,6 +1,6 @@
 package user
 
 interface UserRepository {
-    fun load(callback: (User?) -> Unit)
+    fun load(): User
     fun save(user: User)
 }

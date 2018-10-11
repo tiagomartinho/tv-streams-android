@@ -11,14 +11,13 @@ class InitialActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initial)
         val userRepository = SharedPreferencesUserRepository(this)
-        userRepository.load {
-            if(it?.id.isNullOrEmpty()) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent, null)
-            } else {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent, null)
-            }
+        val user = userRepository.load()
+        if (user.id.isNullOrEmpty()) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent, null)
+        } else {
+            val intent = Intent(this, ChannelsActivity::class.java)
+            startActivity(intent, null)
         }
     }
 }
