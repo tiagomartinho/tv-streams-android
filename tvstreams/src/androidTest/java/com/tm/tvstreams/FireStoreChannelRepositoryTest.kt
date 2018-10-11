@@ -3,6 +3,7 @@ package com.tm.tvstreams
 import channels.Channel
 import channels.ChannelRepository
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertFalse
 import org.junit.After
 import org.junit.Before
 import org.junit.Ignore
@@ -28,6 +29,18 @@ class FireStoreChannelRepositoryTest {
         repository.add(channel)
 
         assertEquals(channel.name, channels().first().name)
+    }
+
+    @Test
+    fun deleteChannel() {
+        val deleteLock = CountDownLatch(1)
+
+        repository.delete(channel) {
+            deleteLock.countDown()
+        }
+
+        deleteLock.await(2000, TimeUnit.MILLISECONDS)
+        assertFalse(channels().contains(channel))
     }
 
     @Test

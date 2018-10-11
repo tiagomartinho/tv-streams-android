@@ -5,25 +5,21 @@ import android.util.Log
 import channels.Channel
 import channels.ChannelRepository
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
 
 class FireStoreChannelRepository(private val userID: String) : ChannelRepository {
 
     private var db = FirebaseFirestore.getInstance()
 
     override fun channels(callback: (List<Channel>) -> Unit) {
-        channelsCollection()
-                .get()
-                .addOnSuccessListener {
-                    val channels = ArrayList<Channel>()
-                    for (document in it.documents) {
-                        val channel = Channel(name = document.data?.get("Name") as String)
-                        channels.add(channel)
-                    }
-                    callback(channels)
-                }
-                .addOnFailureListener {
-                    callback(ArrayList())
-                }
+        channelsDocuments {
+            val channels = ArrayList<Channel>()
+            for (document in it) {
+                val channel = Channel(name = document.data?.get("Name") as String)
+                channels.add(channel)
+            }
+            callback(channels)
+        }
     }
 
     override fun add(channel: Channel) {
@@ -38,25 +34,41 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
                 }
     }
 
+    override fun delete(channel: Channel, callback: (Boolean) -> Unit) {
+        channelsDocuments {
+            it.forEach {
+                val name = it.data?.get("Name") as String
+                if (name == channel.name) {
+                    it.reference.delete()
+                }
+            }
+            callback(true)
+        }
+    }
+
+    override fun deleteAll(callback: (Boolean) -> Unit) {
+        channelsDocuments {
+            it.forEach {
+                it.reference.delete()
+            }
+            callback(true)
+        }
+    }
+
     private fun channelsCollection(): CollectionReference {
         return db.collection("Users")
                 .document(userID)
                 .collection("Channels")
     }
 
-    override fun delete(channel: Channel) {
-    }
-
-    override fun deleteAll(callback: (Boolean) -> Unit) {
+    private fun channelsDocuments(callback: (List<DocumentSnapshot>) -> Unit) {
         channelsCollection()
                 .get()
                 .addOnSuccessListener {
-                    it.documents.forEach {
-                        it.reference.delete()
-                    }
-                    callback(true)
-                }.addOnFailureListener {
-                    callback(false)
+                    callback(it.documents)
+                }
+                .addOnFailureListener {
+                    callback(ArrayList())
                 }
     }
 }
