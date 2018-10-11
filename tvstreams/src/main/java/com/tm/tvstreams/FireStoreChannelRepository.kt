@@ -60,6 +60,17 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
     }
 
     override fun update(channel: Channel, updatedChannel: Channel, callback: (Boolean) -> Unit) {
+        channelsDocuments {
+            val batch = db.batch()
+            it.forEach {
+                val name = it.data?.get("Name") as String
+                if (name == channel.name) {
+                    batch.update(it.reference,"Name", updatedChannel.name)
+                }
+            }
+            batch.commit()
+            callback(true)
+        }
     }
 
     private fun channelsCollection(): CollectionReference {

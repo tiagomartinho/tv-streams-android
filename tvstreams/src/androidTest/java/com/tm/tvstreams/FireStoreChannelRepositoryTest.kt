@@ -34,8 +34,8 @@ class FireStoreChannelRepositoryTest {
 
         addLock.await(2000, TimeUnit.MILLISECONDS)
         val channelsInRepo = channels()
-        assertEquals(newChannel.name, channelsInRepo.first().name)
-        assertEquals(channel.name, channelsInRepo.last().name)
+        assertFalse(channelsInRepo.none { it.name == channel.name })
+        assertFalse(channelsInRepo.none { it.name == newChannel.name })
         assertEquals(2, channelsInRepo.count())
     }
 
@@ -73,11 +73,13 @@ class FireStoreChannelRepositoryTest {
     @Test
     fun updateChannel() {
         addOneChannel()
+        val updateLock = CountDownLatch(1)
 
         repository.update(channel, newChannel) {
-
+            updateLock.countDown()
         }
 
+        updateLock.await(2000, TimeUnit.MILLISECONDS)
         val channelsInRepo = channels()
         assertEquals(newChannel.name, channelsInRepo.first().name)
         assertEquals(1, channelsInRepo.count())
