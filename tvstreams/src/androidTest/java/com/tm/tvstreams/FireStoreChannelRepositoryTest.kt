@@ -13,8 +13,8 @@ class FireStoreChannelRepositoryTest {
 
     private val userID = "1234"
     private val lock = CountDownLatch(1)
-    private val channel = Channel(name = "Channel Name")
-    private val newChannel = Channel(name = "New Channel Name")
+    private val channel = Channel("source","meta","name","link")
+    private val newChannel = Channel("nsource","nmeta","nname","nlink")
     private lateinit var repository: ChannelRepository
 
     @Before
