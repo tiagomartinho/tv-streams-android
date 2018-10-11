@@ -20,29 +20,37 @@ class FireStoreChannelRepositoryTest {
     @Before
     fun setUp() {
         repository = FireStoreChannelRepository(userID)
+        deleteAll()
     }
 
     @Test
     fun addChannels() {
-        val channels = ArrayList<Channel>()
-        channels.add(channel)
-        channels.add(newChannel)
+        val addLock = CountDownLatch(1)
+        val channels = arrayListOf(channel, newChannel)
 
-        repository.add(channels)
+        repository.add(channels) {
+            addLock.countDown()
+        }
 
-        assert(channels().contains(channel))
-        assert(channels().contains(newChannel))
+        addLock.await(2000, TimeUnit.MILLISECONDS)
+        val channelsInRepo = channels()
+        assertEquals(newChannel.name, channelsInRepo.first().name)
+        assertEquals(channel.name, channelsInRepo.last().name)
+        assertEquals(2, channelsInRepo.count())
     }
 
     @Test
     fun addChannel() {
-        repository.add(channel)
+        addOneChannel()
 
-        assertEquals(channel.name, channels().first().name)
+        val channelsInRepo = channels()
+        assertEquals(channel.name, channelsInRepo.first().name)
+        assertEquals(1, channelsInRepo.count())
     }
 
     @Test
     fun deleteChannel() {
+        addOneChannel()
         val deleteLock = CountDownLatch(1)
 
         repository.delete(channel) {
@@ -50,11 +58,42 @@ class FireStoreChannelRepositoryTest {
         }
 
         deleteLock.await(2000, TimeUnit.MILLISECONDS)
-        assertFalse(channels().contains(channel))
+        val channelsInRepo = channels()
+        assert(channelsInRepo.none { it.name == channel.name })
+        assertEquals(0, channelsInRepo.count())
     }
 
     @Test
     fun deleteAllChannels() {
+        deleteAll()
+
+        assertEquals(0, channels().count())
+    }
+
+    @Test
+    fun updateChannel() {
+        addOneChannel()
+
+        repository.update(channel, newChannel) {
+
+        }
+
+        val channelsInRepo = channels()
+        assertEquals(newChannel.name, channelsInRepo.first().name)
+        assertEquals(1, channelsInRepo.count())
+    }
+
+    private fun addOneChannel() {
+        val addLock = CountDownLatch(1)
+
+        repository.add(channel) {
+            addLock.countDown()
+        }
+
+        addLock.await(2000, TimeUnit.MILLISECONDS)
+    }
+
+    private fun deleteAll() {
         val deleteAllLock = CountDownLatch(1)
 
         repository.deleteAll {
@@ -62,7 +101,6 @@ class FireStoreChannelRepositoryTest {
         }
 
         deleteAllLock.await(2000, TimeUnit.MILLISECONDS)
-        assertEquals(0, channels().count())
     }
 
     private fun channels(): List<Channel> {

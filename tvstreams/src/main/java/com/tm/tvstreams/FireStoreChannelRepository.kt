@@ -17,7 +17,7 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
         }
     }
 
-    override fun add(channels: List<Channel>) {
+    override fun add(channels: List<Channel>, callback: (Boolean) -> Unit) {
         val batch = db.batch()
         channels.forEach {
             val channelMap = HashMap<String, Any>()
@@ -26,12 +26,12 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
             batch.set(document, channelMap)
         }
         batch.commit()
+                .addOnSuccessListener { callback(true) }
+                .addOnFailureListener { callback(false) }
     }
 
-    override fun add(channel: Channel) {
-        val channelMap = HashMap<String, Any>()
-        channelMap["Name"] = channel.name
-        channelsCollection().add(channelMap)
+    override fun add(channel: Channel, callback: (Boolean) -> Unit) {
+        add(arrayListOf(channel)) { callback(it) }
     }
 
     override fun delete(channel: Channel, callback: (Boolean) -> Unit) {
@@ -57,6 +57,9 @@ class FireStoreChannelRepository(private val userID: String) : ChannelRepository
             batch.commit()
             callback(true)
         }
+    }
+
+    override fun update(channel: Channel, updatedChannel: Channel, callback: (Boolean) -> Unit) {
     }
 
     private fun channelsCollection(): CollectionReference {
