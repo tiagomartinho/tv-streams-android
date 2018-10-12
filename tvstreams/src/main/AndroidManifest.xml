@@ -61,8 +61,8 @@
         <activity
                 android:name=".ChannelsListActivity"
                 android:label="@string/title_activity_channels"
-                android:theme="@style/AppTheme.NoActionBar">
-
+                android:theme="@style/AppTheme.NoActionBar"
+                android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
     </application>
 
