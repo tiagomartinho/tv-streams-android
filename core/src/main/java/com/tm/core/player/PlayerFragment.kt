@@ -17,13 +17,13 @@ import java.lang.Exception
 
 class PlayerFragment : Fragment(), OnPreparedListener, VideoControlsButtonListener, PlayerView, OnErrorListener {
 
-    private var videoView: VideoView? = null
-    private var presenter: PlayerPresenter? = null
+    internal var videoView: VideoView? = null
+    internal var presenter: PlayerPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val channels = it.getParcelableArrayList<ChannelPlayer>(PlayerActivity.CHANNELS)
+            val channels = it.getParcelableArrayList<ChannelPlayer>(PlayerFragment.CHANNELS)
             presenter = PlayerPresenter(channels, this)
         }
     }

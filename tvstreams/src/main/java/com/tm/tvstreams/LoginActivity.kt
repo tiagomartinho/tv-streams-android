@@ -13,9 +13,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.tm.core.player.ChannelPlayer
-import com.tm.core.player.FullScreenPlayerActivity
-import com.tm.core.player.PlayerActivity
 import user.SharedPreferencesUserRepository
 import user.User
 

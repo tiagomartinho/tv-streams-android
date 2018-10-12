@@ -5,15 +5,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
-    <com.devbrackets.android.exomedia.ui.widget.VideoView
-        android:id="@+id/video_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:useDefaultControls="true" />
-
-    <include layout="@layout/error_view"
-        android:id="@+id/error_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:id="@+id/fragment_container"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent" />
 </RelativeLayout>

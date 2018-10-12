@@ -11,6 +11,7 @@ import android.view.View.VISIBLE
 import android.widget.Toast
 import channels.Channel
 import com.tm.core.player.ChannelPlayer
+import com.tm.core.player.PlayerActivity
 import com.tm.core.player.PlayerFragment
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
@@ -68,7 +69,7 @@ class ItemListActivity : AppCompatActivity(), ChannelListFragment.OnListFragment
                 .commit()
             goFullscreen()
         } else {
-            val intent = Intent(this, ItemDetailActivity::class.java).apply {
+            val intent = Intent(this, PlayerActivity::class.java).apply {
                 val channels = ArrayList<ChannelPlayer>()
                 channel?.name?.let { ChannelPlayer(it, channel.link) }?.let { channels.add(it) }
                 putExtra(PlayerFragment.CHANNELS, channels)

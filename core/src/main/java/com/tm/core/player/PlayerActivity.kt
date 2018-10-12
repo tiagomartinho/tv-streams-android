@@ -1,99 +1,130 @@
 package com.tm.core.player
 
-import android.app.Activity
-import android.net.Uri
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
-import android.view.View.*
-import android.widget.Button
-import com.devbrackets.android.exomedia.listener.OnErrorListener
-import com.devbrackets.android.exomedia.listener.OnPreparedListener
-import com.devbrackets.android.exomedia.listener.VideoControlsButtonListener
-import com.devbrackets.android.exomedia.ui.widget.VideoView
+import com.devbrackets.android.exomedia.listener.VideoControlsVisibilityListener
 import com.tm.core.R
-import java.lang.Exception
 
-open class PlayerActivity : Activity(), OnPreparedListener, VideoControlsButtonListener, PlayerView, OnErrorListener {
+class PlayerActivity : AppCompatActivity() {
 
-    internal var videoView: VideoView? = null
-    internal var presenter: PlayerPresenter? = null
+    private val fullScreenListener = FullScreenListener()
+    private lateinit var playerFragment: PlayerFragment
 
-    companion object {
-        const val CHANNELS = "CHANNELS"
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        Log.d("onKeyDown", keyCode.toString())
+        when(keyCode) {
+            KeyEvent.KEYCODE_DPAD_RIGHT,
+            KeyEvent.KEYCODE_DPAD_DOWN_RIGHT,
+            KeyEvent.KEYCODE_DPAD_DOWN,
+            KeyEvent.KEYCODE_MEDIA_FAST_FORWARD,
+            KeyEvent.KEYCODE_MEDIA_SKIP_FORWARD,
+            KeyEvent.KEYCODE_MEDIA_STEP_FORWARD,
+            KeyEvent.KEYCODE_MEDIA_NEXT,
+            KeyEvent.ACTION_DOWN -> { playerFragment.presenter?.next(); return true }
+            KeyEvent.KEYCODE_DPAD_LEFT,
+            KeyEvent.KEYCODE_DPAD_UP_LEFT,
+            KeyEvent.KEYCODE_DPAD_UP,
+            KeyEvent.KEYCODE_MEDIA_REWIND,
+            KeyEvent.KEYCODE_MEDIA_PREVIOUS,
+            KeyEvent.KEYCODE_MEDIA_STEP_BACKWARD,
+            KeyEvent.KEYCODE_MEDIA_SKIP_BACKWARD,
+            KeyEvent.ACTION_UP -> { playerFragment.presenter?.previous(); return true }
+            KeyEvent.KEYCODE_MEDIA_PLAY,
+            KeyEvent.KEYCODE_MEDIA_PAUSE,
+            KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE,
+            KeyEvent.KEYCODE_DPAD_CENTER,
+            KeyEvent.KEYCODE_ENTER -> { playPause(); return true }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    private fun playPause() {
+        if (playerFragment.videoView?.isPlaying!!) {
+            playerFragment.videoView?.pause()
+        } else {
+            playerFragment.videoView?.start()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        val channels = intent.getParcelableArrayListExtra<ChannelPlayer>(CHANNELS)
-        presenter = PlayerPresenter(channels, this)
-        presenter?.play()
-        findViewById<Button>(R.id.retry_button).setOnClickListener {
-            presenter?.play()
+        if (savedInstanceState == null) {
+            playerFragment = PlayerFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelableArrayList(PlayerFragment.CHANNELS,
+                        intent.getParcelableArrayListExtra(PlayerFragment.CHANNELS))
+                }
+            }
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container, playerFragment)
+                .commit()
         }
-        findViewById<Button>(R.id.next_button).setOnClickListener {
-            presenter?.next()
+        initUiFlags()
+        playerFragment.videoView?.videoControls?.setVisibilityListener(ControlsVisibilityListener())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+    }
+
+    private fun goFullscreen() {
+        setUiFlags(true)
+    }
+
+    private fun exitFullscreen() {
+        setUiFlags(false)
+    }
+
+    private fun initUiFlags() {
+        window.decorView.systemUiVisibility = getStableUiFlags()
+        window.decorView.setOnSystemUiVisibilityChangeListener(fullScreenListener)
+    }
+
+    private fun setUiFlags(fullscreen: Boolean) {
+        window.decorView.systemUiVisibility = if (fullscreen) getFullscreenUiFlags() else getStableUiFlags()
+    }
+
+    private fun getFullscreenUiFlags(): Int {
+        return (View.SYSTEM_UI_FLAG_LOW_PROFILE
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    }
+
+    private fun getStableUiFlags(): Int {
+        return (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    }
+
+    private inner class FullScreenListener : View.OnSystemUiVisibilityChangeListener {
+
+        var lastVisibility = 0
+
+        override fun onSystemUiVisibilityChange(visibility: Int) {
+            lastVisibility = visibility
+            if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
+                playerFragment.videoView?.showControls()
+            }
         }
-        findViewById<Button>(R.id.previous_button).setOnClickListener {
-            presenter?.previous()
+    }
+
+    private inner class ControlsVisibilityListener : VideoControlsVisibilityListener {
+        override fun onControlsShown() {
+            if (fullScreenListener.lastVisibility != View.SYSTEM_UI_FLAG_VISIBLE) {
+                exitFullscreen()
+            }
         }
-    }
 
-    override fun showVideoView() {
-        val errorView = findViewById<View>(R.id.error_view)
-        errorView.visibility = GONE
-        videoView?.visibility = VISIBLE
-        videoView = findViewById<View>(R.id.video_view) as VideoView
-        videoView?.setOnPreparedListener(this)
-        videoView?.setOnErrorListener(this)
-        val videoControls = videoView!!.videoControls
-        videoControls?.setPreviousButtonRemoved(false)
-        videoControls?.setNextButtonRemoved(false)
-        videoControls?.setPreviousButtonEnabled(true)
-        videoControls?.setNextButtonEnabled(true)
-        videoControls?.setButtonListener(this)
-    }
-
-    override fun onPrepared() {
-        videoView?.start()
-    }
-
-    override fun onError(e: Exception?): Boolean {
-        presenter?.playbackFailed()
-        return true
-    }
-
-    override fun play(channel: ChannelPlayer) {
-        val uri = Uri.parse(channel.url)
-        videoView?.setVideoURI(uri)
-        videoView?.videoControls?.setTitle(channel.name)
-    }
-
-    override fun showPlaybackError() {
-        val errorView = findViewById<View>(R.id.error_view)
-        errorView.visibility = VISIBLE
-        videoView?.visibility = GONE
-    }
-
-    override fun onNextClicked(): Boolean {
-        presenter?.next()
-        return true
-    }
-
-    override fun onPreviousClicked(): Boolean {
-        presenter?.previous()
-        return true
-    }
-
-    override fun onPlayPauseClicked(): Boolean {
-        return false
-    }
-
-    override fun onRewindClicked(): Boolean {
-        return false
-    }
-
-    override fun onFastForwardClicked(): Boolean {
-        return false
+        override fun onControlsHidden() {
+            goFullscreen()
+        }
     }
 }
