@@ -4,4 +4,6 @@
     <string name="app_subtitle">The easiest way to watch television on your Android devices</string>
     <string name="unexpected_error">An error has occured</string>
     <string name="title_activity_channels">Channels</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
 </resources>
