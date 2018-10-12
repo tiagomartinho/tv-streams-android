@@ -2,85 +2,39 @@ package com.tm.tvstreams
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import channels.Channel
-import user.SharedPreferencesUserRepository
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.DividerItemDecoration.*
 import android.view.View
 import android.widget.Toast
+import com.tm.tvstreams.ChannelListFragment.OnListFragmentInteractionListener
+import user.SharedPreferencesUserRepository
 
-class ChannelsActivity : AppCompatActivity() {
+class ChannelsActivity : AppCompatActivity(), OnListFragmentInteractionListener {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewChannelsAdapter: ChannelsAdapter
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var channelListFragment: ChannelListFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_channels)
-
-        viewManager = LinearLayoutManager(this)
+        if (findViewById<View>(R.id.fragment_container) != null) {
+            if (savedInstanceState != null) {
+                return
+            }
+            channelListFragment = ChannelListFragment.newInstance()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container, channelListFragment).commit()
+        }
         val userID = SharedPreferencesUserRepository(this).load().id
         val channelRepository = userID?.let { FireStoreChannelRepository(it) }
         channelRepository?.channels {
-            val data = it.map { it.name }
-            viewChannelsAdapter.set(data)
-            viewChannelsAdapter.notifyDataSetChanged()
-        }
-        val listener = View.OnClickListener {
-            Toast.makeText(applicationContext,"name", Toast.LENGTH_SHORT).show()
-        }
-        viewChannelsAdapter = ChannelsAdapter(arrayOf(), listener = listener)
-
-        recyclerView = findViewById<RecyclerView>(R.id.my_recycler_view).apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewChannelsAdapter
-        }
-
-        val decoration = DividerItemDecoration(this, VERTICAL)
-        recyclerView.addItemDecoration(decoration)
-
-        channelRepository?.addListener {
-            channelRepository?.channels {
-                val data = it.map { it.name }
-                viewChannelsAdapter.set(data)
-                viewChannelsAdapter.notifyDataSetChanged()
-            }
-        }
-
-        channelRepository?.add(Channel("source","meta","name","link")) {
-            Log.d("ChannelsActivity", it.toString())
+            channelListFragment.set(it)
         }
     }
-}
 
-class ChannelsAdapter(private var data: Array<String>, private val listener: View.OnClickListener) :
-        RecyclerView.Adapter<ChannelsAdapter.ViewHolder>() {
-
-    class ViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
-
-    override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): ChannelsAdapter.ViewHolder {
-        val textView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.text_view, parent, false) as TextView
-        return ViewHolder(textView)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = data[position]
-        holder.textView.setOnClickListener(listener)
-    }
-
-    override fun getItemCount() = data.size
-
-    fun set(data: List<String>) {
-        this.data = data.toTypedArray()
+    override fun onListFragmentInteraction(channel: Channel?) {
+        Toast.makeText(applicationContext,"name", Toast.LENGTH_SHORT).show()
     }
 }
