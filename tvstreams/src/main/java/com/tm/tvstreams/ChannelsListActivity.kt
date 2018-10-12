@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.view.KeyEvent
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -20,6 +21,23 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
 
     private var twoPane: Boolean = false
     private lateinit var channelListFragment: ChannelListFragment
+    private var playerFragment: PlayerFragment? = null
+
+    override fun onDestroy() {
+        super.onDestroy()
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        playerFragment?.onKeyDown(keyCode)?.let {
+            return if (it) {
+                true
+            } else {
+                super.onKeyDown(keyCode, event)
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +69,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
 
     private fun updateChannels(channelRepository: FireStoreChannelRepository?) {
         channelRepository?.channels {
-            channelListFragment.set(it)
+            channelListFragment?.set(it)
         }
     }
 
@@ -104,9 +122,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
             or View.SYSTEM_UI_FLAG_FULLSCREEN
             or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            or View.SYSTEM_UI_FLAG_IMMERSIVE
-            or View.GONE)
+            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     }
 
     private fun getStableUiFlags(): Int {

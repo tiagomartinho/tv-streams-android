@@ -3,6 +3,8 @@ package com.tm.core.player
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +13,47 @@ import com.devbrackets.android.exomedia.listener.OnErrorListener
 import com.devbrackets.android.exomedia.listener.OnPreparedListener
 import com.devbrackets.android.exomedia.listener.VideoControlsButtonListener
 import com.devbrackets.android.exomedia.ui.widget.VideoView
-
 import com.tm.core.R
-import com.tm.core.player.PlayerActivity.ControlsVisibilityListener
-import java.lang.Exception
 
 class PlayerFragment : Fragment(), OnPreparedListener, VideoControlsButtonListener, PlayerView, OnErrorListener {
 
-    internal var videoView: VideoView? = null
-    internal var presenter: PlayerPresenter? = null
-    private lateinit var listener: ControlsVisibilityListener
+    private var videoView: VideoView? = null
+    private var presenter: PlayerPresenter? = null
+
+    fun onKeyDown(keyCode: Int): Boolean {
+        when(keyCode) {
+            KeyEvent.KEYCODE_DPAD_RIGHT,
+            KeyEvent.KEYCODE_DPAD_DOWN_RIGHT,
+            KeyEvent.KEYCODE_DPAD_DOWN,
+            KeyEvent.KEYCODE_MEDIA_FAST_FORWARD,
+            KeyEvent.KEYCODE_MEDIA_SKIP_FORWARD,
+            KeyEvent.KEYCODE_MEDIA_STEP_FORWARD,
+            KeyEvent.KEYCODE_MEDIA_NEXT,
+            KeyEvent.ACTION_DOWN -> { presenter?.next(); return true }
+            KeyEvent.KEYCODE_DPAD_LEFT,
+            KeyEvent.KEYCODE_DPAD_UP_LEFT,
+            KeyEvent.KEYCODE_DPAD_UP,
+            KeyEvent.KEYCODE_MEDIA_REWIND,
+            KeyEvent.KEYCODE_MEDIA_PREVIOUS,
+            KeyEvent.KEYCODE_MEDIA_STEP_BACKWARD,
+            KeyEvent.KEYCODE_MEDIA_SKIP_BACKWARD,
+            KeyEvent.ACTION_UP -> { presenter?.previous(); return true }
+            KeyEvent.KEYCODE_MEDIA_PLAY,
+            KeyEvent.KEYCODE_MEDIA_PAUSE,
+            KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE,
+            KeyEvent.KEYCODE_DPAD_CENTER,
+            KeyEvent.KEYCODE_ENTER -> { playPause(); return true }
+        }
+        return false
+    }
+
+    private fun playPause() {
+        if (videoView?.isPlaying!!) {
+            videoView?.pause()
+        } else {
+            videoView?.start()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +98,8 @@ class PlayerFragment : Fragment(), OnPreparedListener, VideoControlsButtonListen
         videoControls?.setPreviousButtonEnabled(true)
         videoControls?.setNextButtonEnabled(true)
         videoControls?.setButtonListener(this)
+        val fullScreenListener = FullScreenListener(videoView!!)
+        val listener = ControlsVisibilityListener(fullScreenListener, activity!!.window)
         videoControls?.setVisibilityListener(listener)
     }
 
@@ -109,10 +144,6 @@ class PlayerFragment : Fragment(), OnPreparedListener, VideoControlsButtonListen
 
     override fun onFastForwardClicked(): Boolean {
         return false
-    }
-
-    internal fun setVisibilityListener(listener: ControlsVisibilityListener) {
-        this.listener = listener
     }
 
     companion object {
