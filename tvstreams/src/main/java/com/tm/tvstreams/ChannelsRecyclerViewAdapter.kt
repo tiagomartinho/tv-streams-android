@@ -31,8 +31,7 @@ class ChannelsRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = channels[position]
-        holder.mContentView.text = item.link
-
+        holder.mContentView.text = item.name
         with(holder.mView) {
             tag = item
             setOnClickListener(clickListener)
