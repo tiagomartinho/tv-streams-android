@@ -13,12 +13,14 @@ import com.devbrackets.android.exomedia.listener.VideoControlsButtonListener
 import com.devbrackets.android.exomedia.ui.widget.VideoView
 
 import com.tm.core.R
+import com.tm.core.player.PlayerActivity.ControlsVisibilityListener
 import java.lang.Exception
 
 class PlayerFragment : Fragment(), OnPreparedListener, VideoControlsButtonListener, PlayerView, OnErrorListener {
 
     internal var videoView: VideoView? = null
     internal var presenter: PlayerPresenter? = null
+    private lateinit var listener: ControlsVisibilityListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +65,7 @@ class PlayerFragment : Fragment(), OnPreparedListener, VideoControlsButtonListen
         videoControls?.setPreviousButtonEnabled(true)
         videoControls?.setNextButtonEnabled(true)
         videoControls?.setButtonListener(this)
+        videoControls?.setVisibilityListener(listener)
     }
 
     override fun onPrepared() {
@@ -106,6 +109,10 @@ class PlayerFragment : Fragment(), OnPreparedListener, VideoControlsButtonListen
 
     override fun onFastForwardClicked(): Boolean {
         return false
+    }
+
+    internal fun setVisibilityListener(listener: ControlsVisibilityListener) {
+        this.listener = listener
     }
 
     companion object {

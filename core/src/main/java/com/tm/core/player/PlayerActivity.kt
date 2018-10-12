@@ -59,12 +59,12 @@ class PlayerActivity : AppCompatActivity() {
                         intent.getParcelableArrayListExtra(PlayerFragment.CHANNELS))
                 }
             }
+            playerFragment.setVisibilityListener(ControlsVisibilityListener())
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, playerFragment)
                 .commit()
         }
         initUiFlags()
-        playerFragment.videoView?.videoControls?.setVisibilityListener(ControlsVisibilityListener())
     }
 
     override fun onDestroy() {
@@ -116,7 +116,7 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    private inner class ControlsVisibilityListener : VideoControlsVisibilityListener {
+    internal inner class ControlsVisibilityListener : VideoControlsVisibilityListener {
         override fun onControlsShown() {
             if (fullScreenListener.lastVisibility != View.SYSTEM_UI_FLAG_VISIBLE) {
                 exitFullscreen()
