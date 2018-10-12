@@ -44,12 +44,15 @@ class ItemListActivity : AppCompatActivity(), ChannelListFragment.OnListFragment
         }
         val userID = SharedPreferencesUserRepository(this).load().id
         val channelRepository = userID?.let { FireStoreChannelRepository(it) }
-        channelRepository?.deleteAll {
-            channelRepository.add(Channel("source", "meta", "Big", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")) {
-                channelRepository?.channels {
-                    channelListFragment.set(it)
-                }
-            }
+        updateChannels(channelRepository)
+        channelRepository?.addListener {
+            updateChannels(channelRepository)
+        }
+    }
+
+    private fun updateChannels(channelRepository: FireStoreChannelRepository?) {
+        channelRepository?.channels {
+            channelListFragment.set(it)
         }
     }
 
