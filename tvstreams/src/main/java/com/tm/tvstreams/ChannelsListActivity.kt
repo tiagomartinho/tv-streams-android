@@ -64,7 +64,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         }
         val userID = SharedPreferencesUserRepository(this).load().id
         val channelRepository = userID?.let { FireStoreChannelRepository(it) }
-        channelRepository?.deleteAll {
+        channelRepository?.deleteAll { it ->
             val big = Channel("A", "B", "Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
             val sintel = Channel("A", "B", "Sintel", "https://download.blender.org/durian/trailer/sintel_trailer-1080p.mp4")
             channelRepository.add(arrayListOf(big, sintel)) {
