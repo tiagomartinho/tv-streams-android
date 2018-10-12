@@ -1,5 +1,7 @@
 package channels
 
+import com.tm.core.player.ChannelPlayer
+
 class Channel(val source: String, val metadata: String, val name: String, val link: String) {
 
     constructor(map: Map<String, Any>?) :
@@ -35,4 +37,8 @@ class Channel(val source: String, val metadata: String, val name: String, val li
         result = 31 * result + link.hashCode()
         return result
     }
+}
+
+fun Channel.channelPlayer(): ChannelPlayer {
+    return ChannelPlayer(name, link)
 }

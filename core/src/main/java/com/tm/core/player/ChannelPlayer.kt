@@ -18,6 +18,24 @@ class ChannelPlayer(val name: String, val url: String) : Parcelable {
         return 0
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as ChannelPlayer
+
+        if (name != other.name) return false
+        if (url != other.url) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + url.hashCode()
+        return result
+    }
+
     companion object CREATOR : Parcelable.Creator<ChannelPlayer> {
         override fun createFromParcel(parcel: Parcel): ChannelPlayer {
             return ChannelPlayer(parcel)
