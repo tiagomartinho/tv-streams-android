@@ -10,6 +10,8 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
 import channels.Channel
+import com.tm.core.player.ChannelPlayer
+import com.tm.core.player.PlayerFragment
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
 import user.SharedPreferencesUserRepository
@@ -41,17 +43,23 @@ class ItemListActivity : AppCompatActivity(), ChannelListFragment.OnListFragment
         }
         val userID = SharedPreferencesUserRepository(this).load().id
         val channelRepository = userID?.let { FireStoreChannelRepository(it) }
-        channelRepository?.channels {
-            channelListFragment.set(it)
+        channelRepository?.deleteAll {
+            channelRepository.add(Channel("source", "meta", "Big", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")) {
+                channelRepository?.channels {
+                    channelListFragment.set(it)
+                }
+            }
         }
     }
 
     override fun onListFragmentInteraction(channel: Channel?) {
         Toast.makeText(applicationContext, "name", Toast.LENGTH_SHORT).show()
         if (twoPane) {
-            val fragment = ItemDetailFragment().apply {
+            val fragment = PlayerFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ItemDetailFragment.ARG_ITEM_ID, channel?.name)
+                    val channels = ArrayList<ChannelPlayer>()
+                    channel?.name?.let { ChannelPlayer(it, channel.link) }?.let { channels.add(it) }
+                    putParcelableArrayList(PlayerFragment.CHANNELS, channels)
                 }
             }
             supportFragmentManager
@@ -61,7 +69,9 @@ class ItemListActivity : AppCompatActivity(), ChannelListFragment.OnListFragment
             goFullscreen()
         } else {
             val intent = Intent(this, ItemDetailActivity::class.java).apply {
-                putExtra(ItemDetailFragment.ARG_ITEM_ID, channel?.name)
+                val channels = ArrayList<ChannelPlayer>()
+                channel?.name?.let { ChannelPlayer(it, channel.link) }?.let { channels.add(it) }
+                putExtra(PlayerFragment.CHANNELS, channels)
             }
             this.startActivity(intent)
         }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.tm.core.player.PlayerFragment
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
 class ItemDetailActivity : AppCompatActivity() {
@@ -22,12 +23,10 @@ class ItemDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (savedInstanceState == null) {
-            val fragment = ItemDetailFragment().apply {
+            val fragment = PlayerFragment().apply {
                 arguments = Bundle().apply {
-                    putString(
-                        ItemDetailFragment.ARG_ITEM_ID,
-                        intent.getStringExtra(ItemDetailFragment.ARG_ITEM_ID)
-                    )
+                    putParcelableArrayList(PlayerFragment.CHANNELS,
+                        intent.getParcelableArrayListExtra(PlayerFragment.CHANNELS))
                 }
             }
             supportFragmentManager.beginTransaction()
