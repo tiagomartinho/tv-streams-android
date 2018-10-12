@@ -8,9 +8,8 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Toast
 import channels.Channel
-import com.tm.core.player.ChannelPlayer
+import com.tm.core.player.ChannelListBuilder
 import com.tm.core.player.PlayerActivity
 import com.tm.core.player.PlayerFragment
 import kotlinx.android.synthetic.main.activity_channels_list.*
@@ -19,6 +18,7 @@ import user.SharedPreferencesUserRepository
 
 class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFragmentInteractionListener {
 
+    private var isFullScreen: Boolean = false
     private var twoPane: Boolean = false
     private lateinit var channelListFragment: ChannelListFragment
     private var playerFragment: PlayerFragment? = null
@@ -30,11 +30,13 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        playerFragment?.onKeyDown(keyCode)?.let {
-            return if (it) {
-                true
-            } else {
-                super.onKeyDown(keyCode, event)
+        if(isFullScreen) {
+            playerFragment?.onKeyDown(keyCode)?.let {
+                return if (it) {
+                    true
+                } else {
+                    super.onKeyDown(keyCode, event)
+                }
             }
         }
         return super.onKeyDown(keyCode, event)
@@ -62,6 +64,12 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         }
         val userID = SharedPreferencesUserRepository(this).load().id
         val channelRepository = userID?.let { FireStoreChannelRepository(it) }
+        channelRepository?.deleteAll {
+            val big = Channel("A", "B", "Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
+            val sintel = Channel("A", "B", "Sintel", "https://download.blender.org/durian/trailer/sintel_trailer-1080p.mp4")
+            channelRepository.add(arrayListOf(big, sintel)) {
+            }
+        }
         updateChannels(channelRepository)
         channelRepository?.addListener {
             updateChannels(channelRepository)
@@ -76,10 +84,9 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun onListFragmentInteraction(channel: Channel?) {
+        val channelsPlayer = ChannelListBuilder.build(channel, channels)
         if (twoPane) {
-            val channels = ArrayList<ChannelPlayer>()
-            channel?.name?.let { ChannelPlayer(it, channel.link) }?.let { channels.add(it) }
-            playerFragment = PlayerFragment.newInstance(channels)
+            playerFragment = PlayerFragment.newInstance(channelsPlayer)
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.item_detail_container, playerFragment)
@@ -87,15 +94,14 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
             goFullscreen()
         } else {
             val intent = Intent(this, PlayerActivity::class.java).apply {
-                val channels = ArrayList<ChannelPlayer>()
-                channel?.name?.let { ChannelPlayer(it, channel.link) }?.let { channels.add(it) }
-                putExtra(PlayerFragment.CHANNELS, channels)
+                putExtra(PlayerFragment.CHANNELS, channelsPlayer)
             }
             this.startActivity(intent)
         }
     }
 
     private fun goFullscreen() {
+        isFullScreen = true
         supportActionBar?.hide()
         fragment_container.visibility = GONE
         fab.visibility = GONE
@@ -103,6 +109,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     private fun exitFullscreen() {
+        isFullScreen = false
         supportActionBar?.show()
         fragment_container.visibility = VISIBLE
         fab.visibility = VISIBLE
