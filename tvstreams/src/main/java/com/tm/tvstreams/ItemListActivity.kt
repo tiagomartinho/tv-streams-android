@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Toast
 import channels.Channel
 import kotlinx.android.synthetic.main.activity_item_list.*
@@ -48,8 +49,6 @@ class ItemListActivity : AppCompatActivity(), ChannelListFragment.OnListFragment
     override fun onListFragmentInteraction(channel: Channel?) {
         Toast.makeText(applicationContext, "name", Toast.LENGTH_SHORT).show()
         if (twoPane) {
-            fragment_container.visibility = GONE
-            fab.visibility = GONE
             val fragment = ItemDetailFragment().apply {
                 arguments = Bundle().apply {
                     putString(ItemDetailFragment.ARG_ITEM_ID, channel?.name)
@@ -70,11 +69,15 @@ class ItemListActivity : AppCompatActivity(), ChannelListFragment.OnListFragment
 
     private fun goFullscreen() {
         supportActionBar?.hide()
+        fragment_container.visibility = GONE
+        fab.visibility = GONE
         setUiFlags(true)
     }
 
     private fun exitFullscreen() {
         supportActionBar?.show()
+        fragment_container.visibility = VISIBLE
+        fab.visibility = VISIBLE
         setUiFlags(false)
     }
 
@@ -97,5 +100,17 @@ class ItemListActivity : AppCompatActivity(), ChannelListFragment.OnListFragment
         return (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
             or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    }
+
+    private var backButtonCount: Int = 0
+
+    override fun onBackPressed() {
+        if (backButtonCount >= 1) {
+            backButtonCount = 0
+            super.onBackPressed()
+        } else {
+            exitFullscreen()
+            backButtonCount++
+        }
     }
 }
