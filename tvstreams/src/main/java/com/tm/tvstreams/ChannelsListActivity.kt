@@ -74,7 +74,6 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun onListFragmentInteraction(channel: Channel?) {
-        Toast.makeText(applicationContext, "name", Toast.LENGTH_SHORT).show()
         if (twoPane) {
             val fragment = PlayerFragment().apply {
                 arguments = Bundle().apply {
