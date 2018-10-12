@@ -1,6 +1,5 @@
 package com.tm.tvstreams
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -13,18 +12,18 @@ import channels.Channel
 import com.tm.core.player.ChannelPlayer
 import com.tm.core.player.PlayerActivity
 import com.tm.core.player.PlayerFragment
-import kotlinx.android.synthetic.main.activity_item_list.*
-import kotlinx.android.synthetic.main.item_list.*
+import kotlinx.android.synthetic.main.activity_channels_list.*
+import kotlinx.android.synthetic.main.channels_list.*
 import user.SharedPreferencesUserRepository
 
-class ItemListActivity : AppCompatActivity(), ChannelListFragment.OnListFragmentInteractionListener {
+class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFragmentInteractionListener {
 
     private var twoPane: Boolean = false
     private lateinit var channelListFragment: ChannelListFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item_list)
+        setContentView(R.layout.activity_channels_list)
         setSupportActionBar(toolbar)
         toolbar.title = title
         fab.setOnClickListener { view ->

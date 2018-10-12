@@ -16,7 +16,7 @@ class InitialActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent, null)
         } else {
-            val intent = Intent(this, ChannelsActivity::class.java)
+            val intent = Intent(this, ChannelsListActivity::class.java)
             startActivity(intent, null)
         }
     }

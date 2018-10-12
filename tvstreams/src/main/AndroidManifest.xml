@@ -59,7 +59,7 @@
                 android:name=".ChannelsActivity"
                 android:label="@string/title_activity_channels"/>
         <activity
-                android:name=".ItemListActivity"
+                android:name=".ChannelsListActivity"
                 android:label="@string/title_item_list"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -72,11 +72,11 @@
         <activity
                 android:name=".ItemDetailActivity"
                 android:label="@string/title_item_detail"
-                android:parentActivityName=".ItemListActivity"
+                android:parentActivityName=".ChannelsListActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.tm.tvstreams.ItemListActivity"/>
+                    android:value="com.tm.tvstreams.ChannelsListActivity"/>
         </activity>
     </application>
 

@@ -10,7 +10,7 @@
               android:divider="?android:attr/dividerHorizontal"
               android:orientation="horizontal"
               android:showDividers="middle"
-              tools:context=".ItemListActivity">
+              tools:context=".ChannelsListActivity">
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  android:id="@+id/fragment_container"
