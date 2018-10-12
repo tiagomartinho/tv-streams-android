@@ -101,6 +101,7 @@ class PlayerFragment : Fragment(), OnPreparedListener, VideoControlsButtonListen
         val fullScreenListener = FullScreenListener(videoView!!)
         val listener = ControlsVisibilityListener(fullScreenListener, activity!!.window)
         videoControls?.setVisibilityListener(listener)
+        listener.initUiFlags()
     }
 
     override fun onPrepared() {
