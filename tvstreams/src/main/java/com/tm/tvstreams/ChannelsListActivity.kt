@@ -22,6 +22,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     private var twoPane: Boolean = false
     private lateinit var channelListFragment: ChannelListFragment
     private var playerFragment: PlayerFragment? = null
+    private var channels = ArrayList<Channel>()
 
     override fun onDestroy() {
         super.onDestroy()
@@ -70,21 +71,18 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     private fun updateChannels(channelRepository: FireStoreChannelRepository?) {
         channelRepository?.channels {
             channelListFragment?.set(it)
+            channels = it as ArrayList<Channel>
         }
     }
 
     override fun onListFragmentInteraction(channel: Channel?) {
         if (twoPane) {
-            val fragment = PlayerFragment().apply {
-                arguments = Bundle().apply {
-                    val channels = ArrayList<ChannelPlayer>()
-                    channel?.name?.let { ChannelPlayer(it, channel.link) }?.let { channels.add(it) }
-                    putParcelableArrayList(PlayerFragment.CHANNELS, channels)
-                }
-            }
+            val channels = ArrayList<ChannelPlayer>()
+            channel?.name?.let { ChannelPlayer(it, channel.link) }?.let { channels.add(it) }
+            playerFragment = PlayerFragment.newInstance(channels)
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.item_detail_container, fragment)
+                .replace(R.id.item_detail_container, playerFragment)
                 .commit()
             goFullscreen()
         } else {
