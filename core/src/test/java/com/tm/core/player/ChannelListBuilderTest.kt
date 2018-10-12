@@ -7,9 +7,9 @@ import org.junit.Test
 
 class ChannelListBuilderTest {
 
-    val first = Channel("a","b","first","d")
-    val second = Channel("a","b","second","d")
-    val third = Channel("a","b","third","d")
+    private val first = Channel("a","b","first","d")
+    private val second = Channel("a","b","second","d")
+    private val third = Channel("a","b","third","d")
 
     @Test
     fun `empty`() {
@@ -22,15 +22,19 @@ class ChannelListBuilderTest {
     fun `single`() {
         assertEquals(first.channelPlayer(), ChannelListBuilder.build(first, arrayListOf(first)).first())
     }
+
+    @Test
+    fun `double`() {
+        val channels = arrayListOf(first, second)
+        assertEquals(first.channelPlayer(), ChannelListBuilder.build(first, channels).first())
+        assertEquals(second.channelPlayer(), ChannelListBuilder.build(second, channels).first())
+    }
+
+    @Test
+    fun `third`() {
+        val channels = arrayListOf(first, second, third)
+        assertEquals(first.channelPlayer(), ChannelListBuilder.build(first, channels).first())
+        assertEquals(second.channelPlayer(), ChannelListBuilder.build(second, channels).first())
+        assertEquals(third.channelPlayer(), ChannelListBuilder.build(third, channels).first())
+    }
 }
-//    func testDouble() {
-//        XCTAssertEqual([first, second], ChannelListBuilder.build(channel: first, channels: [first, second]))
-//        XCTAssertEqual([second, first], ChannelListBuilder.build(channel: second, channels: [first, second]))
-//    }
-//
-//    func testThird() {
-//        let channels = [first, second, third]
-//        XCTAssertEqual([first, second, third], ChannelListBuilder.build(channel: first, channels: channels))
-//        XCTAssertEqual([second, third, first], ChannelListBuilder.build(channel: second, channels: channels))
-//        XCTAssertEqual([third, first, second], ChannelListBuilder.build(channel: third, channels: channels))
-//    }
