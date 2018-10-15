@@ -11,6 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
+
         <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -23,7 +24,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <include layout="@layout/channels_list"/>
+
+        <include
+                android:id="@+id/channels_list"
+                android:visibility="gone"
+                layout="@layout/channels_list"/>
+
+        <include
+                android:id="@+id/empty_channels"
+                android:visibility="gone"
+                layout="@layout/empty_channels"/>
+
+        <ProgressBar
+                android:visibility="gone"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/channels_progress_bar"/>
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton

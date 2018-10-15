@@ -6,8 +6,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.KeyEvent
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import channels.Channel
 import com.tm.core.player.ChannelListBuilder
 import com.tm.core.player.PlayerActivity
@@ -16,17 +15,19 @@ import kotlinx.android.synthetic.main.activity_channels_list.*
 import kotlinx.android.synthetic.main.channels_list.*
 import user.SharedPreferencesUserRepository
 
-class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFragmentInteractionListener {
+class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFragmentInteractionListener,
+    ChannelListView {
 
     private var isFullScreen: Boolean = false
     private var twoPane: Boolean = false
     private lateinit var channelListFragment: ChannelListFragment
     private var playerFragment: PlayerFragment? = null
     private var channels = ArrayList<Channel>()
+    private val presenter = ChannelListPresenter(this)
 
     override fun onDestroy() {
         super.onDestroy()
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+        window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_VISIBLE
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -74,13 +75,31 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         channelRepository?.addListener {
             updateChannels(channelRepository)
         }
+        presenter.start()
     }
 
     private fun updateChannels(channelRepository: FireStoreChannelRepository?) {
         channelRepository?.channels {
+            presenter.setChannels(ArrayList(it))
             channelListFragment?.set(it)
             channels = it as ArrayList<Channel>
         }
+    }
+
+    override fun showLoadingView() {
+        channels_progress_bar.visibility = VISIBLE
+    }
+
+    override fun hideLoadingView() {
+        channels_progress_bar.visibility = GONE
+    }
+
+    override fun showEmptyChannelsView() {
+        empty_channels.visibility = VISIBLE
+    }
+
+    override fun showChannelsView(channels: ArrayList<Channel>) {
+        channels_list.visibility = VISIBLE
     }
 
     override fun onListFragmentInteraction(channel: Channel?) {
@@ -121,18 +140,18 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     private fun getFullscreenUiFlags(): Int {
-        return (View.SYSTEM_UI_FLAG_LOW_PROFILE
-            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_FULLSCREEN
-            or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        return (SYSTEM_UI_FLAG_LOW_PROFILE
+            or SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            or SYSTEM_UI_FLAG_FULLSCREEN
+            or SYSTEM_UI_FLAG_LAYOUT_STABLE
+            or SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     }
 
     private fun getStableUiFlags(): Int {
-        return (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        return (SYSTEM_UI_FLAG_LAYOUT_STABLE
+            or SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     }
 
     private var backButtonCount: Int = 0
