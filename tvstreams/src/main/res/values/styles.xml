@@ -12,16 +12,19 @@
     </style>
 
     <style name="Widget.Button.Custom" parent="android:Widget.Button">
-        <item name="android:textColor">#cccccc</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:colorFocusedHighlight">@color/colorAccent</item>
     </style>
 
     <style name="Widget.ActionButton.Custom" parent="android:Widget.ActionButton">
-        <item name="android:textColor">#cccccc</item>
-        <item name="android:tint">#cccccc</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:tint">@color/white</item>
     </style>
 
     <style name="Widget.TextView.Custom" parent="android:Widget.TextView">
-        <item name="android:textColor">#cccccc</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
