@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.channels_list.*
 import kotlinx.android.synthetic.main.empty_channels.*
 import user.SharedPreferencesUserRepository
 import android.support.v7.app.AlertDialog
+import android.support.v7.view.ContextThemeWrapper
 
 class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFragmentInteractionListener,
     ChannelListView {
@@ -85,8 +86,9 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_delete_all -> {
-            AlertDialog.Builder(this)
+            AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
                 .setTitle("Delete All Channels")
+
                 .setMessage("Are you sure you want to delete all channels? Deleted channels cannot be recovered")
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton("Delete")
@@ -161,7 +163,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     private fun goFullscreen() {
         isFullScreen = true
         supportActionBar?.hide()
-        fragment_container.visibility = GONE
+        channels_list_view.visibility = GONE
         fab.visibility = GONE
         setUiFlags(true)
     }
@@ -169,7 +171,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     private fun exitFullscreen() {
         isFullScreen = false
         supportActionBar?.show()
-        fragment_container.visibility = VISIBLE
+        channels_list_view.visibility = VISIBLE
         fab.visibility = VISIBLE
         setUiFlags(false)
     }
