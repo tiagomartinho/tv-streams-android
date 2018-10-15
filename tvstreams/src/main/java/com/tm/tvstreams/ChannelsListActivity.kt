@@ -56,6 +56,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         setSupportActionBar(toolbar)
         toolbar.title = title
         fab.setOnClickListener {
+            Snackbar.make(it, "Hello!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
         }
         twoPane = item_detail_container != null
         if (findViewById<View>(R.id.fragment_container) != null) {
@@ -125,13 +126,14 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         }
     }
 
-    fun addSamplePlaylist() {
+    fun addSamplePlaylist(): Boolean {
         val big = Channel("A", "B", "Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
         val sintel =
             Channel("A", "B", "Sintel", "https://download.blender.org/durian/trailer/sintel_trailer-1080p.mp4")
         val samplePlaylist = arrayListOf(big, sintel)
         channelRepository?.add(samplePlaylist) {}
         presenter.setChannels(samplePlaylist)
+        return true
     }
 
     override fun showChannelsView(channels: ArrayList<Channel>) {
