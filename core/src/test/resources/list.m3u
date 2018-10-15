@@ -1,0 +1,49 @@
+IMPORTANT NOTE:
+
+All links that are in my channels list are not of my authorship, but the hours of research and organization of the lists, this merit is all mine!
+
+I recently discovered that a certain member copied all lists created by me, and himself created a XBMC/KODI service and provided
+to other members, and the worst, he has removed the credits (REDENEOBUX.COM) that was on top of the list. You must have a lot of knowledge and spend many hours to know where to get these new streams.
+
+I do this freely and do not charge anything, because I'm an honest person, but unfortunately there are bad people who take advantage of our generosity to be recognized, when in reality they just do copy/paste from other users.
+
+If this problem continues, I will stop providing lists and dedicate myself only to repositories and addons for XBMC and KODI.
+
+Therefore, if you are doing the same, please, at least put the credits (REDENEOBUX.COM).
+
+############### GUARDE COMO FICHEIRO .m3u ###############
+
+#EXTM3U
+#EXTINF:-1,[COLOR blue][I][B]--- 21-11-2015 ---[/B][/I][/COLOR]
+#EXTINF:-1, [COLOR green] REDENEOBUX.COM -- 21-11-2015 --[/COLOR]
+
+#EXTINF:-1,[COLOR yellow]CANAIS TEMPORARIOS[/COLOR]
+http://0.0.0.0:1234
+
+#EXTINF:-1 tvg-id="0500" group-title="PortuguÃªs" tvg-logo="0500.png",[COLOR orange] RTP 1[/COLOR]
+http://wownet.ro/str/0500.m3u8|X-Forwarded-For=81.17.18.50
+
+#EXTINF:0,Channel9Mel
+https://9nowlivehls-i.akamaihd.net/hls/live/226644/ch9melprd/master.m3u8
+
+#EXTINF:-1 tvg-id="RTP 1" tvg-logo="RTP1.png" group-title="Canais Portugal",[I][B]RTP 1[/B][/I]
+http://rtp-pull-live.hls.adaptive.level3.net/liverepeater/smil:rtp1.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-logo="" group-title="PORTUGAL", [I][B]TVI REALITY (A QUINTA)[/B][/I] opt2
+rtmp://62.210.88.232:1935/liverepeat?wmsAuthSign=c2VydmVyX3RpbWU9MTAvNi8yMDE1IDI6MDc6MzAgUE0maGFzaF92YWx1ZT1tSEpPOXptWGRwZDFjTzVzd0tFQWtnPT0mdmFsaWRtaW51dGVzPTMwMA==/TVIReality24 swfUrl=http://direct-stream.biz/jwplayer/jwplayer.flash.swf live=1 pageUrl=http://direct-stream.biz/embednews.php?c=TVIReality24&vw=550&vh=430
+
+#EXTINF:-1 tvg-logo="http://www.thelogodb.com/images/media/logo/xqyprw1436887096.png" group-title="Desporto", [I][B]SPORT TV 1 SD[/B][/I]
+rtmpe://r.livecast.cc/rs/share/live1-rbi6c swfUrl=http://sharecast.to/player/jwplayer.flash.swf pageUrl=http://sharecast.to
+
+
+#EXTINF:-1, [COLOR red]OFF[/COLOR]
+
+#EXTINF:-1 tvg-id="Euronews.nws" tvg-logo="Euronews.png" group-title=PORTUGAL, EURONEWS
+rtsp://ewns-hls-b-stream.hexaglobe.net/rtpeuronewslive/pt_vidan750_rtp.sdp
+
+#EXTINF:0,Radio Antena 1
+mms://195.245.168.21/antena1
+
+http://devstreaming.apple.com/videos/wwdc/2014/230xxe44dq1m2da/230/230_hd_making_a_great_first_impression_with_strong_onboarding_design.mov
+
+http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4
