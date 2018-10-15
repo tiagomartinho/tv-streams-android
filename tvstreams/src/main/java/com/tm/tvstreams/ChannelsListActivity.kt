@@ -56,7 +56,6 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         setSupportActionBar(toolbar)
         toolbar.title = title
         fab.setOnClickListener {
-            Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
         }
         twoPane = item_detail_container != null
         if (findViewById<View>(R.id.fragment_container) != null) {
@@ -120,21 +119,24 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
 
     override fun showEmptyChannelsView() {
         empty_channels.visibility = VISIBLE
+        add_sample_playlist.visibility = VISIBLE
         add_sample_playlist.setOnClickListener {
-            Log.d("A", "AAAAA")
-            Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-            val big = Channel("A", "B", "Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
-            val sintel =
-                Channel("A", "B", "Sintel", "https://download.blender.org/durian/trailer/sintel_trailer-1080p.mp4")
-            val samplePlaylist = arrayListOf(big, sintel)
-            channelRepository?.add(samplePlaylist) {
-            }
-            showChannelsView(samplePlaylist)
+            addSamplePlaylist()
         }
+    }
+
+    fun addSamplePlaylist() {
+        val big = Channel("A", "B", "Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
+        val sintel =
+            Channel("A", "B", "Sintel", "https://download.blender.org/durian/trailer/sintel_trailer-1080p.mp4")
+        val samplePlaylist = arrayListOf(big, sintel)
+        channelRepository?.add(samplePlaylist) {}
+        presenter.setChannels(samplePlaylist)
     }
 
     override fun showChannelsView(channels: ArrayList<Channel>) {
         empty_channels.visibility = GONE
+        add_sample_playlist.visibility = GONE
     }
 
     override fun onListFragmentInteraction(channel: Channel?) {

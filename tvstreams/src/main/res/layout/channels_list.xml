@@ -25,6 +25,17 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"/>
 
+    <Button
+            android:visibility="gone"
+            android:id="@+id/add_sample_playlist"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="100dp"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/add_sample_playlist"/>
+
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
