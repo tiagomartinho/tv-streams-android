@@ -48,10 +48,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         setContentView(R.layout.activity_channels_list)
         setSupportActionBar(toolbar)
         toolbar.title = title
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        fab.setOnClickListener { }
         twoPane = item_detail_container != null
         if (findViewById<View>(R.id.fragment_container) != null) {
             if (savedInstanceState != null) {
