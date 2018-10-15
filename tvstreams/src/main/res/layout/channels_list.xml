@@ -5,9 +5,12 @@
              xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
+            android:layout_gravity="center"
             android:id="@+id/empty_channels"
             android:visibility="gone"
-            layout="@layout/empty_channels"/>
+            layout="@layout/empty_channels"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
 
     <ProgressBar
             android:visibility="gone"
