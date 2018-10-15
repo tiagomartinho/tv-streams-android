@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_channels_list.*
 import kotlinx.android.synthetic.main.channels_list.*
 import kotlinx.android.synthetic.main.empty_channels.*
 import user.SharedPreferencesUserRepository
+import android.support.v7.app.AlertDialog
 
 class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFragmentInteractionListener,
     ChannelListView {
@@ -84,6 +85,16 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_delete_all -> {
+            AlertDialog.Builder(this)
+                .setTitle("Delete All Channels")
+                .setMessage("Are you sure you want to delete all channels? Deleted channels cannot be recovered")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Delete")
+                    { _, _ ->
+                        channelRepository?.deleteAll {}
+                        presenter.setChannels(arrayListOf())
+                    }
+                .setNegativeButton("Cancel", null).show()
             true
         }
         else -> {
