@@ -99,7 +99,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun showChannelsView(channels: ArrayList<Channel>) {
-        channels_list.visibility = VISIBLE
+        empty_channels.visibility = GONE
     }
 
     override fun onListFragmentInteraction(channel: Channel?) {

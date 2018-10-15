@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/fragment_container"
              android:layout_width="match_parent"
-             android:layout_height="match_parent" />
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+            android:id="@+id/empty_channels"
+            android:visibility="gone"
+            layout="@layout/empty_channels"/>
+
+    <ProgressBar
+            android:visibility="gone"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/channels_progress_bar"/>
+
+    <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:focusable="true"
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:tint="@android:color/white"/>
+</FrameLayout>
+
