@@ -4,15 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.View.*
 import channels.Channel
 import com.tm.core.player.ChannelListBuilder
 import com.tm.core.player.PlayerActivity
 import com.tm.core.player.PlayerFragment
+import com.tm.tvstreams.R.id.add_sample_playlist
 import kotlinx.android.synthetic.main.activity_channels_list.*
 import kotlinx.android.synthetic.main.channels_list.*
+import kotlinx.android.synthetic.main.empty_channels.*
 import user.SharedPreferencesUserRepository
 
 class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFragmentInteractionListener,
@@ -21,6 +26,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     private var isFullScreen: Boolean = false
     private var twoPane: Boolean = false
     private lateinit var channelListFragment: ChannelListFragment
+    private var channelRepository: FireStoreChannelRepository? = null
     private var playerFragment: PlayerFragment? = null
     private var channels = ArrayList<Channel>()
     private val presenter = ChannelListPresenter(this)
@@ -31,7 +37,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if(isFullScreen) {
+        if (isFullScreen) {
             playerFragment?.onKeyDown(keyCode)?.let {
                 return if (it) {
                     true
@@ -48,7 +54,9 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         setContentView(R.layout.activity_channels_list)
         setSupportActionBar(toolbar)
         toolbar.title = title
-        fab.setOnClickListener { }
+        fab.setOnClickListener {
+            Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+        }
         twoPane = item_detail_container != null
         if (findViewById<View>(R.id.fragment_container) != null) {
             if (savedInstanceState != null) {
@@ -61,18 +69,26 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
                 .commit()
         }
         val userID = SharedPreferencesUserRepository(this).load().id
-        val channelRepository = userID?.let { FireStoreChannelRepository(it) }
-        channelRepository?.deleteAll { it ->
-//            val big = Channel("A", "B", "Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
-//            val sintel = Channel("A", "B", "Sintel", "https://download.blender.org/durian/trailer/sintel_trailer-1080p.mp4")
-//            channelRepository.add(arrayListOf(big, sintel)) {
-//            }
-        }
+        channelRepository = userID?.let { FireStoreChannelRepository(it) }
         updateChannels(channelRepository)
         channelRepository?.addListener {
             updateChannels(channelRepository)
         }
         presenter.start()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_channels_list, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_delete_all -> {
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     private fun updateChannels(channelRepository: FireStoreChannelRepository?) {
@@ -93,6 +109,17 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
 
     override fun showEmptyChannelsView() {
         empty_channels.visibility = VISIBLE
+        add_sample_playlist.setOnClickListener {
+            Log.d("A", "AAAAA")
+            Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+            val big = Channel("A", "B", "Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
+            val sintel =
+                Channel("A", "B", "Sintel", "https://download.blender.org/durian/trailer/sintel_trailer-1080p.mp4")
+            val samplePlaylist = arrayListOf(big, sintel)
+            channelRepository?.add(samplePlaylist) {
+            }
+            showChannelsView(samplePlaylist)
+        }
     }
 
     override fun showChannelsView(channels: ArrayList<Channel>) {
