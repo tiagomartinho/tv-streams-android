@@ -10,4 +10,8 @@
     <string name="import_channels">You can import a list of channels using a m3u8 playlist</string>
     <string name="add_sample_playlist">Add Sample Playlist</string>
     <string name="action_delete">Delete</string>
+    <string name="playlist">Playlist</string>
+    <string name="link">Link</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>
