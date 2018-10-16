@@ -44,7 +44,6 @@
 
         <Button
                 android:background="@drawable/negative_button"
-                style="?android:attr/buttonBarButtonStyle"
                 android:focusable="true"
                 android:layout_weight="1"
                 android:padding="15dp"
@@ -58,7 +57,6 @@
 
         <Button
                 android:background="@drawable/button"
-                style="?android:attr/buttonBarButtonStyle"
                 android:focusable="true"
                 android:layout_weight="1"
                 android:padding="15dp"
