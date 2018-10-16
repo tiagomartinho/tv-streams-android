@@ -1,6 +1,8 @@
 package com.tm.tvstreams
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import user.SharedPreferencesUserRepository
@@ -13,11 +15,19 @@ class InitialActivity : AppCompatActivity() {
         val userRepository = SharedPreferencesUserRepository(this)
         val user = userRepository.load()
         if (user.id.isNullOrEmpty()) {
-            val intent = Intent(this, LoginActivity::class.java)
+            val clazz = LoginActivity::class.java
+            val intent = Intent(this, clazz)
+            intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent, null)
+            finish()
         } else {
-            val intent = Intent(this, ChannelsListActivity::class.java)
+            val clazz = ChannelsListActivity::class.java
+            val intent = Intent(this, clazz)
+            intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent, null)
+            finish()
         }
     }
 }
