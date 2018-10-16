@@ -10,14 +10,15 @@ class PlaylistParser {
                     val splitLine = line.split(",")
                     val streamName = NameParser.extract(splitLine.first())
                     val link = LinkParser.extractLink(splitLine.last())
-                    channels.add(Channel(source, "b", streamName, link))
+                    channels.add(Channel(source, splitLine.first(), streamName, link))
                 } else {
                     if (NameParser.isChannel(line)) {
-                        name = NameParser.extract(line)
+                        name = line
                     }
                     if (LinkParser.isLinkValid(line)) {
                         val link = LinkParser.extractLink(line)
-                        channels.add(Channel(source, "b", name ?: link, link))
+                        val extractedName = NameParser.extract(name ?: link)
+                        channels.add(Channel(source, name ?: "", extractedName, link))
                         name = null
                     }
                 }

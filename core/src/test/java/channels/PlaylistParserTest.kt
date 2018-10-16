@@ -6,6 +6,16 @@ import org.junit.Test
 class PlaylistParserTest {
 
     @Test
+    fun save_metadata() {
+        val content = PlaylistParserTest::class.java.getResource("/list.m3u").readText()
+        val metadata = "#EXTINF:-1 tvg-id=\"0500\" group-title=\"PortuguÃªs\" tvg-logo=\"0500.png\",[COLOR orange] RTP 1[/COLOR]"
+
+        val channels = PlaylistParser.parse("", content)
+
+        assertEquals(metadata, channels[1].metadata)
+    }
+
+    @Test
     fun save_source() {
         val content = PlaylistParserTest::class.java.getResource("/list.m3u").readText()
         val source = "some source"
