@@ -3,7 +3,7 @@ package channels
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-class PlaylistRequest {
+class PlaylistService {
     companion object {
         fun get(url: String): String {
             val client = OkHttpClient()
