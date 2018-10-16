@@ -57,7 +57,8 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         setSupportActionBar(toolbar)
         toolbar.title = title
         fab.setOnClickListener {
-            Snackbar.make(it, "Hello!", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+            val intent = Intent(this, AddPlaylistActivity::class.java)
+            this.startActivity(intent)
         }
         twoPane = item_detail_container != null
         if (findViewById<View>(R.id.fragment_container) != null) {

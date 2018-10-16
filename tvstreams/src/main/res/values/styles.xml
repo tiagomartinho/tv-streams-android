@@ -22,8 +22,8 @@
     <style name="Widget.Button.Custom" parent="android:Widget.Button">
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:focusable">true</item>
-        <item name="android:background">@color/colorAccent</item>
-        <item name="android:colorFocusedHighlight">@color/colorAccent</item>
+        <item name="android:background">@drawable/button</item>
+        <item name="android:colorFocusedHighlight">@drawable/button</item>
     </style>
 
     <style name="Widget.ActionButton.Custom" parent="android:Widget.ActionButton">

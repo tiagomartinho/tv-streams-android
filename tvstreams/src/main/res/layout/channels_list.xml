@@ -46,6 +46,7 @@
             android:layout_margin="@dimen/fab_margin"
             android:focusable="true"
             app:srcCompat="@android:drawable/ic_input_add"
-            android:tint="@android:color/white"/>
+            android:tint="@android:color/white"
+            android:background="@drawable/button"/>
 </FrameLayout>
 
