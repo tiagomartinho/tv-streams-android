@@ -1,0 +1,349 @@
+#EXTM3U
+
+#EXTINF:-1,ZNS TV (Bahamas)
+http://xznsbahamasx.api.channel.livestream.com/3.0/playlist.m3u8
+
+#EXTINF:-1,CineStream TV HD (Barbados)
+http://68.71.42.179/live/livestream1/playlist.m3u8
+
+#EXTINF:-1,Vibz FM TV (Barbados)
+http://cdn6.iviplanet.com:1935/VIBZFMTV/myStream.sdp/playlist.m3u8
+
+#EXTINF:-1,Radio y TV Popular (Bolivia)
+http://iphone-streaming.ustream.tv/uhls/18680628/streams/live/iphone/playlist.m3u8
+
+#EXTINF:-1,Red Pat (Bolivia)
+http://www.server.tevemi.com:1935/8092/8092/playlist.m3u8
+
+#EXTINF:-1,ATB (Bolivia)
+http://arcast.tv:1935/envivo/atb/chunklist_w2112145852.m3u8
+
+#EXTINF:-1,Red Uno (Bolivia)
+http://iphone-streaming.ustream.tv/ustreamVideo/10248660/streams/live/playlist.m3u8
+
+#EXTINF:-1,Tigo Music (Colombia)
+http://hlslive.lcdn.une.net.co:80/v1/AUTH_HLSLIVE/MESH/tu1_1.m3u8
+
+#EXTINF:-1,Mi Musica (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/MMHD/tu1_1.m3u8
+
+#EXTINF:-1,TV Polanco (Colombia)
+http://186.155.200.118:1935/live/ColombiasuMusica/chunklist.m3u8
+
+#EXTINF:-1,Cantinazo TV (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/CANT/tu1_1.m3u8
+
+#EXTINF:-1,VMas TV (Colombia)
+http://hlslive.lcdn.une.net.co:80/v1/AUTH_HLSLIVE/VMAS/tu1_1.m3u8
+
+#EXTINF:-1,Telemedellin (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/TMED/tu1_1.m3u8
+
+#EXTINF:-1,Cable Noticias (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/CNOT/tu1_1.m3u8
+
+#EXTINF:-1,Tele Vid (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/TVID/tu1_1.m3u8
+
+#EXTINF:-1,Cosmovision (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/COSM/tu1_1.m3u8
+
+#EXTINF:-1,Canal Capital (Colombia)
+http://cdns840stu1010.multistream.net/canalcapitallive/amlst:live/master.m3u8
+
+#EXTINF:-1,Teleantioquia (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/TANT/tu1_1.m3u8
+
+#EXTINF:-1,Telecaribe (Colombia)
+http://cdns840stu1010.multistream.net/telecaribelive/amlst:live/master.m3u8
+
+#EXTINF:-1,Canal U (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/CANU/tu1_1.m3u8
+
+#EXTINF:-1,Canal Tro (Colombia)
+http://cdns724ste1010.multistream.net:80/canaltro2live/amlst:live/livestream.m3u8
+
+#EXTINF:-1,Caracol TV (Colombia)
+http://208.75.225.28:1935/live/cgsvrdsgmth/chunklist.m3u8
+
+#EXTINF:-1,Une TV Manizales (Colombia)
+http://lcdn.une.net.co/v1/AUTH_HLSLIVE/UNEZ/tu1_1.m3u8
+
+#EXTINF:-1,Life Design HD (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/LDTV/tu1_1.m3u8
+
+#EXTINF:-1,Trendy (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/TREN/tu1_1.m3u8
+
+#EXTINF:-1,Canal Antiestres (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/ANTI/tu1_1.m3u8
+
+#EXTINF:-1,TV Agro (Colombia)
+http://hlslive.lcdn.une.net.co:80/v1/AUTH_HLSLIVE/TVAG/tu1_1.m3u8
+
+#EXTINF:-1,Telecafe (Colombia)
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/TCAF/tu1_1.m3u8
+
+#EXTINF:-1,Tele Amiga (Colombia)
+http://cdns840stu1010.multistream.net/teleamigalive/amlst:live/canalesdelpueblotv.m3u8
+
+#EXTINF:-1,Hogar TV (Colombia)
+http://xhogartvx.api.channel.livestream.com/3.0/playlist.m3u8
+
+#EXTINF:-1,Alcance TV (Colombia)
+http://hd.worldkast.com/8232/smil:8232.smil/chunklist_w1282066740_b1000000.m3u8
+
+#EXTINF:-1,El Tiempo (Colombia)
+http://hlslive.lcdn.une.net.co:80/v1/AUTH_HLSLIVE/TIEM/tu1_1.m3u8
+
+#EXTINF:-1,Win Sports (Colombia)
+http://lcdn.une.net.co/v1/AUTH_HLSLIVE/0001/tu1/yt1_1.m3u8
+
+#EXTINF:-1,Colosal Stereo (Costa Rica)
+http://k3.usastreams.com:1935/colosaltv1/colosaltv1/playlist.m3u8
+
+#EXTINF:-1,Enlace Juvenil (Costa Rica)
+http://acaooyalahd2-lh.akamaihd.net/i/TBN08_delivery@186246/master.m3u8
+
+#EXTINF:-1,Enlace TV (Costa Rica)
+http://acaooyalahd2-lh.akamaihd.net/i/TBN07_delivery@186245/index_1728_av-b.m3u8
+
+#EXTINF:-1,CB24 (Costa Rica)
+http://ipointcablertmp.tulix.tv:1935/cb24stream/myStream.sdp/playlist.m3u8
+
+#EXTINF:-1,TV Uno (Costa Rica)
+http://k3.usastreams.com:1935/tvuno1/tvuno1/playlist.m3u8
+
+#EXTINF:-1,Canal 2 (Costa Rica)
+http://slrp.sambavideos.sambatech.com/radio/cdrtv02_00a98dc9038dd534e7a2d4aea624129a/livestream/playlist.m3u8
+
+#EXTINF:-1,Canal 11 (Costa Rica)
+http://liveabr2.sambatech.com.br/abr/repretelcanal11_d3adab9cf37b5e4ed6f823e031229710/livestream.m3u8
+
+#EXTINF:-1,Canal 13 Sinart (Costa Rica)
+http://stream01.cyberfuel.com/SinartCanal13/livestream/canaltrececostarica.m3u8
+
+#EXTINF:-1,SMO TV (Costa Rica)
+http://199.217.118.90:1935/smotv/stream/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="http://www.lyngsat-logo.com/logo/tv/cc/cubavision_internacional.png",Cubavision (Cuba)
+http://195.12.170.150:8000/play/escubavision
+
+#EXTINF:-1,TV Nacional de Ecuador
+http://xtvncanalecx.api.channel.livestream.com/3.0/playlist.m3u8
+
+#EXTINF:-1,Ecuador TV
+http://ectvlive-lh.akamaihd.net/i/0fdvimp2k_1@347325/index_1_av-p.m3u8?sd=10&rebase=on
+
+#EXTINF:-1,UCSG TV (Ecuador)
+http://ecuastream.net:1935/UCSGHQ/UCSGHQ/playlist.m3u8
+
+#EXTINF:-1,TVS (Ecuador)
+http://181.198.10.23:1935/live/smil:myStream.smil/chunklist_w57598430_b1396000_sleng.m3u8
+
+#EXTINF:-1,Sol TV (Ecuador)
+http://iphone-streaming.ustream.tv/uhls/8905548/streams/live/iphone/playlist.m3u8
+
+#EXTINF:-1,TC Mi Canal (Ecuador)
+http://50.97.142.130/hls2/amlst:10001_ios/chunklist_b1396000.m3u8
+
+#EXTINF:-1,Ecuavisa (Ecuador)
+http://iphone-streaming.ustream.tv/ustreamVideo/21717464/streams/live/playlist.m3u8
+
+#EXTINF:-1,KBS World Latino (Ecuador)
+https://www.youtube.com/embed/B9zFbRYW_sk?rel=0&autoplay=1
+
+#EXTINF:-1,WOW TV (El Salvador)
+http://cdn.elsalvadordigital.com:1935/wowtv/wowtv/playlist.m3u8
+
+#EXTINF:-1,TVO (El Salvador)
+http://xtvocanal23x.api.channel.livestream.com/3.0/playlist.m3u8
+
+#EXTINF:-1,Telemas (El Salvador)
+http://cdn.elsalvadordigital.com:1935/telemas/telemas/chunklist_w180362218.m3u8
+
+#EXTINF:-1,Gentevé (El Salvador)
+http://cdns840stu1010.multistream.net/genteve.c29.svlive/amlst:live/chunklist_b500000.m3u8
+
+#EXTINF:-1,TV ES (El Salvador)
+http://198.24.135.42/canal10/canal10/chunklist_w1583899357.m3u8
+
+#EXTINF:-1,Canal 9 (El Salvador)
+http://198.24.135.42/canal9/canal9/playlist.m3u8
+
+#EXTINF:-1,Canal 15 (El Salvador)
+http://198.24.135.42/canal15/canal15/playlist.m3u8
+
+#EXTINF:-1,CANAL 17 (El Salvador)
+http://streamingcontrol.com:1935/tbbcentral/l1v1.sdp/playlist.m3u8
+
+#EXTINF:-1,Canal 21 (El Salvador)
+http://xgrupomegavisionx.api.channel.livestream.com/3.0/playlist.m3u8
+
+#EXTINF:-1,TVX (El Salvador)
+http://cdn.elsalvadordigital.com:1935/canal23/canal23/chunklist_w1484468436.m3u8
+
+#EXTINF:-1,TU TV 11 (El Salvador)
+http://198.24.135.42/canal11/canal11/playlist.m3u8
+
+#EXTINF:-1,KW (El Salvador)
+http://iphone-streaming.ustream.tv/uhls/11479929/streams/live/iphone/playlist.m3u8
+
+#EXTINF:-1,Canal 33 (El Salvador)
+http://iphone-streaming.ustream.tv/ustreamVideo/4811076/streams/live/playlist.m3u8
+
+#EXTINF:-1,GBN (Grenada)
+http://138.128.175.75:8080/gbnlive/livestream/index.m3u8
+
+#EXTINF:-1,MFM TV (Guadeloupe)
+http://ec.playmedia.fr/mfmtv/live/playlist.m3u8
+
+#EXTINF:-1,TV Maya (Guatemala)
+http://iphone-streaming.ustream.tv/uhls/9556054/streams/live/iphone/playlist.m3u8
+
+#EXTINF:-1,Campus TV (Guatemala)
+http://xcampushdx.api.channel.livestream.com/3.0/playlist.m3u8
+
+#EXTINF:-1,Kajou TV (Haiti)
+http://edge2.tikilive.com:1935/unrestricted_tikilive/39856/amlst:51pE0kbV9rOb/chunklist_w21866307_b978566.m3u8
+
+#EXTINF:-1,ReTV (Jamaica)
+http://univ-i.akamaihd.net/hls/live/222631/group1/playlist.m3u8
+
+#EXTINF:-1,Mello TV (Jamaica)
+http://mellotvnew.tulix.tv/live/smil:mellotv.smil/chunklist_w1010732594_b614000_sleng.m3u8
+
+#EXTINF:-1,TVJ (Jamaica)
+http://univ-i.akamaihd.net/hls/live/222629/HLS11/chunklist.m3u8
+
+#EXTINF:-1,TV Bonaire (Netherlands Antilles)
+http://panchito13.flashmediacast.com:2087/live/livestream/playlist.m3u8
+
+#EXTINF:-1,CB24 INT. (Nicaragua)
+http://ipointcablertmp.tulix.tv:1935/cb24stream/myStream.sdp/playlist.m3u8
+
+#EXTINF:-1,Canal 2 Int. (Nicaragua)
+http://162.244.81.181:1935/live//Stream1/playlist.m3u8
+
+#EXTINF:-1,Canal 13 (Nicaragua)
+http://iphone-streaming.ustream.tv/uhls/13870671/streams/live/iphone/playlist.m3u8
+
+#EXTINF:-1,CB24 Centro America (Panama)
+http://ipointcablertmp.tulix.tv:1935/cb24stream/myStream.sdp/playlist.m3u8
+
+#EXTINF:-1,TVN (Panama)
+http://kalseglive-a.akamaihd.net/dc-1/m/ny-live-publish101/kLive/smil:0_6gox09ym_all.smil/32/chunklist.m3u8
+
+#EXTINF:-1 tvg-logo="http://www.lyngsat-logo.com/logo/tv/ss/ser_tv_pa.png",SER TV (Panama)
+rtmp://216.224.177.132/live/sertv
+
+#EXTINF:-1,TV Blast (Panama)
+http://www.streaming507.com:1935/TVBlast/TVBlast/playlist.m3u8
+
+#EXTINF:-1,Canal 13 (Paraguay)
+http://70.36.100.38:1935/live/canal13_lq.stream/playlist.m3u8
+
+#EXTINF:-1,Mega TV (Peru)
+http://hostreamperu.pe:1935/megatv/megatv/chunklist_w544623046.m3u8
+
+#EXTINF:-1,Willax (Peru)
+http://movil.mediastream.pe/vv_willax/livestream/playlist.m3u8?wowzasessionid=1704628461
+
+#EXTINF:-1,TV Mas (Peru)
+http://50.7.98.234:1935/rtv/videortv/playlist.m3u8
+
+#EXTINF:-1,Plus HD TV (Peru)
+http://b36642-p30-hb.2.cdn.telefonica.com/_36642/ch01/2.m3u8
+
+#EXTINF:-1,Latina TV (Peru)
+http://ooyalahd2-f.akamaihd.net/i/latinlima01_delivery@42383/index_564_av-p.m3u8?sd=10&rebase=on
+
+#EXTINF:-1,CMD HD (Peru)
+http://b36642-p30-hb.2.cdn.telefonica.com/_36642/ch07/3.m3u8
+
+#EXTINF:-1,UCV Satelital (Peru)
+http://wowzacontrol.net:1935/8050/8050/chunklist_w1821445667.m3u8
+
+#EXTINF:-1,America Noticias (Peru)
+http://iphone-streaming.ustream.tv/uhls/14034121/streams/live/iphone/playlist.m3u8
+
+#EXTINF:-1,Unitel TV (Peru)
+http://cdn2.ujjina.com:554/iptvunitel/liveuniteltv/playlist.m3u8
+
+#EXTINF:-1,Pax (Peru)
+http://38.105.14.194/paxtv/smil:PC.smil/chunklist_w1983738023_b1735000.m3u8
+
+#EXTINF:-1,MN (Peru)
+http://b36642-p30-hb.2.cdn.telefonica.com/_36642/ch06/1.m3u8
+
+#EXTINF:-1,GolPeru
+http://b36642-p30-hb.2.cdn.telefonica.com/_36642/ch08/3.m3u8
+
+#EXTINF:-1,Sol TV (Peru)
+http://wowzacontrol.net:1935/vivo21/vivo21/playlist.m3u8
+
+#EXTINF:-1,Musica Peru
+http://b36642-p30-hb.2.cdn.telefonica.com/_36642/ch02/2.m3u8
+
+#EXTINF:-1,CTNi (Puerto Rico)
+http://184.164.158.202:1936/48/smil:48.smil/playlist.m3u8
+
+#EXTINF:-1,Tele Antillas HD (Rep. Dominicana)
+http://mek4.mekstream.com/teleantillas/live3/playlist.m3u8
+
+#EXTINF:-1,Telesistema (Rep. Dominicana)
+http://mek4.mekstream.com/telesistema/smil:telesistema.smil/chunklist_w965232534_b464000.m3u8
+
+#EXTINF:-1,Canal America (Rep. Dominicana)
+http://newyorkstream.ddns.net:1935/live/myStream/playlist.m3u8
+
+#EXTINF:-1,Telenord 8 (Rep. Dominicana)
+http://mek2.mekstream.com:1935/telenord8/live2/telenord8.m3u8
+
+#EXTINF:-1,Telenord 10 (Rep. Dominicana)
+http://mek2.mekstream.com:1935/telenord10/live2/telenord10.m3u8
+
+#EXTINF:-1,Telenord 12 (Rep. Dominicana)
+http://206.217.211.164:1935/telenord12/live1/playlist.m3u8
+
+#EXTINF:-1,Ramon Anibal TV (Rep. Dominicana)
+http://newyorkstream.ddns.net:1935/live/myStream/playlist.m3u8
+
+#EXTINF:-1,TeVe Musica HD (Rep. Dominicana)
+http://ss6.domint.net:2086/tmtv_str/musica/playlist.m3u8
+
+#EXTINF:-1,Canal Once (Uruguay)
+http://xcanaloncepuntadelestex.api.channel.livestream.com/3.0/playlist.m3u8
+
+#EXTINF:-1,Canal U (Uruguay)
+http://xcanalutvx.api.channel.livestream.com/3.0/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="http://www.lyngsat-logo.com/logo/tv/cc/canal_i_ve.png",Canal i (Venezuela)
+rtmp://edge.wms28.lorini.net/canal-i/canal-i
+
+#EXTINF:-1,TVO Canal 23 (Venezuela)
+http://xtvocanal23x.api.channel.livestream.com/3.0/playlist.m3u8
+
+#EXTINF:-1,Vale TV (Venezuela)
+http://edge.wms28.lorini.net/valetv/valetv/live.m3u8
+
+#EXTINF:-1 tvg-logo="http://www.lyngsat-logo.com/logo/tv/tt/trt_tv_ve.png",TRT (Venezuela)
+rtmp://edge.wms28.lorini.net/trttv/trttv
+
+#EXTINF:-1,Globovision (Venezuela)
+http://edge.wms28.lorini.net/globovisiontv/globovisiontv/live.m3u8
+
+#EXTINF:-1,Telecolor (Venezuela)
+http://edge.wms28.lorini.net/telecolor/telecolor/live.m3u8
+
+#EXTINF:-1,Telecaribe (Venezuela)
+http://cdns840stu1010.multistream.net/telecaribelive/amlst:live/master.m3u8
+
+#EXTINF:-1 tvg-logo="http://www.lyngsat-logo.com/logo/tv/aa/anzoategui_tv_ve.png",Anzoategui TV (Venezuela)
+rtsp://edge.wms28.lorini.net/anzoateguitv/anzoateguitv
+
+#EXTINF:-1,PDVSA TV (Venezuela)
+http://cast.streamingconnect.tv:1935/pdvsatvweb/pdvsatvweb/playlist.m3u8
+
+#EXTINF:-1,Ven FM TV (Venezuela)
+http://edge.wms28.lorini.net/ventv/ventv/chunklist_w1128459405.m3u8
