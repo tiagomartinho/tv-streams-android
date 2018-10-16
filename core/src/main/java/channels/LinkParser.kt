@@ -8,5 +8,14 @@ class LinkParser {
         fun isLinkValid(line: String): Boolean {
             return !prefixes.none { line.startsWith(it) }
         }
+
+        fun extractLink(line: String): String {
+            val suffix = "|X-Forwarded-For="
+            if(line.contains(suffix)) {
+                val index = line.indexOf(suffix)
+                return line.removeRange(index, line.count())
+            }
+            return line
+        }
     }
 }

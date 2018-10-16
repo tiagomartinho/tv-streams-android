@@ -10,7 +10,8 @@ class PlaylistParser {
                     name = NameParser.extract(line)
                 }
                 if(LinkParser.isLinkValid(line)){
-                    channels.add(Channel("a","b",name ?: line, line))
+                    val link = LinkParser.extractLink(line)
+                    channels.add(Channel("a","b",name ?: link, link))
                     name = null
                 }
             }
