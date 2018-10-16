@@ -6,6 +6,16 @@ import org.junit.Test
 class PlaylistParserTest {
 
     @Test
+    fun save_source() {
+        val content = PlaylistParserTest::class.java.getResource("/list.m3u").readText()
+        val source = "some source"
+
+        val channels = PlaylistParser.parse(source, content)
+
+        assertEquals(source, channels[1].source)
+    }
+
+    @Test
     fun extract_all_channels_from_list() {
         val secondLink = "http://wownet.ro/str/0500.m3u8"
         val secondName = "RTP 1"
@@ -14,7 +24,7 @@ class PlaylistParserTest {
         val lastLink = "http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4"
         val content = PlaylistParserTest::class.java.getResource("/list.m3u").readText()
 
-        val channels = PlaylistParser.parse(content)
+        val channels = PlaylistParser.parse(content, content)
 
         assertEquals(10, channels.count())
         assertEquals(secondLink, channels[1].link)
@@ -28,7 +38,7 @@ class PlaylistParserTest {
     fun extract_from_csv_list() {
         val content = PlaylistParserTest::class.java.getResource("/csv.m3u").readText()
 
-        val channels = PlaylistParser.parse(content)
+        val channels = PlaylistParser.parse(content, content)
 
         assertEquals(2, channels.count())
         assertEquals("http://02e4.vp9.tv/chn/btsu1/v.m3u8", channels[0].link)
