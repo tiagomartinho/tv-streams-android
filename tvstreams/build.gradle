@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'realm-android'
+
 android {
 
     compileSdkVersion 27
+
+    realm {
+        syncEnabled = true
+    }
 
     defaultConfig {
         applicationId "com.tm.tvstreams"
@@ -68,6 +75,7 @@ dependencies {
     //Firebase
     implementation "com.google.firebase:firebase-core:$firebase_version"
     implementation "com.google.firebase:firebase-firestore:17.0.4"
-}
 
-apply plugin: 'com.google.gms.google-services'
+    // REALM
+    implementation 'io.realm:android-adapters:3.0.0'
+}
