@@ -2,6 +2,7 @@ package com.tm.tvstreams
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import channels.AddPlaylistView
 import channels.OkHttpPlaylistService
 import channels.PlaylistPresenter
@@ -27,12 +28,15 @@ class AddPlaylistActivity : AppCompatActivity(), AddPlaylistView {
     }
 
     override fun showLoadingView() {
+        Log.d("AddPlaylistActivity","showLoadingView")
     }
 
     override fun showEmptyLinkView() {
+        Log.d("AddPlaylistActivity","showEmptyLinkView")
     }
 
     override fun hideLoadingView() {
+        Log.d("AddPlaylistActivity","hideLoadingView")
     }
 
     override fun dismissView() {
@@ -40,5 +44,6 @@ class AddPlaylistActivity : AppCompatActivity(), AddPlaylistView {
     }
 
     override fun showErrorView() {
+        Log.d("AddPlaylistActivity","showErrorView")
     }
 }

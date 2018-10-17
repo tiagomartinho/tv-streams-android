@@ -1,5 +1,6 @@
 package com.tm.tvstreams
 
+import android.util.Log
 import channels.Channel
 import channels.ChannelRepository
 import com.google.firebase.firestore.*
