@@ -28,7 +28,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     private var isFullScreen: Boolean = false
     private var twoPane: Boolean = false
     private lateinit var channelListFragment: ChannelListFragment
-    private var channelRepository: FireStoreChannelRepository? = null
+    private var channelRepository: RealmChannelRepository? = null
     private var playerFragment: PlayerFragment? = null
     private var channels = ArrayList<Channel>()
     private val presenter = ChannelListPresenter(this)
@@ -72,7 +72,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
                 .commit()
         }
         val userID = SharedPreferencesUserRepository(this).load().id
-        channelRepository = userID?.let { FireStoreChannelRepository(it) }
+        channelRepository = userID?.let { RealmChannelRepository() }
         updateChannels(channelRepository)
         channelRepository?.addListener {
             updateChannels(channelRepository)
@@ -105,7 +105,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         }
     }
 
-    private fun updateChannels(channelRepository: FireStoreChannelRepository?) {
+    private fun updateChannels(channelRepository: RealmChannelRepository?) {
         channelRepository?.channels {
             presenter.setChannels(ArrayList(it))
             channelListFragment?.set(it)
