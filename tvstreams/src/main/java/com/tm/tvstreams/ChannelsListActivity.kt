@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_channels_list.*
 import kotlinx.android.synthetic.main.channels_list.*
 import user.SharedPreferencesUserRepository
 import android.support.v7.app.AlertDialog
+import android.util.Log
 
 class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFragmentInteractionListener,
     ChannelListView {
@@ -148,7 +149,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         add_sample_playlist.visibility = GONE
     }
 
-    override fun onListFragmentInteraction(channel: Channel?) {
+    override fun onClickListFragmentInteraction(channel: Channel?) {
         val channelsPlayer = ChannelListBuilder.build(channel, channels)
         if (twoPane) {
             playerFragment = PlayerFragment.newInstance(channelsPlayer)
@@ -163,6 +164,11 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
             }
             this.startActivity(intent)
         }
+    }
+
+    override fun onLongClickListFragmentInteraction(channel: Channel?): Boolean {
+        Log.d("ChannelsListActivity", channel.toString())
+        return true
     }
 
     private fun goFullscreen() {

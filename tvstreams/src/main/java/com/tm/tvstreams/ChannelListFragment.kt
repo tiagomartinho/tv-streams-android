@@ -53,7 +53,8 @@ class ChannelListFragment : Fragment() {
     }
 
     interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(channel: Channel?)
+        fun onClickListFragmentInteraction(channel: Channel?)
+        fun onLongClickListFragmentInteraction(channel: Channel?): Boolean
     }
 
     companion object {

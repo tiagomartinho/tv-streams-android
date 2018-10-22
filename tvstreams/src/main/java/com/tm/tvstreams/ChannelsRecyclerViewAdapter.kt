@@ -15,11 +15,16 @@ class ChannelsRecyclerViewAdapter(
 ) : RecyclerView.Adapter<ChannelsRecyclerViewAdapter.ViewHolder>() {
 
     private val clickListener: View.OnClickListener
+    private val longClickListener: View.OnLongClickListener
 
     init {
         clickListener = View.OnClickListener { v ->
             val item = v.tag as Channel
-            listener?.onListFragmentInteraction(item)
+            listener?.onClickListFragmentInteraction(item)
+        }
+        longClickListener = View.OnLongClickListener { v ->
+            val item = v.tag as Channel
+             listener?.onLongClickListFragmentInteraction(item) ?: false
         }
     }
 
@@ -35,6 +40,7 @@ class ChannelsRecyclerViewAdapter(
         with(holder.mView) {
             tag = item
             setOnClickListener(clickListener)
+            setOnLongClickListener(longClickListener)
         }
     }
 
