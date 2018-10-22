@@ -38,7 +38,7 @@ class FBChannelRepository(private val userID: String) : ChannelRepository {
     }
 
     override fun add(channels: List<Channel>, callback: (Boolean) -> Unit) {
-        reference().setValue(channels)
+        reference().setValue(channels) { _,_ -> callback(true) }
     }
 
     override fun add(channel: Channel, callback: (Boolean) -> Unit) {
