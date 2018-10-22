@@ -19,13 +19,14 @@ class PlaylistPresenter(
     }
 
     fun receivedPlaylist(playlist: String) {
-        val channels = PlaylistParser.parse(url, playlist)
+        val content = if(playlist.isNullOrEmpty()) url else playlist
+        val channels = PlaylistParser.parse(url, content)
         repository.add(channels) { savedPlaylist(it) }
     }
 
     fun savedPlaylist(success: Boolean) {
         view.hideLoadingView()
-        if(success) {
+        if (success) {
             view.dismissView()
         } else {
             view.showErrorView()

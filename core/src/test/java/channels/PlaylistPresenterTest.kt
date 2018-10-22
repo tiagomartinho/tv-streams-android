@@ -9,6 +9,16 @@ import org.mockito.internal.verification.VerificationModeFactory
 class PlaylistPresenterTest {
 
     @Test
+    fun if_received_playlist_is_empty_use_url() {
+        val url = "some url"
+        presenter.fetch(url)
+
+        presenter.receivedPlaylist("")
+
+        verify(repository, VerificationModeFactory.times(1)).add(anyList(), any())
+    }
+
+    @Test
     fun write_channels_to_repository() {
         val channel = Channel("a","b","name", "http://link")
 
