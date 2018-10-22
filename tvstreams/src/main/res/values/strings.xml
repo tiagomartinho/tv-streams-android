@@ -19,4 +19,6 @@
     <string name="attention">Attention</string>
     <string name="ok">Ok</string>
     <string name="action_logout">Logout</string>
+    <string name="channel">Channel</string>
+    <string name="name">Name</string>
 </resources>
