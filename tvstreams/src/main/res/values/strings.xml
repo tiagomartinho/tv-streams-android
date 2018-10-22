@@ -18,4 +18,5 @@
     <string name="valid_link">Please insert a valid link</string>
     <string name="attention">Attention</string>
     <string name="ok">Ok</string>
+    <string name="action_logout">Logout</string>
 </resources>

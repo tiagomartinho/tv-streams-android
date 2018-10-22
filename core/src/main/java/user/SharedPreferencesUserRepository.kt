@@ -28,4 +28,8 @@ class SharedPreferencesUserRepository(context: Context) : UserRepository {
             commit()
         }
     }
+
+    override fun delete() {
+        save(User(null, null, null, null))
+    }
 }

@@ -8,4 +8,8 @@
             android:icon="@android:drawable/ic_menu_delete"
             android:title="@string/action_delete"
             app:showAsAction="always"/>
+    <item
+            android:id="@+id/action_logout"
+            android:title="@string/action_logout"
+            app:showAsAction="never"/>
 </menu>

@@ -81,17 +81,26 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_logout -> {
+            SharedPreferencesUserRepository(this).delete()
+            val clazz = InitialActivity::class.java
+            val intent = Intent(this, clazz)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent, null)
+            finish()
+            true
+        }
         R.id.action_delete_all -> {
             AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
                 .setTitle("Delete All Channels")
-
                 .setMessage("Are you sure you want to delete all channels? Deleted channels cannot be recovered")
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton("Delete")
-                    { _, _ ->
-                        channelRepository?.deleteAll {}
-                        presenter.setChannels(arrayListOf())
-                    }
+                { _, _ ->
+                    channelRepository?.deleteAll {}
+                    presenter.setChannels(arrayListOf())
+                }
                 .setNegativeButton("Cancel", null).show()
             true
         }
