@@ -2,22 +2,12 @@ package channels
 
 import com.tm.core.player.ChannelPlayer
 
-class Channel(val source: String, val metadata: String, val name: String, val link: String) {
-
-    constructor(map: Map<String, Any>?) :
-            this(map?.get("Source") as String,
-            map?.get("Metadata") as String,
-            map?.get("Name") as String,
-            map?.get("Link") as String)
-
-    fun map(): HashMap<String, Any> {
-        val channelMap = HashMap<String, Any>()
-        channelMap["Source"] = source
-        channelMap["Metadata"] = metadata
-        channelMap["Name"] = name
-        channelMap["Link"] = link
-        return channelMap
-    }
+class Channel(
+    var source: String = "",
+    var metadata: String = "",
+    var name: String = "",
+    var link: String = ""
+) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

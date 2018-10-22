@@ -8,7 +8,7 @@ import org.junit.Test
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
-class FireStoreChannelRepositoryTest {
+class FBChannelRepositoryTest {
 
     private val userID = "1234"
     private val lock = CountDownLatch(1)
@@ -18,7 +18,7 @@ class FireStoreChannelRepositoryTest {
 
     @Before
     fun setUp() {
-        repository = FireStoreChannelRepository(userID)
+        repository = FBChannelRepository(userID)
         deleteAll()
     }
 

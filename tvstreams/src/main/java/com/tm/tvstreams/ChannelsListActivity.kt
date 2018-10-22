@@ -2,9 +2,7 @@ package com.tm.tvstreams
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -14,13 +12,10 @@ import channels.Channel
 import com.tm.core.player.ChannelListBuilder
 import com.tm.core.player.PlayerActivity
 import com.tm.core.player.PlayerFragment
-import com.tm.tvstreams.R.id.add_sample_playlist
 import kotlinx.android.synthetic.main.activity_channels_list.*
 import kotlinx.android.synthetic.main.channels_list.*
-import kotlinx.android.synthetic.main.empty_channels.*
 import user.SharedPreferencesUserRepository
 import android.support.v7.app.AlertDialog
-import android.support.v7.view.ContextThemeWrapper
 
 class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFragmentInteractionListener,
     ChannelListView {
@@ -28,7 +23,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     private var isFullScreen: Boolean = false
     private var twoPane: Boolean = false
     private lateinit var channelListFragment: ChannelListFragment
-    private var channelRepository: FireStoreChannelRepository? = null
+    private var channelRepository: FBChannelRepository? = null
     private var playerFragment: PlayerFragment? = null
     private var channels = ArrayList<Channel>()
     private val presenter = ChannelListPresenter(this)
@@ -72,7 +67,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
                 .commit()
         }
         val userID = SharedPreferencesUserRepository(this).load().id
-        channelRepository = userID?.let { FireStoreChannelRepository(it) }
+        channelRepository = userID?.let { FBChannelRepository(it) }
         updateChannels(channelRepository)
         channelRepository?.addListener {
             updateChannels(channelRepository)
@@ -105,7 +100,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         }
     }
 
-    private fun updateChannels(channelRepository: FireStoreChannelRepository?) {
+    private fun updateChannels(channelRepository: FBChannelRepository?) {
         channelRepository?.channels {
             presenter.setChannels(ArrayList(it))
             channelListFragment?.set(it)

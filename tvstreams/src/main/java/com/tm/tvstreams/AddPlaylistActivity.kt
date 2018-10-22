@@ -17,7 +17,7 @@ class AddPlaylistActivity : AppCompatActivity(), AddPlaylistView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_playlist)
         val userID = SharedPreferencesUserRepository(this).load().id ?: ""
-        val repository = FireStoreChannelRepository(userID = userID)
+        val repository = FBChannelRepository(userID = userID)
         presenter = PlaylistPresenter(view = this, service = OkHttpPlaylistService(), repository = repository)
         cancel.setOnClickListener {
             finish()
