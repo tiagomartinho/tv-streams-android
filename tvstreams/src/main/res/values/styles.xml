@@ -7,7 +7,6 @@
         <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/colorPrimary</item>
         <item name="android:buttonStyle">@style/Widget.Button.Custom</item>
-        <item name="android:actionButtonStyle">@style/Widget.ActionButton.Custom</item>
         <item name="android:textViewStyle">@style/Widget.TextView.Custom</item>
     </style>
 
@@ -26,11 +25,6 @@
         <item name="android:colorFocusedHighlight">@drawable/button</item>
     </style>
 
-    <style name="Widget.ActionButton.Custom" parent="android:Widget.ActionButton">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:tint">@color/white</item>
-    </style>
-
     <style name="Widget.TextView.Custom" parent="android:Widget.TextView">
         <item name="android:textColor">@color/white</item>
     </style>
@@ -42,6 +36,6 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark"/>
 
 </resources>
