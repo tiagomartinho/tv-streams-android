@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import channels.Channel
 import kotlinx.android.synthetic.main.activity_edit_channel.*
+import user.SharedPreferencesUserRepository
 
-class EditChannelActivity : AppCompatActivity() {
+class EditChannelActivity : AppCompatActivity(), EditChannelView {
+
+    private lateinit var presenter: EditChannelPresenter
 
     companion object {
         const val CHANNEL = "CHANNEL"
@@ -20,5 +23,12 @@ class EditChannelActivity : AppCompatActivity() {
         cancel.setOnClickListener {
             finish()
         }
+        val userID = SharedPreferencesUserRepository(this).load().id ?: ""
+        val repository = FBChannelRepository(userID)
+        presenter = EditChannelPresenter(channel, repository, this)
+    }
+
+    override fun dismiss() {
+        finish()
     }
 }
