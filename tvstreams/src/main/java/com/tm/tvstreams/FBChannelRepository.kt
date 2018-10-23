@@ -53,6 +53,15 @@ class FBChannelRepository(private val userID: String) : ChannelRepository {
     }
 
     override fun update(channel: Channel, updatedChannel: Channel, callback: (Boolean) -> Unit) {
+        reference().orderByChild("link").equalTo(channel.link).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.firstOrNull()?.ref?.setValue(updatedChannel)
+                callback(true)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                callback(false)
+            }
+        })
     }
 
     private fun reference(): DatabaseReference {
