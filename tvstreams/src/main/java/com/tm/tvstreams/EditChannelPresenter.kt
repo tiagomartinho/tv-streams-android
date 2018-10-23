@@ -9,6 +9,7 @@ class EditChannelPresenter(
     private val view: EditChannelView
 ) {
     fun save(updatedChannel: Channel) {
+        view.showLoadingView()
         repository.update(channel, updatedChannel) { updated(it) }
     }
 

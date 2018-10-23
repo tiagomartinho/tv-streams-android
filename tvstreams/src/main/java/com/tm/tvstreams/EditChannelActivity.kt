@@ -2,6 +2,8 @@ package com.tm.tvstreams
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import channels.Channel
 import kotlinx.android.synthetic.main.activity_edit_channel.*
 import user.SharedPreferencesUserRepository
@@ -23,6 +25,16 @@ class EditChannelActivity : AppCompatActivity(), EditChannelView {
         cancel.setOnClickListener {
             finish()
         }
+        save.setOnClickListener {
+            presenter.save(
+                Channel(
+                    channel.source,
+                    channel.metadata,
+                    name_text.text.toString(),
+                    link_text.text.toString()
+                )
+            )
+        }
         val userID = SharedPreferencesUserRepository(this).load().id ?: ""
         val repository = FBChannelRepository(userID)
         presenter = EditChannelPresenter(channel, repository, this)
@@ -30,5 +42,10 @@ class EditChannelActivity : AppCompatActivity(), EditChannelView {
 
     override fun dismiss() {
         finish()
+    }
+
+    override fun showLoadingView() {
+        save.visibility = GONE
+        editChannelProgressBar.visibility = VISIBLE
     }
 }

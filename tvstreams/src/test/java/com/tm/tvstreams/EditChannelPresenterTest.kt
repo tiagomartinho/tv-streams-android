@@ -15,6 +15,15 @@ class EditChannelPresenterTest {
     private val view: EditChannelView = Mockito.mock(EditChannelView::class.java)
 
     @Test
+    fun `show loading view while updating`() {
+        val presenter = EditChannelPresenter(Channel(), repository, view)
+
+        presenter.save(Channel())
+
+        verify(view).showLoadingView()
+    }
+
+    @Test
     fun `dismiss view if update succeeds`() {
         val presenter = EditChannelPresenter(Channel(), repository, view)
 

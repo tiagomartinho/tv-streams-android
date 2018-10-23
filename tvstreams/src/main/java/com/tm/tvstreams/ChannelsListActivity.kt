@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.view.ActionMode
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -35,6 +36,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     private var playerFragment: PlayerFragment? = null
     private var channels = ArrayList<Channel>()
     private val presenter = ChannelListPresenter(this)
+    private var mode: ActionMode? = null
 
     override fun onDestroy() {
         super.onDestroy()
@@ -88,10 +90,16 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         return true
     }
 
+    override fun onResume() {
+        super.onResume()
+        mode?.finish()
+        presenter.stopEditMode()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_edit -> {
             presenter.startEditMode()
-            startSupportActionMode(EditActionModeCallbacks.build(presenter))
+            mode = startSupportActionMode(EditActionModeCallbacks.build(presenter))
             true
         }
         R.id.action_delete -> {
