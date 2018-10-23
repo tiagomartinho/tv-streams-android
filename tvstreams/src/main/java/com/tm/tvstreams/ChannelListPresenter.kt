@@ -21,13 +21,22 @@ class ChannelListPresenter(private val view: ChannelListView) {
     }
 
     fun select(channel: Channel) {
-        if (mode == NORMAL) {
-            view.showPlayerView(channel)
+        when(mode) {
+            NORMAL -> {
+                view.showPlayerView(channel)
+            }
+            EDIT -> {
+                view.showEditChannelView(channel)
+            }
         }
     }
 
     fun startDeleteMode() {
         mode = DELETE
+    }
+
+    fun startEditMode() {
+        mode = EDIT
     }
 }
 

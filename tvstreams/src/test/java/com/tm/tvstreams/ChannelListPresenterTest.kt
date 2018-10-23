@@ -19,6 +19,16 @@ class ChannelListPresenterTest {
     }
 
     @Test
+    fun show_edit_channel_view_if_select_channel_while_in_edit_mode() {
+        val channel = Channel()
+
+        presenter.startEditMode()
+        presenter.select(channel)
+
+        verify(view, times(1)).showEditChannelView(any())
+    }
+
+    @Test
     fun when_deleting_does_not_play_channel() {
         val channel = Channel()
 

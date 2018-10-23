@@ -192,6 +192,10 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         }
     }
 
+    override fun showEditChannelView(channel: Channel) {
+
+    }
+
     override fun onLongClickListFragmentInteraction(channel: Channel?): Boolean {
         return true
     }

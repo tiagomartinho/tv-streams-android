@@ -8,4 +8,5 @@ interface ChannelListView {
     fun showEmptyChannelsView()
     fun showChannelsView(channels: ArrayList<Channel>)
     fun showPlayerView(channel: Channel)
+    fun showEditChannelView(channel: Channel)
 }
