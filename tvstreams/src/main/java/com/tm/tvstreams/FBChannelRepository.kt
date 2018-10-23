@@ -46,6 +46,15 @@ class FBChannelRepository(private val userID: String) : ChannelRepository {
     }
 
     override fun delete(channel: Channel, callback: (Boolean) -> Unit) {
+        reference().orderByChild("link").equalTo(channel.link).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.firstOrNull()?.ref?.removeValue()
+                callback(true)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                callback(false)
+            }
+        })
     }
 
     override fun deleteAll(callback: (Boolean) -> Unit) {
