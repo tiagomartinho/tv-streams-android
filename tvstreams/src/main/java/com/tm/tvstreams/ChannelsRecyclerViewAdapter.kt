@@ -24,7 +24,7 @@ class ChannelsRecyclerViewAdapter(
         }
         longClickListener = View.OnLongClickListener { v ->
             val item = v.tag as Channel
-             listener?.onLongClickListFragmentInteraction(item) ?: false
+            listener?.onLongClickListFragmentInteraction(item) ?: false
         }
     }
 

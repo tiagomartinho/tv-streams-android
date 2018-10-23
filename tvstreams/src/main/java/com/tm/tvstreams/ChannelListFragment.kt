@@ -14,6 +14,7 @@ import channels.Channel
 class ChannelListFragment : Fragment() {
 
     private var listener: OnListFragmentInteractionListener? = null
+    private fun channelsRecyclerViewAdapter() = (view as? RecyclerView)?.adapter as? ChannelsRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +48,7 @@ class ChannelListFragment : Fragment() {
     }
 
     fun set(channels: List<Channel>) {
-        val adapter = (view as? RecyclerView)?.adapter as? ChannelsRecyclerViewAdapter
+        val adapter = channelsRecyclerViewAdapter()
         adapter?.set(channels)
         adapter?.notifyDataSetChanged()
     }

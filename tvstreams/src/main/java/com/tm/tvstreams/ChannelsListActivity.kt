@@ -89,6 +89,12 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_edit -> {
+            true
+        }
+        R.id.action_delete -> {
+            true
+        }
         R.id.action_logout -> {
             logout()
             true
@@ -128,8 +134,6 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     private fun updateChannels(channelRepository: FBChannelRepository?) {
         channelRepository?.channels {
             presenter.setChannels(ArrayList(it))
-            channelListFragment?.set(it)
-            channels = it as ArrayList<Channel>
         }
     }
 
@@ -162,6 +166,8 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     override fun showChannelsView(channels: ArrayList<Channel>) {
         empty_channels.visibility = GONE
         add_sample_playlist.visibility = GONE
+        channelListFragment?.set(channels)
+        this.channels = channels
     }
 
     override fun onClickListFragmentInteraction(channel: Channel?) {
