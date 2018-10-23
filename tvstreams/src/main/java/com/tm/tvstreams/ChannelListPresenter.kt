@@ -9,10 +9,14 @@ class ChannelListPresenter(private val view: ChannelListView) {
 
     fun setChannels(channels: ArrayList<Channel>) {
         view.hideLoadingView()
-        if(channels.isEmpty()) {
+        if (channels.isEmpty()) {
             view.showEmptyChannelsView()
         } else {
             view.showChannelsView(channels)
         }
+    }
+
+    fun select(channel: Channel) {
+        view.showPlayerView(channel)
     }
 }

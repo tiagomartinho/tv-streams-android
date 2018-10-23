@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.view.ActionMode
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -171,6 +172,10 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun onClickListFragmentInteraction(channel: Channel?) {
+        channel?.let { presenter.select(it) }
+    }
+
+    override fun showPlayerView(channel: Channel) {
         val channelsPlayer = ChannelListBuilder.build(channel, channels)
         if (twoPane) {
             playerFragment = PlayerFragment.newInstance(channelsPlayer)

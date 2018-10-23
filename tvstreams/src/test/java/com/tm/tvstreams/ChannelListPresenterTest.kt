@@ -1,6 +1,7 @@
 package com.tm.tvstreams
 
 import channels.Channel
+import com.nhaarman.mockitokotlin2.any
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
@@ -9,6 +10,16 @@ import org.mockito.Mockito.verify
 class ChannelListPresenterTest {
 
     private val view: ChannelListView = mock(ChannelListView::class.java)
+
+    @Test
+    fun select_channel_plays_it() {
+        val presenter = ChannelListPresenter(view)
+        val channel = Channel()
+
+        presenter.select(channel)
+
+        verify(view, times(1)).showPlayerView(any())
+    }
 
     @Test
     fun show_loading_at_start() {
