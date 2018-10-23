@@ -2,12 +2,21 @@ package com.tm.tvstreams
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
+import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+import android.view.View.SYSTEM_UI_FLAG_LOW_PROFILE
+import android.view.View.SYSTEM_UI_FLAG_VISIBLE
+import android.view.View.VISIBLE
 import channels.Channel
 import com.tm.core.player.ChannelListBuilder
 import com.tm.core.player.PlayerActivity
@@ -15,8 +24,6 @@ import com.tm.core.player.PlayerFragment
 import kotlinx.android.synthetic.main.activity_channels_list.*
 import kotlinx.android.synthetic.main.channels_list.*
 import user.SharedPreferencesUserRepository
-import android.support.v7.app.AlertDialog
-import android.util.Log
 
 class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFragmentInteractionListener,
     ChannelListView {
@@ -83,31 +90,39 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_logout -> {
-            SharedPreferencesUserRepository(this).delete()
-            val clazz = InitialActivity::class.java
-            val intent = Intent(this, clazz)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent, null)
-            finish()
+            logout()
             true
         }
         R.id.action_delete_all -> {
-            AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
-                .setTitle("Delete All Channels")
-                .setMessage("Are you sure you want to delete all channels? Deleted channels cannot be recovered")
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton("Delete")
-                { _, _ ->
-                    channelRepository?.deleteAll {}
-                    presenter.setChannels(arrayListOf())
-                }
-                .setNegativeButton("Cancel", null).show()
+            deleteAll()
             true
         }
         else -> {
             super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun deleteAll() {
+        AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
+            .setTitle("Delete All Channels")
+            .setMessage("Are you sure you want to delete all channels? Deleted channels cannot be recovered")
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton("Delete")
+            { _, _ ->
+                channelRepository?.deleteAll {}
+                presenter.setChannels(arrayListOf())
+            }
+            .setNegativeButton("Cancel", null).show()
+    }
+
+    private fun logout() {
+        SharedPreferencesUserRepository(this).delete()
+        val clazz = InitialActivity::class.java
+        val intent = Intent(this, clazz)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent, null)
+        finish()
     }
 
     private fun updateChannels(channelRepository: FBChannelRepository?) {
@@ -167,7 +182,6 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun onLongClickListFragmentInteraction(channel: Channel?): Boolean {
-        Log.d("ChannelsListActivity", channel.toString())
         return true
     }
 

@@ -22,4 +22,6 @@
     <string name="channel">Channel</string>
     <string name="name">Name</string>
     <string name="playlist_or_channel">Playlist or Channel</string>
+    <string name="action_delete_all">Delete All</string>
+    <string name="action_edit">Edit</string>
 </resources>
