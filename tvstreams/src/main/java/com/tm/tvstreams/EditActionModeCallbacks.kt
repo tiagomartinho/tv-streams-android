@@ -10,7 +10,7 @@ internal object EditActionModeCallbacks {
         return object : ActionMode.Callback {
 
             override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-                menu.add("Edit")
+                menu.add("Select Channel to Edit")
                 return true
             }
 

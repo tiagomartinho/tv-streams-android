@@ -54,6 +54,7 @@
         <activity android:name=".InitialActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
@@ -67,6 +68,9 @@
         <activity
                 android:name=".AddPlaylistActivity"
                 android:label="@string/title_activity_add">
+        </activity>
+        <activity android:name=".EditChannelActivity"
+                  android:label="@string/title_activity_edit">
         </activity>
     </application>
 

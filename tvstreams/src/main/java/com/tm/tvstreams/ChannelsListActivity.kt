@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.view.ActionMode
-import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -158,9 +156,13 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     fun addSamplePlaylist(): Boolean {
-        val big = Channel("A", "B", "Big Buck Bunny", "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8")
+        val linkBig = "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8"
+        val nameBig = "Big Buck Bunny"
+        val big = Channel(linkBig, nameBig, nameBig, linkBig)
+        val linkSintel = "https://download.blender.org/durian/trailer/sintel_trailer-1080p.mp4"
+        val nameSintel = "Sintel"
         val sintel =
-            Channel("A", "B", "Sintel", "https://download.blender.org/durian/trailer/sintel_trailer-1080p.mp4")
+            Channel(linkSintel, nameSintel, nameSintel, linkSintel)
         val samplePlaylist = arrayListOf(big, sintel)
         channelRepository?.add(samplePlaylist) {}
         presenter.setChannels(samplePlaylist)
@@ -196,7 +198,8 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun showEditChannelView(channel: Channel) {
-        Log.d("showEditChannelView", channel.toString())
+        val intent = Intent(this, EditChannelActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onLongClickListFragmentInteraction(channel: Channel?): Boolean {
