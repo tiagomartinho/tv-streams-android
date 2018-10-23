@@ -198,7 +198,9 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun showEditChannelView(channel: Channel) {
-        val intent = Intent(this, EditChannelActivity::class.java)
+        val intent = Intent(this, EditChannelActivity::class.java).apply {
+            putExtra(EditChannelActivity.CHANNEL, channel)
+        }
         startActivity(intent)
     }
 

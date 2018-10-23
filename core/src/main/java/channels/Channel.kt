@@ -1,5 +1,7 @@
 package channels
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.tm.core.player.ChannelPlayer
 
 class Channel(
@@ -7,7 +9,14 @@ class Channel(
     var metadata: String = "",
     var name: String = "",
     var link: String = ""
-) {
+) : Parcelable {
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -26,6 +35,27 @@ class Channel(
         result = 31 * result + name.hashCode()
         result = 31 * result + link.hashCode()
         return result
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(source)
+        parcel.writeString(metadata)
+        parcel.writeString(name)
+        parcel.writeString(link)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Channel> {
+        override fun createFromParcel(parcel: Parcel): Channel {
+            return Channel(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Channel?> {
+            return arrayOfNulls(size)
+        }
     }
 }
 
