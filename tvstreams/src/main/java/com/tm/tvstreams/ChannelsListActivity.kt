@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.ActionMode
+import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -91,6 +92,8 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_edit -> {
+            presenter.startEditMode()
+            startSupportActionMode(ActionModeCallbacks.build(presenter))
             true
         }
         R.id.action_delete -> {
@@ -193,7 +196,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun showEditChannelView(channel: Channel) {
-
+        Log.d("showEditChannelView", channel.toString())
     }
 
     override fun onLongClickListFragmentInteraction(channel: Channel?): Boolean {
@@ -244,6 +247,32 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         } else {
             exitFullscreen()
             backButtonCount++
+        }
+    }
+}
+
+internal object ActionModeCallbacks {
+
+    fun build(presenter: ChannelListPresenter): ActionMode.Callback {
+        return object : ActionMode.Callback {
+
+            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+                menu.add("Edit")
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+                return false
+            }
+
+            override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+                mode.finish()
+                return true
+            }
+
+            override fun onDestroyActionMode(mode: ActionMode) {
+                presenter.stopEditMode()
+            }
         }
     }
 }

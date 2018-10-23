@@ -38,6 +38,10 @@ class ChannelListPresenter(private val view: ChannelListView) {
     fun startEditMode() {
         mode = EDIT
     }
+
+    fun stopEditMode() {
+        mode = NORMAL
+    }
 }
 
 enum class ChannelListMode {
