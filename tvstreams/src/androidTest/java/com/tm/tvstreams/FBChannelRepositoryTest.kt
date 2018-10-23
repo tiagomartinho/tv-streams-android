@@ -14,6 +14,7 @@ class FBChannelRepositoryTest {
     private val lock = CountDownLatch(1)
     private val channel = Channel("source", "meta", "name", "link")
     private val newChannel = Channel("nsource", "nmeta", "nname", "nlink")
+    private val otherChannel = Channel("source2", "meta2", "name2", "link2")
     private lateinit var repository: ChannelRepository
 
     @Before
@@ -59,6 +60,23 @@ class FBChannelRepositoryTest {
 
         val channelsInRepo = channels()
         assertEquals(channel.name, channelsInRepo.first().name)
+        assertEquals(1, channelsInRepo.count())
+    }
+
+    @Test
+    fun deleteChannels() {
+        val deleteLock = CountDownLatch(2)
+
+        repository.add(arrayListOf(channel, newChannel, otherChannel)) {
+            repository.delete(arrayListOf(channel, newChannel)) {
+                deleteLock.countDown()
+            }
+        }
+
+        deleteLock.await(2000, TimeUnit.MILLISECONDS)
+        val channelsInRepo = channels()
+        assert(channelsInRepo.none { it.name == channel.name })
+        assertFalse(channelsInRepo.none { it.name == otherChannel.name })
         assertEquals(1, channelsInRepo.count())
     }
 

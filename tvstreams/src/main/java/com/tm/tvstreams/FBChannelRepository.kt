@@ -18,6 +18,7 @@ class FBChannelRepository(private val userID: String) : ChannelRepository {
                 val channels = dataSnapshot.children.mapNotNull { it.getValue(Channel::class.java) }
                 callback(channels)
             }
+
             override fun onCancelled(error: DatabaseError) {
                 callback(arrayListOf())
             }
@@ -38,39 +39,47 @@ class FBChannelRepository(private val userID: String) : ChannelRepository {
     }
 
     override fun add(channels: List<Channel>, callback: (Boolean) -> Unit) {
-        reference().setValue(channels) { _,_ -> callback(true) }
+        reference().setValue(channels) { _, _ -> callback(true) }
     }
 
     override fun add(channel: Channel, callback: (Boolean) -> Unit) {
         add(arrayListOf(channel)) { callback(it) }
     }
 
-    override fun delete(channel: Channel, callback: (Boolean) -> Unit) {
-        reference().orderByChild("link").equalTo(channel.link).addListenerForSingleValueEvent(object : ValueEventListener {
+    override fun delete(channels: List<Channel>, callback: (Boolean) -> Unit) {
+        reference().orderByChild("link").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children.firstOrNull()?.ref?.removeValue()
-                callback(true)
+                dataSnapshot.children
+                    .filter { channels.contains(it.getValue(Channel::class.java)) }
+                    .forEach { it.ref.removeValue { _, _ -> callback(true) } }
             }
+
             override fun onCancelled(error: DatabaseError) {
                 callback(false)
             }
         })
+    }
+
+    override fun delete(channel: Channel, callback: (Boolean) -> Unit) {
+        delete(arrayListOf(channel), callback)
     }
 
     override fun deleteAll(callback: (Boolean) -> Unit) {
-        reference().removeValue()
+        reference().removeValue { _, _ -> callback(true) }
     }
 
     override fun update(channel: Channel, updatedChannel: Channel, callback: (Boolean) -> Unit) {
-        reference().orderByChild("link").equalTo(channel.link).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children.firstOrNull()?.ref?.setValue(updatedChannel)
-                callback(true)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                callback(false)
-            }
-        })
+        reference().orderByChild("link").equalTo(channel.link)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    dataSnapshot.children.firstOrNull()?.ref?.setValue(updatedChannel)
+                    callback(true)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    callback(false)
+                }
+            })
     }
 
     private fun reference(): DatabaseReference {
