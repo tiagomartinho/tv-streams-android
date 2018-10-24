@@ -1,5 +1,8 @@
 package com.tm.tvstreams
 
+import android.graphics.Color
+import android.graphics.Color.*
+import android.graphics.drawable.ColorDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +11,7 @@ import android.widget.TextView
 import channels.Channel
 import com.tm.tvstreams.ChannelListFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.text_view.view.*
+import kotlin.math.absoluteValue
 
 class ChannelsRecyclerViewAdapter(
     private var channels: List<Channel>,
@@ -20,6 +24,9 @@ class ChannelsRecyclerViewAdapter(
     init {
         clickListener = View.OnClickListener { v ->
             val item = v.tag as Channel
+            val color = v.textView.textColors.defaultColor
+            val redColor = v.context.resources.getColor(R.color.red)
+            v.textView.setTextColor(if(color == redColor) WHITE else redColor)
             listener?.onClickListFragmentInteraction(item)
         }
         longClickListener = View.OnLongClickListener { v ->
@@ -37,6 +44,7 @@ class ChannelsRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = channels[position]
         holder.mContentView.text = item.name
+        holder.mContentView.setTextColor(WHITE)
         with(holder.mView) {
             tag = item
             setOnClickListener(clickListener)
