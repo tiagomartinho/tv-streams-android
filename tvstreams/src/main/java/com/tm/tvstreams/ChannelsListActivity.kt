@@ -22,6 +22,9 @@ import channels.Channel
 import com.tm.core.player.ChannelListBuilder
 import com.tm.core.player.PlayerActivity
 import com.tm.core.player.PlayerFragment
+import com.tm.tvstreams.ChannelListMode.DELETE
+import com.tm.tvstreams.ChannelListMode.EDIT
+import com.tm.tvstreams.ChannelListMode.NORMAL
 import kotlinx.android.synthetic.main.activity_channels_list.*
 import kotlinx.android.synthetic.main.channels_list.*
 import user.SharedPreferencesUserRepository
@@ -93,16 +96,18 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     override fun onResume() {
         super.onResume()
         mode?.finish()
-        presenter.stopEditMode()
+        presenter.mode = NORMAL
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_edit -> {
-            presenter.startEditMode()
+            presenter.mode = EDIT
             mode = startSupportActionMode(EditActionModeCallbacks.build(presenter))
             true
         }
         R.id.action_delete -> {
+            presenter.mode = DELETE
+            mode = startSupportActionMode(DeleteActionModeCallbacks.build(presenter))
             true
         }
         R.id.action_logout -> {

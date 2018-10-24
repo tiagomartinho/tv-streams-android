@@ -2,6 +2,8 @@ package com.tm.tvstreams
 
 import channels.Channel
 import com.nhaarman.mockitokotlin2.any
+import com.tm.tvstreams.ChannelListMode.DELETE
+import com.tm.tvstreams.ChannelListMode.EDIT
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
@@ -21,8 +23,8 @@ class ChannelListPresenterTest {
     @Test
     fun show_edit_channel_view_if_select_channel_while_in_edit_mode() {
         val channel = Channel()
+        presenter.mode = EDIT
 
-        presenter.startEditMode()
         presenter.select(channel)
 
         verify(view, times(1)).showEditChannelView(any())
@@ -31,8 +33,8 @@ class ChannelListPresenterTest {
     @Test
     fun when_deleting_does_not_play_channel() {
         val channel = Channel()
+        presenter.mode = DELETE
 
-        presenter.startDeleteMode()
         presenter.select(channel)
 
         verify(view, times(0)).showPlayerView(any())

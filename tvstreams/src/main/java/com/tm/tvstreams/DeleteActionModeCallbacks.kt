@@ -5,13 +5,13 @@ import android.view.Menu
 import android.view.MenuItem
 import com.tm.tvstreams.ChannelListMode.NORMAL
 
-internal object EditActionModeCallbacks {
+internal object DeleteActionModeCallbacks {
 
     fun build(presenter: ChannelListPresenter): ActionMode.Callback {
         return object : ActionMode.Callback {
 
             override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-                menu.add("Select Channel to Edit")
+                menu.add("Delete")
                 return true
             }
 
@@ -20,6 +20,7 @@ internal object EditActionModeCallbacks {
             }
 
             override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+                presenter.deleteChannels()
                 mode.finish()
                 return true
             }

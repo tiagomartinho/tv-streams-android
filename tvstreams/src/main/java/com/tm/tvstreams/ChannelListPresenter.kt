@@ -5,7 +5,7 @@ import com.tm.tvstreams.ChannelListMode.*
 
 class ChannelListPresenter(private val view: ChannelListView) {
 
-    private var mode = NORMAL
+    var mode = NORMAL
 
     fun start() {
         view.showLoadingView()
@@ -31,16 +31,8 @@ class ChannelListPresenter(private val view: ChannelListView) {
         }
     }
 
-    fun startDeleteMode() {
-        mode = DELETE
-    }
+    fun deleteChannels() {
 
-    fun startEditMode() {
-        mode = EDIT
-    }
-
-    fun stopEditMode() {
-        mode = NORMAL
     }
 }
 
