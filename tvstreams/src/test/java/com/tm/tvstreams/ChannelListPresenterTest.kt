@@ -40,7 +40,7 @@ class ChannelListPresenterTest {
 
         presenter.select(channel)
 
-        verify(view, times(0)).showPlayerView(any(), channelsCache)
+        verify(view, times(0)).showPlayerView(any(), any())
     }
 
     @Test
@@ -49,7 +49,7 @@ class ChannelListPresenterTest {
 
         presenter.select(channel)
 
-        verify(view, times(1)).showPlayerView(any(), channelsCache)
+        verify(view, times(1)).showPlayerView(any(), any())
     }
 
     @Test
@@ -61,14 +61,14 @@ class ChannelListPresenterTest {
 
     @Test
     fun hide_loading_when_channels_are_loaded() {
-        presenter.showChannels(arrayListOf())
+        presenter.showChannels()
 
         verify(view, times(1)).hideLoadingView()
     }
 
     @Test
     fun show_empty_channels_view() {
-        presenter.showChannels(arrayListOf())
+        presenter.setChannels(arrayListOf())
 
         verify(view, times(1)).showEmptyChannelsView()
     }
@@ -76,8 +76,7 @@ class ChannelListPresenterTest {
     @Test
     fun show_channels_list_view() {
         val channels = arrayListOf(Channel("a", "b", "c", "d"))
-
-        presenter.showChannels(channels)
+        presenter.setChannels(channels)
 
         verify(view, times(1)).showChannelsView(channels)
     }
