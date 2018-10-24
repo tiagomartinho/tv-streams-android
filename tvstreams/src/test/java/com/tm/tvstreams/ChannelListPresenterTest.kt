@@ -1,23 +1,26 @@
 package com.tm.tvstreams
 
 import channels.Channel
+import channels.ChannelRepository
 import com.nhaarman.mockitokotlin2.any
 import com.tm.tvstreams.ChannelListMode.DELETE
 import com.tm.tvstreams.ChannelListMode.EDIT
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 
 class ChannelListPresenterTest {
 
+    private val repository: ChannelRepository = Mockito.mock(ChannelRepository::class.java)
     private val view: ChannelListView = mock(ChannelListView::class.java)
     private lateinit var presenter: ChannelListPresenter
 
     @Before
     fun setUp() {
-        presenter = ChannelListPresenter(view)
+        presenter = ChannelListPresenter(repository, view)
     }
 
     @Test
@@ -37,7 +40,7 @@ class ChannelListPresenterTest {
 
         presenter.select(channel)
 
-        verify(view, times(0)).showPlayerView(any())
+        verify(view, times(0)).showPlayerView(any(), channelsCache)
     }
 
     @Test
@@ -46,26 +49,26 @@ class ChannelListPresenterTest {
 
         presenter.select(channel)
 
-        verify(view, times(1)).showPlayerView(any())
+        verify(view, times(1)).showPlayerView(any(), channelsCache)
     }
 
     @Test
     fun show_loading_at_start() {
-        presenter.start()
+        presenter.loadChannels()
 
         verify(view, times(1)).showLoadingView()
     }
 
     @Test
     fun hide_loading_when_channels_are_loaded() {
-        presenter.setChannels(arrayListOf())
+        presenter.showChannels(arrayListOf())
 
         verify(view, times(1)).hideLoadingView()
     }
 
     @Test
     fun show_empty_channels_view() {
-        presenter.setChannels(arrayListOf())
+        presenter.showChannels(arrayListOf())
 
         verify(view, times(1)).showEmptyChannelsView()
     }
@@ -74,7 +77,7 @@ class ChannelListPresenterTest {
     fun show_channels_list_view() {
         val channels = arrayListOf(Channel("a", "b", "c", "d"))
 
-        presenter.setChannels(channels)
+        presenter.showChannels(channels)
 
         verify(view, times(1)).showChannelsView(channels)
     }

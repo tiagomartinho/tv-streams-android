@@ -7,6 +7,6 @@ interface ChannelListView {
     fun hideLoadingView()
     fun showEmptyChannelsView()
     fun showChannelsView(channels: ArrayList<Channel>)
-    fun showPlayerView(channel: Channel)
+    fun showPlayerView(channel: Channel, channels: ArrayList<Channel>)
     fun showEditChannelView(channel: Channel)
 }

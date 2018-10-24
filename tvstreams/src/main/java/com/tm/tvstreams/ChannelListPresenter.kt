@@ -1,38 +1,59 @@
 package com.tm.tvstreams
 
 import channels.Channel
+import channels.ChannelRepository
 import com.tm.tvstreams.ChannelListMode.*
 
-class ChannelListPresenter(private val view: ChannelListView) {
+class ChannelListPresenter(private val repository: ChannelRepository, private val view: ChannelListView) {
 
     var mode = NORMAL
 
-    fun start() {
+    private var channelsCache = ArrayList<Channel>()
+
+    fun loadChannels() {
         view.showLoadingView()
+        repository.addListener {
+            channelsCache = ArrayList(it)
+            showChannels()
+        }
     }
 
     fun setChannels(channels: ArrayList<Channel>) {
+        repository.add(channels) {}
+        channelsCache = channels
+        showChannels()
+    }
+
+    fun showChannels() {
         view.hideLoadingView()
-        if (channels.isEmpty()) {
+        if (channelsCache.isEmpty()) {
             view.showEmptyChannelsView()
         } else {
-            view.showChannelsView(channels)
+            view.showChannelsView(channelsCache)
         }
     }
 
     fun select(channel: Channel) {
-        when(mode) {
+        when (mode) {
             NORMAL -> {
-                view.showPlayerView(channel)
+                view.showPlayerView(channel, channelsCache)
             }
             EDIT -> {
                 view.showEditChannelView(channel)
+            }
+            DELETE -> {
+
             }
         }
     }
 
     fun deleteChannels() {
+    }
 
+    fun deleteAllChannels() {
+        channelsCache = ArrayList()
+        showChannels()
+        repository.deleteAll {}
     }
 }
 

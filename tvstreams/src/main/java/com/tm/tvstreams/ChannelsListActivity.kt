@@ -35,11 +35,43 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     private var isFullScreen: Boolean = false
     private var twoPane: Boolean = false
     private lateinit var channelListFragment: ChannelListFragment
-    private var channelRepository: FBChannelRepository? = null
     private var playerFragment: PlayerFragment? = null
-    private var channels = ArrayList<Channel>()
-    private val presenter = ChannelListPresenter(this)
+    private lateinit var presenter: ChannelListPresenter
     private var mode: ActionMode? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_channels_list)
+        setSupportActionBar(toolbar)
+        toolbar.title = title
+
+        fab.setOnClickListener {
+            val intent = Intent(this, AddPlaylistActivity::class.java)
+            this.startActivity(intent)
+        }
+
+        if (addChannelListFragment(savedInstanceState)) return
+
+        val userID = SharedPreferencesUserRepository(this).load().id ?: ""
+        val repository = FBChannelRepository(userID)
+        presenter = ChannelListPresenter(repository, this)
+        presenter.loadChannels()
+    }
+
+    private fun addChannelListFragment(savedInstanceState: Bundle?): Boolean {
+        twoPane = item_detail_container != null
+        if (findViewById<View>(R.id.fragment_container) != null) {
+            if (savedInstanceState != null) {
+                return true
+            }
+            channelListFragment = ChannelListFragment.newInstance()
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container, channelListFragment)
+                .commit()
+        }
+        return false
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -57,35 +89,6 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
             }
         }
         return super.onKeyDown(keyCode, event)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_channels_list)
-        setSupportActionBar(toolbar)
-        toolbar.title = title
-        fab.setOnClickListener {
-            val intent = Intent(this, AddPlaylistActivity::class.java)
-            this.startActivity(intent)
-        }
-        twoPane = item_detail_container != null
-        if (findViewById<View>(R.id.fragment_container) != null) {
-            if (savedInstanceState != null) {
-                return
-            }
-            channelListFragment = ChannelListFragment.newInstance()
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragment_container, channelListFragment)
-                .commit()
-        }
-        val userID = SharedPreferencesUserRepository(this).load().id
-        channelRepository = userID?.let { FBChannelRepository(it) }
-        updateChannels(channelRepository)
-        channelRepository?.addListener {
-            updateChannels(channelRepository)
-        }
-        presenter.start()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -130,8 +133,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setPositiveButton("Delete")
             { _, _ ->
-                channelRepository?.deleteAll {}
-                presenter.setChannels(arrayListOf())
+                presenter.deleteAllChannels()
             }
             .setNegativeButton("Cancel", null).show()
     }
@@ -146,12 +148,6 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         finish()
     }
 
-    private fun updateChannels(channelRepository: FBChannelRepository?) {
-        channelRepository?.channels {
-            presenter.setChannels(ArrayList(it))
-        }
-    }
-
     override fun showLoadingView() {
         channels_progress_bar.visibility = VISIBLE
     }
@@ -163,6 +159,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     override fun showEmptyChannelsView() {
         empty_channels.visibility = VISIBLE
         add_sample_playlist.visibility = VISIBLE
+        channelListFragment?.set(arrayListOf())
         add_sample_playlist.setOnClickListener {
             addSamplePlaylist()
         }
@@ -177,7 +174,6 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         val sintel =
             Channel(linkSintel, nameSintel, nameSintel, linkSintel)
         val samplePlaylist = arrayListOf(big, sintel)
-        channelRepository?.add(samplePlaylist) {}
         presenter.setChannels(samplePlaylist)
         return true
     }
@@ -186,14 +182,16 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         empty_channels.visibility = GONE
         add_sample_playlist.visibility = GONE
         channelListFragment?.set(channels)
-        this.channels = channels
     }
 
     override fun onClickListFragmentInteraction(channel: Channel?) {
         channel?.let { presenter.select(it) }
     }
 
-    override fun showPlayerView(channel: Channel) {
+    override fun showPlayerView(
+        channel: Channel,
+        channels: ArrayList<Channel>
+    ) {
         val channelsPlayer = ChannelListBuilder.build(channel, channels)
         if (twoPane) {
             playerFragment = PlayerFragment.newInstance(channelsPlayer)
