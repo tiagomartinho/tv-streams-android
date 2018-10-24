@@ -47,6 +47,14 @@ class ChannelListFragment : Fragment() {
         listener = null
     }
 
+    fun setDeleteMode() {
+        channelsRecyclerViewAdapter()?.setDeleteMode()
+    }
+
+    fun setNormalMode() {
+        channelsRecyclerViewAdapter()?.setNormalMode()
+    }
+
     fun set(channels: List<Channel>) {
         val adapter = channelsRecyclerViewAdapter()
         adapter?.set(channels)

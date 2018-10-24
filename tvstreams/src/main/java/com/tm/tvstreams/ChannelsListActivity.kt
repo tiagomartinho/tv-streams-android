@@ -98,19 +98,30 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
 
     override fun onResume() {
         super.onResume()
+        presenter.setNormalMode()
+    }
+
+    override fun showDeleteMode() {
+        channelListFragment.setDeleteMode()
+        mode = startSupportActionMode(DeleteActionModeCallbacks.build(presenter))
+    }
+
+    override fun showEditMode() {
+        mode = startSupportActionMode(EditActionModeCallbacks.build(presenter))
+    }
+
+    override fun showNormalMode() {
         mode?.finish()
-        presenter.mode = NORMAL
+        channelListFragment.setNormalMode()
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_edit -> {
-            presenter.mode = EDIT
-            mode = startSupportActionMode(EditActionModeCallbacks.build(presenter))
+            presenter.setEditMode()
             true
         }
         R.id.action_delete -> {
-            presenter.mode = DELETE
-            mode = startSupportActionMode(DeleteActionModeCallbacks.build(presenter))
+            presenter.setDeleteMode()
             true
         }
         R.id.action_logout -> {

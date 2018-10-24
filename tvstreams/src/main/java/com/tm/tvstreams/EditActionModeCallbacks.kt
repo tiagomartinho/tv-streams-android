@@ -3,7 +3,6 @@ package com.tm.tvstreams
 import android.support.v7.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
-import com.tm.tvstreams.ChannelListMode.NORMAL
 
 internal object EditActionModeCallbacks {
 
@@ -25,7 +24,7 @@ internal object EditActionModeCallbacks {
             }
 
             override fun onDestroyActionMode(mode: ActionMode) {
-                presenter.mode = NORMAL
+                presenter.setNormalMode()
             }
         }
     }

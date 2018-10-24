@@ -6,8 +6,7 @@ import com.tm.tvstreams.ChannelListMode.*
 
 class ChannelListPresenter(private val repository: ChannelRepository, private val view: ChannelListView) {
 
-    var mode = NORMAL
-
+    private var mode = NORMAL
     private var channelsCache = ArrayList<Channel>()
     private var channelsToDelete = ArrayList<Channel>()
 
@@ -65,6 +64,21 @@ class ChannelListPresenter(private val repository: ChannelRepository, private va
         channelsCache = ArrayList()
         showChannels()
         repository.deleteAll {}
+    }
+
+    fun setDeleteMode() {
+        mode = DELETE
+        view.showDeleteMode()
+    }
+
+    fun setNormalMode() {
+        mode = NORMAL
+        view.showNormalMode()
+    }
+
+    fun setEditMode() {
+        mode = EDIT
+        view.showEditMode()
     }
 }
 
