@@ -24,6 +24,17 @@ class ChannelListPresenterTest {
     }
 
     @Test
+    fun delete_single_channel() {
+        val channel = Channel()
+        presenter.mode = DELETE
+        presenter.select(channel)
+
+        presenter.deleteChannels()
+
+        verify(repository, times(1)).delete(any<List<Channel>>(), any())
+    }
+
+    @Test
     fun show_edit_channel_view_if_select_channel_while_in_edit_mode() {
         val channel = Channel()
         presenter.mode = EDIT

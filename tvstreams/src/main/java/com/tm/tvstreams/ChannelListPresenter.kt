@@ -9,6 +9,7 @@ class ChannelListPresenter(private val repository: ChannelRepository, private va
     var mode = NORMAL
 
     private var channelsCache = ArrayList<Channel>()
+    private var channelsToDelete = ArrayList<Channel>()
 
     fun loadChannels() {
         view.showLoadingView()
@@ -42,12 +43,22 @@ class ChannelListPresenter(private val repository: ChannelRepository, private va
                 view.showEditChannelView(channel)
             }
             DELETE -> {
-
+                if (channelsToDelete.contains(channel)) {
+                    channelsToDelete.remove(channel)
+                } else {
+                    channelsToDelete.add(channel)
+                }
             }
         }
     }
 
     fun deleteChannels() {
+        if(!channelsToDelete.isEmpty()) {
+            repository.delete(channelsToDelete) {}
+            channelsCache.removeAll(channelsToDelete)
+            channelsToDelete = ArrayList()
+            showChannels()
+        }
     }
 
     fun deleteAllChannels() {
