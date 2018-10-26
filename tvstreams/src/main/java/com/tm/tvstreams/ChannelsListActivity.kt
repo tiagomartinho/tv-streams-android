@@ -19,6 +19,7 @@ import android.view.View.SYSTEM_UI_FLAG_LOW_PROFILE
 import android.view.View.SYSTEM_UI_FLAG_VISIBLE
 import android.view.View.VISIBLE
 import channels.Channel
+import com.google.firebase.auth.FirebaseAuth
 import com.tm.core.player.ChannelListBuilder
 import com.tm.core.player.PlayerActivity
 import com.tm.core.player.PlayerFragment
@@ -150,6 +151,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     private fun logout() {
+        FirebaseAuth.getInstance().signOut()
         SharedPreferencesUserRepository(this).delete()
         val clazz = InitialActivity::class.java
         val intent = Intent(this, clazz)
