@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions.DEFAULT_SIGN_I
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import user.SharedPreferencesUserRepository
 import user.User
@@ -70,11 +71,13 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val repository = SharedPreferencesUserRepository(applicationContext)
-                    val user = User.buildWith(acct)
-                    repository.save(user)
-                    val intent = Intent(applicationContext, InitialActivity::class.java)
-                    startActivity(intent, null)
+                    firebaseAuth.currentUser?.let {
+                        val repository = SharedPreferencesUserRepository(applicationContext)
+                        val user = User.buildWith(acct, it)
+                        repository.save(user)
+                        val intent = Intent(applicationContext, InitialActivity::class.java)
+                        startActivity(intent, null)
+                    }
                 } else {
                     Log.d("LoginActivity", task.exception.toString())
                     Log.d("LoginActivity", task.exception?.localizedMessage)
@@ -87,7 +90,10 @@ class LoginActivity : AppCompatActivity() {
         const val RC_SIGN_IN = 101
     }
 
-    private fun User.Companion.buildWith(account: GoogleSignInAccount): User {
-        return User(account.id, account.email, account.displayName, account.photoUrl?.toString())
+    private fun User.Companion.buildWith(
+        account: GoogleSignInAccount,
+        currentUser: FirebaseUser
+    ): User {
+        return User(currentUser.uid, account.email, account.displayName, account.photoUrl?.toString())
     }
 }
