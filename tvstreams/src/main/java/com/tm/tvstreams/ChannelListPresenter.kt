@@ -1,13 +1,14 @@
 package com.tm.tvstreams
 
-import android.util.Log
 import channels.Channel
 import channels.ChannelRepository
-import com.tm.tvstreams.ChannelListMode.*
+import com.tm.tvstreams.ChannelListMode.DELETE
+import com.tm.tvstreams.ChannelListMode.EDIT
+import com.tm.tvstreams.ChannelListMode.NORMAL
 
 class ChannelListPresenter(private val repository: ChannelRepository, private val view: ChannelListView) {
 
-    private var mode = NORMAL
+    var mode = NORMAL
     private var channelsCache = ArrayList<Channel>()
     private var channelsToDelete = ArrayList<Channel>()
 
