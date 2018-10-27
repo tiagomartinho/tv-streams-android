@@ -7,7 +7,7 @@
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="you_have_no_channels">You have no channels</string>
-    <string name="import_channels">You can import a list of channels using a m3u8 playlist</string>
+    <string name="import_channels">You can import a list of channels using a m3u playlist</string>
     <string name="add_sample_playlist">Add Sample Playlist</string>
     <string name="action_delete">Delete</string>
     <string name="playlist">Playlist</string>

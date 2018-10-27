@@ -2,8 +2,10 @@ package channels
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.support.annotation.Keep
 import com.tm.core.player.ChannelPlayer
 
+@Keep
 class Channel(
     var source: String = "",
     var metadata: String = "",

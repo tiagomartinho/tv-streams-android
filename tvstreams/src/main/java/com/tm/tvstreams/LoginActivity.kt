@@ -29,12 +29,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        firebaseAuth = FirebaseAuth.getInstance()
-        val signInButton: Button? = this.findViewById(R.id.sign_in_button)
-        signInButton?.setOnClickListener { signIn() }
-    }
-
-    private fun signIn() {
         options = Builder(DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestId()
@@ -43,6 +37,12 @@ class LoginActivity : AppCompatActivity() {
         client = GoogleSignIn.getClient(this, options)
         client.signOut()
         client.revokeAccess()
+        firebaseAuth = FirebaseAuth.getInstance()
+        val signInButton: Button? = this.findViewById(R.id.sign_in_button)
+        signInButton?.setOnClickListener { signIn() }
+    }
+
+    private fun signIn() {
         startActivityForResult(client.signInIntent, RC_SIGN_IN)
     }
 
