@@ -76,6 +76,8 @@ class LoginActivity : AppCompatActivity() {
                         val user = User.buildWith(acct, it)
                         repository.save(user)
                         val intent = Intent(applicationContext, InitialActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent, null)
                     }
                 } else {
