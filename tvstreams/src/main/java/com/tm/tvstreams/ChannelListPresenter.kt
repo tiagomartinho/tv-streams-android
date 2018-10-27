@@ -1,5 +1,6 @@
 package com.tm.tvstreams
 
+import android.util.Log
 import channels.Channel
 import channels.ChannelRepository
 import com.tm.tvstreams.ChannelListMode.*
@@ -52,7 +53,7 @@ class ChannelListPresenter(private val repository: ChannelRepository, private va
     }
 
     fun deleteChannels() {
-        if(!channelsToDelete.isEmpty()) {
+        if (!channelsToDelete.isEmpty()) {
             repository.delete(channelsToDelete) {}
             channelsCache.removeAll(channelsToDelete)
             channelsToDelete = ArrayList()
@@ -79,6 +80,9 @@ class ChannelListPresenter(private val repository: ChannelRepository, private va
     fun setEditMode() {
         mode = EDIT
         view.showEditMode()
+    }
+
+    fun moveChannel(fromPosition: Int, toPosition: Int) {
     }
 }
 

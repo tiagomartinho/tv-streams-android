@@ -3,7 +3,10 @@ package com.tm.tvstreams
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 
-class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter) : ItemTouchHelper.Callback() {
+class SimpleItemTouchHelperCallback(
+    private val adapter: ItemTouchHelperAdapter,
+    private val listener: ItemTouchHelperAdapter?
+) : ItemTouchHelper.Callback() {
 
     override fun isLongPressDragEnabled(): Boolean {
         return true
@@ -24,6 +27,7 @@ class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter)
         target: RecyclerView.ViewHolder
     ): Boolean {
         adapter.onItemMove(viewHolder.adapterPosition, target.adapterPosition)
+        listener?.onItemMove(viewHolder.adapterPosition, target.adapterPosition)
         return true
     }
 

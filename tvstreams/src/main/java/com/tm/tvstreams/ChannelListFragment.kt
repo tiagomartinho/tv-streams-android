@@ -1,7 +1,6 @@
 package com.tm.tvstreams
 
 import android.content.Context
-import android.graphics.Color.*
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -31,7 +30,7 @@ class ChannelListFragment : Fragment() {
                 this.layoutManager = layoutManager
                 val adapter = ChannelsRecyclerViewAdapter(arrayListOf(), listener)
                 this.adapter = adapter
-                val callback = SimpleItemTouchHelperCallback(adapter)
+                val callback = SimpleItemTouchHelperCallback(adapter, listener)
                 val touchHelper = ItemTouchHelper(callback)
                 touchHelper.attachToRecyclerView(this)
             }
@@ -67,7 +66,7 @@ class ChannelListFragment : Fragment() {
         adapter?.notifyDataSetChanged()
     }
 
-    interface OnListFragmentInteractionListener {
+    interface OnListFragmentInteractionListener: ItemTouchHelperAdapter {
         fun onClickListFragmentInteraction(channel: Channel?)
     }
 
