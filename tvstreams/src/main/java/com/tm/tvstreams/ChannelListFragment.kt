@@ -31,7 +31,6 @@ class ChannelListFragment : Fragment() {
                 this.layoutManager = layoutManager
                 val adapter = ChannelsRecyclerViewAdapter(arrayListOf(), listener)
                 this.adapter = adapter
-                addItemDecoration(SimpleDividerItemDecoration(DKGRAY, 1))
                 val callback = SimpleItemTouchHelperCallback(adapter)
                 val touchHelper = ItemTouchHelper(callback)
                 touchHelper.attachToRecyclerView(this)

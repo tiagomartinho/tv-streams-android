@@ -1,6 +1,7 @@
 package com.tm.tvstreams
 
-import android.graphics.Color.*
+import android.graphics.Color
+import android.graphics.Color.WHITE
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -83,11 +84,19 @@ class ChannelsRecyclerViewAdapter(
         return true
     }
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
+    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView), ItemTouchHelperViewHolder {
         val mContentView: TextView = mView.textView
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"
+        }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.GRAY)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
         }
     }
 }
