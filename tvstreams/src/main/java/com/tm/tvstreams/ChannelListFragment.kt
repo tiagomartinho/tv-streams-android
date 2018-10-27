@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import channels.Channel
 import android.support.v7.widget.helper.ItemTouchHelper
-import co.paulburke.android.itemtouchhelperdemo.helper.SimpleItemTouchHelperCallback
 
 class ChannelListFragment : Fragment() {
 
