@@ -1,15 +1,18 @@
 package com.tm.tvstreams
 
 import android.content.Context
-import android.graphics.Color
+import android.graphics.Color.*
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.LinearLayoutManager.*
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import channels.Channel
+import android.support.v7.widget.helper.ItemTouchHelper
+import co.paulburke.android.itemtouchhelperdemo.helper.SimpleItemTouchHelperCallback
 
 class ChannelListFragment : Fragment() {
 
@@ -24,11 +27,16 @@ class ChannelListFragment : Fragment() {
         if (view is RecyclerView) {
             with(view) {
                 setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(context)
-                adapter = ChannelsRecyclerViewAdapter(arrayListOf(), listener)
+                val layoutManager = LinearLayoutManager(context)
+                layoutManager.orientation = VERTICAL
+                this.layoutManager = layoutManager
+                val adapter = ChannelsRecyclerViewAdapter(arrayListOf(), listener)
+                this.adapter = adapter
+                addItemDecoration(SimpleDividerItemDecoration(DKGRAY, 1))
+                val callback = SimpleItemTouchHelperCallback(adapter)
+                val touchHelper = ItemTouchHelper(callback)
+                touchHelper.attachToRecyclerView(this)
             }
-            val decoration = SimpleDividerItemDecoration(Color.DKGRAY, 1)
-            view.addItemDecoration(decoration)
         }
         return view
     }
@@ -63,7 +71,6 @@ class ChannelListFragment : Fragment() {
 
     interface OnListFragmentInteractionListener {
         fun onClickListFragmentInteraction(channel: Channel?)
-        fun onLongClickListFragmentInteraction(channel: Channel?): Boolean
     }
 
     companion object {

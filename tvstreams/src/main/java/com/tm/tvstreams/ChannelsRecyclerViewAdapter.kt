@@ -11,14 +11,14 @@ import com.tm.tvstreams.ChannelListFragment.OnListFragmentInteractionListener
 import com.tm.tvstreams.ChannelListMode.DELETE
 import com.tm.tvstreams.ChannelListMode.NORMAL
 import kotlinx.android.synthetic.main.text_view.view.*
+import java.util.Collections
 
 class ChannelsRecyclerViewAdapter(
     private var channels: List<Channel>,
     private val listener: OnListFragmentInteractionListener?
-) : RecyclerView.Adapter<ChannelsRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ChannelsRecyclerViewAdapter.ViewHolder>(), ItemTouchHelperAdapter {
 
     private val clickListener: View.OnClickListener
-    private val longClickListener: View.OnLongClickListener
     private var mode = NORMAL
 
     init {
@@ -28,10 +28,6 @@ class ChannelsRecyclerViewAdapter(
                 invertTextBackground(v)
             }
             listener?.onClickListFragmentInteraction(item)
-        }
-        longClickListener = View.OnLongClickListener { v ->
-            val item = v.tag as Channel
-            listener?.onLongClickListFragmentInteraction(item) ?: false
         }
     }
 
@@ -54,7 +50,6 @@ class ChannelsRecyclerViewAdapter(
         with(holder.mView) {
             tag = item
             setOnClickListener(clickListener)
-            setOnLongClickListener(longClickListener)
         }
     }
 
@@ -72,6 +67,20 @@ class ChannelsRecyclerViewAdapter(
         mode = NORMAL
         set(channels)
         notifyDataSetChanged()
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+        if (fromPosition < toPosition) {
+            for (i in fromPosition until toPosition) {
+                Collections.swap(channels, i, i + 1)
+            }
+        } else {
+            for (i in fromPosition downTo toPosition + 1) {
+                Collections.swap(channels, i, i - 1)
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition)
+        return true
     }
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {

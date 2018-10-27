@@ -228,10 +228,6 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         startActivity(intent)
     }
 
-    override fun onLongClickListFragmentInteraction(channel: Channel?): Boolean {
-        return true
-    }
-
     private fun goFullscreen() {
         isFullScreen = true
         supportActionBar?.hide()
