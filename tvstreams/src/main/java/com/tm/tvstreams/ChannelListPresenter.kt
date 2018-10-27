@@ -82,9 +82,6 @@ class ChannelListPresenter(private val repository: ChannelRepository, private va
         mode = EDIT
         view.showEditMode()
     }
-
-    fun moveChannel(fromPosition: Int, toPosition: Int) {
-    }
 }
 
 enum class ChannelListMode {

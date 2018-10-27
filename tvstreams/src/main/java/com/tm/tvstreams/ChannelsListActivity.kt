@@ -201,11 +201,6 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         channel?.let { presenter.select(it) }
     }
 
-    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-        presenter.moveChannel(fromPosition,toPosition)
-        return true
-    }
-
     override fun showPlayerView(
         channel: Channel,
         channels: ArrayList<Channel>

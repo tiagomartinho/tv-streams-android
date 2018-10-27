@@ -5,7 +5,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 
 class SimpleItemTouchHelperCallback(
     private val adapter: ItemTouchHelperAdapter,
-    private val listener: ItemTouchHelperAdapter?
+    private val listener: ItemTouchHelperListener
 ) : ItemTouchHelper.Callback() {
 
     override fun isLongPressDragEnabled(): Boolean {
@@ -27,7 +27,6 @@ class SimpleItemTouchHelperCallback(
         target: RecyclerView.ViewHolder
     ): Boolean {
         adapter.onItemMove(viewHolder.adapterPosition, target.adapterPosition)
-        listener?.onItemMove(viewHolder.adapterPosition, target.adapterPosition)
         return true
     }
 
@@ -50,6 +49,7 @@ class SimpleItemTouchHelperCallback(
         if (viewHolder is ItemTouchHelperViewHolder) {
             val itemViewHolder = viewHolder as ItemTouchHelperViewHolder
             itemViewHolder.onItemClear()
+            listener.endedMoving()
         }
     }
 }

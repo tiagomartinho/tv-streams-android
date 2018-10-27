@@ -11,8 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import channels.Channel
 import android.support.v7.widget.helper.ItemTouchHelper
+import user.SharedPreferencesUserRepository
 
-class ChannelListFragment : Fragment() {
+class ChannelListFragment : Fragment(), ItemTouchHelperListener {
 
     private var listener: OnListFragmentInteractionListener? = null
     private fun channelsRecyclerViewAdapter() = (view as? RecyclerView)?.adapter as? ChannelsRecyclerViewAdapter
@@ -30,7 +31,7 @@ class ChannelListFragment : Fragment() {
                 this.layoutManager = layoutManager
                 val adapter = ChannelsRecyclerViewAdapter(arrayListOf(), listener)
                 this.adapter = adapter
-                val callback = SimpleItemTouchHelperCallback(adapter, listener)
+                val callback = SimpleItemTouchHelperCallback(adapter,this@ChannelListFragment)
                 val touchHelper = ItemTouchHelper(callback)
                 touchHelper.attachToRecyclerView(this)
             }
@@ -66,7 +67,16 @@ class ChannelListFragment : Fragment() {
         adapter?.notifyDataSetChanged()
     }
 
-    interface OnListFragmentInteractionListener: ItemTouchHelperAdapter {
+    override fun endedMoving() {
+        val channels = channelsRecyclerViewAdapter()?.getChannels()
+        val userID = context?.let { SharedPreferencesUserRepository(it).load().id }
+        val repository = userID?.let { FBChannelRepository(it) }
+        channels?.let {
+            repository?.add(it) { }
+        }
+    }
+
+    interface OnListFragmentInteractionListener {
         fun onClickListFragmentInteraction(channel: Channel?)
     }
 

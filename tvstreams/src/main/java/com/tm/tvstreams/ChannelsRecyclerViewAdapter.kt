@@ -84,6 +84,10 @@ class ChannelsRecyclerViewAdapter(
         return true
     }
 
+    fun getChannels(): List<Channel> {
+        return channels
+    }
+
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView), ItemTouchHelperViewHolder {
         val mContentView: TextView = mView.textView
 
