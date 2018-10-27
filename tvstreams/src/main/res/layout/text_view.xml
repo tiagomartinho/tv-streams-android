@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:focusable="true"
+              android:background="?android:attr/selectableItemBackground">
+
     <TextView
             android:id="@+id/textView"
             android:padding="@dimen/activity_horizontal_margin"
@@ -10,9 +13,7 @@
             android:layout_height="wrap_content"
             android:text="Big Buck Bunny"
             android:textSize="25sp"
-            android:focusable="true"
-            android:maxLines="2"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:maxLines="2"/>
 
     <View
             android:layout_width="match_parent"
