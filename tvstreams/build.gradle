@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
+
 android {
 
     compileSdkVersion 27
@@ -69,6 +71,7 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$firebase_version"
     implementation "com.google.firebase:firebase-database:$firebase_version"
     implementation "com.google.firebase:firebase-auth:$firebase_version"
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
 }
 
 apply plugin: 'com.google.gms.google-services'
