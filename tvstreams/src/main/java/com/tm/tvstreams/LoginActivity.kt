@@ -31,18 +31,17 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         options = Builder(DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
-            .requestId()
             .requestEmail()
             .build()
         client = GoogleSignIn.getClient(this, options)
-        client.signOut()
-        client.revokeAccess()
         firebaseAuth = FirebaseAuth.getInstance()
         val signInButton: Button? = this.findViewById(R.id.sign_in_button)
         signInButton?.setOnClickListener { signIn() }
     }
 
     private fun signIn() {
+        client.signOut()
+        client.revokeAccess()
         startActivityForResult(client.signInIntent, RC_SIGN_IN)
     }
 
@@ -62,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
         } catch (e: ApiException) {
             Log.d("LoginActivity", e.toString())
             Log.d("LoginActivity", e.localizedMessage)
-            Toast.makeText(this, R.string.unexpected_error, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.login_error, Toast.LENGTH_SHORT).show()
         }
     }
 

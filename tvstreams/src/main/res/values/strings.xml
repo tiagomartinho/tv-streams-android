@@ -2,7 +2,8 @@
     <string name="app_name">TV Streams</string>
     <string name="title_activity_login">Sign in</string>
     <string name="app_subtitle">The easiest way to watch television on your Android devices</string>
-    <string name="unexpected_error">An error has occurred</string>
+    <string name="unexpected_error">An unknown error has occurred</string>
+    <string name="login_error">An error occurred when signing in</string>
     <string name="title_activity_channels">Channels</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
