@@ -79,6 +79,7 @@ class LoginActivity : AppCompatActivity() {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent, null)
+                        finish()
                     }
                 } else {
                     Log.d("LoginActivity", task.exception.toString())
