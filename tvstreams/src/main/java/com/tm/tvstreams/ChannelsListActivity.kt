@@ -23,9 +23,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.tm.core.player.ChannelListBuilder
 import com.tm.core.player.PlayerActivity
 import com.tm.core.player.PlayerFragment
-import com.tm.tvstreams.ChannelListMode.DELETE
-import com.tm.tvstreams.ChannelListMode.EDIT
-import com.tm.tvstreams.ChannelListMode.NORMAL
 import kotlinx.android.synthetic.main.activity_channels_list.*
 import kotlinx.android.synthetic.main.channels_list.*
 import user.SharedPreferencesUserRepository
