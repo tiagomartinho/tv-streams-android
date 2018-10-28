@@ -6,6 +6,18 @@ import org.junit.Test
 class PlaylistParserTest {
 
     @Test
+    fun single_channel_with_ts_format() {
+        val content = "http://tvpremiumhd.club/lista-gratuita/232927/tv/v/2500.ts"
+
+        val channels = PlaylistParser.parse(content, content)
+
+        assertEquals("", channels[0].metadata)
+        assertEquals(content, channels[0].source)
+        assertEquals(content, channels[0].link)
+        assertEquals(content, channels[0].name)
+    }
+
+    @Test
     fun single_channel() {
         val content = "http://68.235.35.243:1935/vietsongmedia/smil:vietsongmedia.smil/chunklist_w1989372860_b478000_slEng.m3u8"
 
