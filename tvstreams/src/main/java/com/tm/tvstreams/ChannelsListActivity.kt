@@ -266,6 +266,11 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     private var backButtonCount: Int = 0
 
     override fun onBackPressed() {
+        if(!twoPane) {
+            super.onBackPressed()
+            return
+        }
+
         if (backButtonCount >= 1) {
             backButtonCount = 0
             super.onBackPressed()
