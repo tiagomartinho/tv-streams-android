@@ -13,17 +13,22 @@ interface PlaylistService {
 
 class OkHttpPlaylistService : PlaylistService {
     override fun get(url: String, callback: (String)->(Unit)) {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(url)
-            .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                callback("")
-            }
-            override fun onResponse(call: Call, response: Response) {
-                callback(response.body()?.string() ?: "")
-            }
-        })
+        try {
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                .url(url)
+                .build()
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    callback("")
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    callback(response.body()?.string() ?: "")
+                }
+            })
+        } catch(e:Exception) {
+            callback("")
+        }
     }
 }
