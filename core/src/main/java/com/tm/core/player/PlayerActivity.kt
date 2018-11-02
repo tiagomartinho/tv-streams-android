@@ -8,7 +8,7 @@ import com.tm.core.R
 
 class PlayerActivity : AppCompatActivity() {
 
-    private lateinit var playerFragment: PlayerFragment
+    private var playerFragment: PlayerFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,8 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        return if(playerFragment.onKeyDown(keyCode)) {
+        val playerHandledEvent = playerFragment?.onKeyDown(keyCode) ?: false
+        return if(playerHandledEvent) {
             true
         } else {
             super.onKeyDown(keyCode, event)
