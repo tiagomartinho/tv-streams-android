@@ -32,9 +32,9 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
 
     private var isFullScreen: Boolean = false
     private var twoPane: Boolean = false
-    private lateinit var channelListFragment: ChannelListFragment
+    private var channelListFragment: ChannelListFragment? = null
     private var playerFragment: PlayerFragment? = null
-    private lateinit var presenter: ChannelListPresenter
+    private var presenter: ChannelListPresenter? = null
     private var mode: ActionMode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +53,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         val userID = SharedPreferencesUserRepository(this).load().id ?: ""
         val repository = FBChannelRepository(userID)
         presenter = ChannelListPresenter(repository, this)
-        presenter.loadChannels()
+        presenter?.loadChannels()
     }
 
     private fun addChannelListFragment(savedInstanceState: Bundle?): Boolean {
@@ -96,30 +96,30 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
 
     override fun onResume() {
         super.onResume()
-        presenter.setNormalMode()
+        presenter?.setNormalMode()
     }
 
     override fun showDeleteMode() {
-        channelListFragment.setDeleteMode()
-        mode = startSupportActionMode(DeleteActionModeCallbacks.build(presenter))
+        channelListFragment?.setDeleteMode()
+        mode = presenter?.let { DeleteActionModeCallbacks.build(it) }?.let { startSupportActionMode(it) }
     }
 
     override fun showEditMode() {
-        mode = startSupportActionMode(EditActionModeCallbacks.build(presenter))
+        mode = presenter?.let { EditActionModeCallbacks.build(it) }?.let { startSupportActionMode(it) }
     }
 
     override fun showNormalMode() {
         mode?.finish()
-        channelListFragment.setNormalMode()
+        channelListFragment?.setNormalMode()
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_edit -> {
-            presenter.setEditMode()
+            presenter?.setEditMode()
             true
         }
         R.id.action_delete -> {
-            presenter.setDeleteMode()
+            presenter?.setDeleteMode()
             true
         }
         R.id.action_logout -> {
@@ -142,7 +142,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setPositiveButton("Delete")
             { _, _ ->
-                presenter.deleteAllChannels()
+                presenter?.deleteAllChannels()
             }
             .setNegativeButton("Cancel", null).show()
     }
@@ -184,7 +184,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
         val sintel =
             Channel(linkSintel, nameSintel, nameSintel, linkSintel)
         val samplePlaylist = arrayListOf(big, sintel)
-        presenter.setChannels(samplePlaylist)
+        presenter?.setChannels(samplePlaylist)
         return true
     }
 
@@ -195,7 +195,7 @@ class ChannelsListActivity : AppCompatActivity(), ChannelListFragment.OnListFrag
     }
 
     override fun onClickListFragmentInteraction(channel: Channel?) {
-        channel?.let { presenter.select(it) }
+        channel?.let { presenter?.select(it) }
     }
 
     override fun showPlayerView(
